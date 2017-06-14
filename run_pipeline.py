@@ -11,7 +11,7 @@ def build_arg_parser():
     p = configargparse.ArgParser(prog='run_pipeline',
                                  description='download complaints and index in Elasticsearch',
                                  ignore_unknown_config_file_keys=True)
-    p.add('-c', '--my-config', required=True, is_config_file=True, 
+    p.add('-c', '--my-config', required=False, is_config_file=True, 
         help='config file path')
     p.add('--es-host', '-o', required=True, dest='es_host', 
         help='Elasticsearch host', env_var='ES_HOST')

@@ -39,6 +39,7 @@ def parse_json_file(input_file_name, output_file_name):
                 n += 1
             elif (prefix, event) == ('data.item', 'end_array'):
                 new_complaint = dict(zip(my_column_array, my_data_array))
+                new_complaint["has_narrative"] = (not complaint["complaint_what_happened"] or len(complaint["complaint_what_happened"]) == 0)
                 my_data_array = []
                 target.write(json.dumps(new_complaint))
                 target.write('\n')

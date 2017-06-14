@@ -70,3 +70,9 @@ bower_components/
 .grunt/
 src/vendor/
 dist/
+
+# Generated Files
+ccdb_output.json
+
+# Sensitive Configuration
+*.ini

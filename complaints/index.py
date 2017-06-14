@@ -6,7 +6,7 @@ from elasticsearch import Elasticsearch
 from elasticsearch import TransportError
 from elasticsearch.helpers import bulk
 
-doc_type_name = 'complaint'
+DOC_TYPE_NAME = 'complaint'
 
 def setup_complaint_logging(doc_type_name):
     logger = logging.getLogger(doc_type_name)
@@ -100,7 +100,7 @@ def yield_chunked_docs(get_data_function, data, chunk_size):
 
 def index_json_data(settings_json, mapping_json, data, index_name, backup_index_name, alias, chunk_size=20000):
     global logger
-    logger = setup_complaint_logging(doc_type_name)
+    logger = setup_complaint_logging(DOC_TYPE_NAME)
 
     settings = load_json(settings_json)
     mapping = load_json(mapping_json)
@@ -115,15 +115,15 @@ def index_json_data(settings_json, mapping_json, data, index_name, backup_index_
     es.indices.delete(index=index_name)
     logger.debug("Creating %s with mappings and settings" % index_name)
     es.indices.create(index=index_name, body={"settings": settings,
-                                              "mappings": {doc_type_name: mapping}})
-    logger.info("Loading data into %s with doc_type %s" % (index_name, doc_type_name))
+                                              "mappings": {DOC_TYPE_NAME: mapping}})
+    logger.info("Loading data into %s with doc_type %s" % (index_name, DOC_TYPE_NAME))
     try:
         total_rows_of_data = 0;
         for doc_ary in yield_chunked_docs(data_load_strategy_complaint, data, chunk_size):
             logger.info("chunk retrieved, now bulk load")
             success, _ = bulk(
                 es, actions=doc_ary, index=index_name,
-                doc_type=doc_type_name, chunk_size=chunk_size, refresh=True
+                doc_type=DOC_TYPE_NAME, chunk_size=chunk_size, refresh=True
             )
             total_rows_of_data += success
             logger.info("%d records indexed, total = %d" % (success, total_rows_of_data))

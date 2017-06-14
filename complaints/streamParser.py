@@ -6,7 +6,7 @@ import urllib
 # Temp File Creation
 import os
 
-def parse_json(input_url_path, output_file_name):#, populate_complaint_function):
+def parse_json(input_url_path, output_file_name):
     # Saves downloaded file - on failure this file will remain for inspection
     tmp_file_name = "todaysData.json"
 
@@ -14,7 +14,7 @@ def parse_json(input_url_path, output_file_name):#, populate_complaint_function)
         download_file = urllib.URLopener()
         download_file.retrieve(input_url_path, tmp_file_name)
 
-    parse_json_file(tmp_file_name, output_file_name)#, populate_complaint_function)
+    parse_json_file(tmp_file_name, output_file_name)
 
     try:
         os.remove(tmp_file_name)
@@ -22,7 +22,7 @@ def parse_json(input_url_path, output_file_name):#, populate_complaint_function)
         print "Failed temp file removal in fake_crdb_data.py"
         pass
 
-def parse_json_file(input_file_name, output_file_name):#, populate_complaint_function):
+def parse_json_file(input_file_name, output_file_name):
     target = open(output_file_name, 'w')
 
     with open(input_file_name,'r') as f:
@@ -38,14 +38,9 @@ def parse_json_file(input_file_name, output_file_name):#, populate_complaint_fun
                 continue
                 n += 1
             elif (prefix, event) == ('data.item', 'end_array'):
-                # new_complaint = populate_complaint_function(my_data_array,my_column_array)
-                # my_data_array = []
-                # target.write(json.dumps(new_complaint))
-
                 new_complaint = dict(zip(my_column_array, my_data_array))
                 my_data_array = []
                 target.write(json.dumps(new_complaint))
-
                 target.write('\n')
             elif prefix == 'meta.view.columns.item.fieldName':
                 my_column_array.append(value)

@@ -32,7 +32,7 @@ Arguments:
 * --es-host ES_HOST, -o ES_HOST
     * Elasticsearch host [env var: ES_HOST]
 * --es-port ES_PORT, -p ES_PORT
-      * Elasticsearch port [env var: ES_PORT]
+    * Elasticsearch port [env var: ES_PORT]
 * --es-username ES_USERNAME, -u ES_USERNAME
     * Elasticsearch username [env var: ES_USERNAME]
 * --es-password ES_PASSWORD, -a ES_PASSWORD

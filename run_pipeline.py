@@ -1,8 +1,5 @@
 import os
 import configargparse
-import pandas as pd
-import pickle
-import sqlalchemy as sql
 import complaints.ccdb.format_ccdb_data as format_ccdb
 import complaints.index as index
 from complaints.streamParser import parse_json

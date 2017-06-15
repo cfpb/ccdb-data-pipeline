@@ -1,0 +1,112 @@
+{
+  "_source": {
+    "excludes": [
+      "autocomplete",
+      "suggest"
+    ]
+  },
+  "_all": {
+    "type": "string",
+    "analyzer": "cr_analyzer",
+    "search_analyzer": "cr_search_analyzer"
+  },
+  "properties": {
+    "autocomplete": {
+      "type": "string",
+      "analyzer": "shingle_analyzer",
+      "search_analyzer": "cr_search_analyzer"
+    },
+    "suggest": {
+      "type": "completion",
+      "analyzer": "standard",
+      "search_analyzer": "standard",
+      "payloads": false
+    },
+    "what_happened": {
+      "type": "string",
+      "index": "analyzed",
+      "analyzer": "cr_analyzer",
+      "search_analyzer": "cr_search_analyzer"
+    },
+    "reference_number": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "product_level_1": {
+      "type": "string",
+      "index": "analyzed",
+      "fields": {
+        "raw": {
+          "type": "string",
+          "index": "not_analyzed"
+        }
+      }
+    },
+    "category_level_1": {
+      "type": "string",
+      "index": "analyzed",
+      "fields": {
+        "raw": {
+          "type": "string",
+          "index": "not_analyzed"
+        }
+      }
+    },
+    "comp_status_archive": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "company_public_response": {
+      "type": "string",
+      "index": "analyzed",
+      "analyzer": "cr_analyzer",
+      "search_analyzer": "cr_search_analyzer"
+    },
+    "product": {
+      "type": "string",
+      "index": "analyzed",
+      "fields": {
+        "raw": {
+          "type": "string",
+          "index": "not_analyzed"
+        }
+      }
+    },
+    "category": {
+      "type": "string",
+      "index": "analyzed",
+      "fields": {
+        "raw": {
+          "type": "string",
+          "index": "not_analyzed"
+        }
+      }
+    },
+    "complaint_source": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "company_name": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "dispute_resolution": {
+      "type": "boolean"
+    },
+    "created_time": {
+      "type": "date"
+    },
+    "timely": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "ccmail_state": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "ccmail_zipcode": {
+      "type": "string",
+      "index": "not_analyzed"
+    }
+  }
+}

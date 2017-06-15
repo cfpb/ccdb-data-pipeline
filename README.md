@@ -24,20 +24,23 @@ https://goo.gl/R74nmi). If an arg is specified in more than one place, then
 commandline values override environment variables which override config file
 values which override defaults.
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -c MY_CONFIG, --my-config MY_CONFIG
-                        config file path
-  --es-host ES_HOST, -o ES_HOST
-                        Elasticsearch host [env var: ES_HOST]
-  --es-port ES_PORT, -p ES_PORT
-                        Elasticsearch port [env var: ES_PORT]
-  --es-username ES_USERNAME, -u ES_USERNAME
-                        Elasticsearch username [env var: ES_USERNAME]
-  --es-password ES_PASSWORD, -a ES_PASSWORD
-                        Elasticsearch password [env var: ES_PASSWORD]
-  --index-name INDEX_NAME, -i INDEX_NAME
-                        Elasticsearch index name
+Arguments:
+* -h, --help
+    * show this help message and exit
+* -c MY_CONFIG, --my-config MY_CONFIG
+    * config file path
+* --es-host ES_HOST, -o ES_HOST
+    * Elasticsearch host [env var: ES_HOST]
+* --es-port ES_PORT, -p ES_PORT
+    * Elasticsearch port [env var: ES_PORT]
+* --es-username ES_USERNAME, -u ES_USERNAME
+    * Elasticsearch username [env var: ES_USERNAME]
+* --es-password ES_PASSWORD, -a ES_PASSWORD
+    * Elasticsearch password [env var: ES_PASSWORD]
+* --index-name INDEX_NAME, -i INDEX_NAME
+    * Elasticsearch index name
+
+Though the arguments ES_HOST, ES_PORT, ES_USERNAME, ES_PASSWORD and INDEX_NAME are required, you may choose to combine those values into a config file and provide that as an argument instead.
 
 ## Getting help
 

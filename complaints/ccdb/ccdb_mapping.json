@@ -1,112 +1,116 @@
 {
+  "_all": {
+    "analyzer": "cr_analyzer",
+    "search_analyzer": "cr_search_analyzer",
+    "type": "string"
+  },
   "_source": {
     "excludes": [
       "autocomplete",
       "suggest"
     ]
   },
-  "_all": {
-    "type": "string",
-    "analyzer": "cr_analyzer",
-    "search_analyzer": "cr_search_analyzer"
-  },
   "properties": {
     "autocomplete": {
-      "type": "string",
       "analyzer": "shingle_analyzer",
-      "search_analyzer": "cr_search_analyzer"
+      "search_analyzer": "cr_search_analyzer",
+      "type": "string"
     },
-    "suggest": {
-      "type": "completion",
-      "analyzer": "standard",
-      "search_analyzer": "standard",
-      "payloads": false
-    },
-    "what_happened": {
-      "type": "string",
-      "index": "analyzed",
-      "analyzer": "cr_analyzer",
-      "search_analyzer": "cr_search_analyzer"
-    },
-    "reference_number": {
-      "type": "string",
-      "index": "not_analyzed"
-    },
-    "product_level_1": {
-      "type": "string",
-      "index": "analyzed",
-      "fields": {
-        "raw": {
-          "type": "string",
-          "index": "not_analyzed"
-        }
-      }
-    },
-    "category_level_1": {
-      "type": "string",
-      "index": "analyzed",
-      "fields": {
-        "raw": {
-          "type": "string",
-          "index": "not_analyzed"
-        }
-      }
-    },
-    "comp_status_archive": {
-      "type": "string",
-      "index": "not_analyzed"
+    "company": {
+      "index": "not_analyzed",
+      "type": "string"
     },
     "company_public_response": {
-      "type": "string",
-      "index": "analyzed",
       "analyzer": "cr_analyzer",
-      "search_analyzer": "cr_search_analyzer"
-    },
-    "product": {
-      "type": "string",
       "index": "analyzed",
-      "fields": {
-        "raw": {
-          "type": "string",
-          "index": "not_analyzed"
-        }
-      }
+      "search_analyzer": "cr_search_analyzer",
+      "type": "string"
     },
-    "category": {
-      "type": "string",
+    "company_response": {
+      "index": "not_analyzed",
+      "type": "string"
+    },
+    "complaint_id": {
+      "index": "not_analyzed",
+      "type": "string"
+    },
+    "complaint_what_happened": {
+      "analyzer": "cr_analyzer",
       "index": "analyzed",
-      "fields": {
-        "raw": {
-          "type": "string",
-          "index": "not_analyzed"
-        }
-      }
+      "search_analyzer": "cr_search_analyzer",
+      "type": "string"
     },
-    "complaint_source": {
-      "type": "string",
-      "index": "not_analyzed"
+    "consumer_consent_provided": {
+      "type": "string"
     },
-    "company_name": {
-      "type": "string",
-      "index": "not_analyzed"
+    "consumer_disputed": {
+      "type": "string"
     },
-    "dispute_resolution": {
-      "type": "boolean"
-    },
-    "created_time": {
+    "date_received": {
       "type": "date"
     },
+    "date_sent_to_company": {
+      "type": "date"
+    },
+    "has_narrative": {
+      "index": "not_analyzed",
+      "type": "boolean"
+    },
+    "issue": {
+      "fields": {
+        "raw": {
+          "index": "not_analyzed",
+          "type": "string"
+        }
+      },
+      "index": "analyzed",
+      "type": "string"
+    },
+    "product": {
+      "fields": {
+        "raw": {
+          "index": "not_analyzed",
+          "type": "string"
+        }
+      },
+      "index": "analyzed",
+      "type": "string"
+    },
+    "state": {
+      "index": "not_analyzed",
+      "type": "string"
+    },
+    "sub_product": {
+      "fields": {
+        "raw": {
+          "index": "not_analyzed",
+          "type": "string"
+        }
+      },
+      "index": "analyzed",
+      "type": "string"
+    },
+    "submitted_via": {
+      "index": "not_analyzed",
+      "type": "string"
+    },
+    "suggest": {
+      "analyzer": "standard",
+      "payloads": false,
+      "search_analyzer": "standard",
+      "type": "completion"
+    },
+    "tag": {
+      "index": "not_analyzed",
+      "type": "string"
+    },
     "timely": {
-      "type": "string",
-      "index": "not_analyzed"
+      "index": "not_analyzed",
+      "type": "string"
     },
-    "ccmail_state": {
-      "type": "string",
-      "index": "not_analyzed"
-    },
-    "ccmail_zipcode": {
-      "type": "string",
-      "index": "not_analyzed"
+    "zip_code": {
+      "index": "not_analyzed",
+      "type": "string"
     }
   }
 }

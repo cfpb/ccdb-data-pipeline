@@ -90,6 +90,16 @@
       "index": "analyzed",
       "type": "string"
     },
+    "sub_issue": {
+      "fields": {
+        "raw": {
+          "index": "not_analyzed",
+          "type": "string"
+        }
+      },
+      "index": "analyzed",
+      "type": "string"
+    },
     "submitted_via": {
       "index": "not_analyzed",
       "type": "string"

@@ -31,16 +31,19 @@ Arguments:
     * config file path
 * --es-host ES_HOST, -o ES_HOST
     * Elasticsearch host [env var: ES_HOST]
+    * **Required Parameter**
 * --es-port ES_PORT, -p ES_PORT
     * Elasticsearch port [env var: ES_PORT]
+    * **Required Parameter**
 * --es-username ES_USERNAME, -u ES_USERNAME
     * Elasticsearch username [env var: ES_USERNAME]
 * --es-password ES_PASSWORD, -a ES_PASSWORD
     * Elasticsearch password [env var: ES_PASSWORD]
 * --index-name INDEX_NAME, -i INDEX_NAME
     * Elasticsearch index name
+    * **Required Parameter**
 
-Though the arguments ES_HOST, ES_PORT, ES_USERNAME, ES_PASSWORD and INDEX_NAME are required, you may choose to combine those values into a config file and provide that as an argument instead.
+Though the arguments ES_HOST, ES_PORT and INDEX_NAME are required, you may choose to combine those values into a config file and provide that as an argument instead.
 
 ## Getting help
 

@@ -75,4 +75,4 @@ dist/
 ccdb_output.json
 
 # Sensitive Configuration
-*.ini
+config.ini

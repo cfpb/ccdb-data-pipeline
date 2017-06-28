@@ -21,6 +21,12 @@
       "type": "string"
     },
     "company_public_response": {
+      "fields": {
+        "raw": {
+          "index": "not_analyzed",
+          "type": "string"
+        }
+      },
       "analyzer": "cr_analyzer",
       "index": "analyzed",
       "search_analyzer": "cr_search_analyzer",
@@ -41,6 +47,13 @@
       "type": "string"
     },
     "consumer_consent_provided": {
+      "fields": {
+        "raw": {
+          "index": "not_analyzed",
+          "type": "string"
+        }
+      },
+      "index": "analyzed",
       "type": "string"
     },
     "consumer_disputed": {

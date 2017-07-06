@@ -57,6 +57,13 @@
       "type": "string"
     },
     "consumer_disputed": {
+      "fields": {
+        "raw": {
+          "index": "not_analyzed",
+          "type": "string"
+        }
+      },
+      "index": "analyzed",
       "type": "string"
     },
     "date_received": {

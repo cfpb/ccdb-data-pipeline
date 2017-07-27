@@ -74,14 +74,10 @@ def get_es_connection():
 
 def data_load_strategy_complaint(data):
     with open(data) as f:
-        i = 0;
         for line in f.readlines():
             doc = json.loads(line)
-            if 'reference_number' not in doc:
-                doc['reference_number'] = i;
-                i += 1;
             yield {'_op_type': 'create',
-                   '_id': doc['reference_number'],
+                   '_id': doc['complaint_id'],
                    '_source':doc}
 
 

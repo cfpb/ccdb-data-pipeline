@@ -17,7 +17,15 @@
       "type": "string"
     },
     "company": {
-      "index": "not_analyzed",
+      "fields": {
+        "raw": {
+          "index": "not_analyzed",
+          "type": "string"
+        }
+      },
+      "analyzer": "cr_analyzer",
+      "index": "analyzed",
+      "search_analyzer": "cr_search_analyzer",
       "type": "string"
     },
     "company_public_response": {

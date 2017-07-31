@@ -1,6 +1,6 @@
 import os
 import configargparse
-import complaints.index as index
+import complaints.ccdb.index_ccdb as ccdb_index
 from complaints.streamParser import parse_json
 
 def build_arg_parser():
@@ -37,8 +37,10 @@ def download_and_index(parser_args):
     input_file_name = 'https://data.consumerfinance.gov/api/views/nsyy-je5y/rows.json'
     parse_json(input_file_name,output_file_name)
 
-    index.index_json_data('complaints/settings.json', 'complaints/ccdb/ccdb_mapping.json', \
+    ccdb_index.index_json_data('complaints/settings.json', 'complaints/ccdb/ccdb_mapping.json', \
       'complaints/ccdb/ccdb_output.json', index_name, backup_index_name, index_alias)
+
+
 
 def main():
     p = build_arg_parser()

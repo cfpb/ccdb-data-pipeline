@@ -1,0 +1,424 @@
+arm
+variable-rate mortgage
+adjustable rate mortgage
+federal housing administration guaranteed
+fha guaranteed mortgage
+fha loan
+fha mortgage
+fixed-rate mortgage
+traditional loan
+fixed rate mortgage
+interest-only loan
+interest-only repayment plan
+io
+interest only mortgage
+rental property
+investment property
+jumbo loan
+nonconforming loan
+exceeds loan limit set by fannie mae or freddie mac
+jumbo mortgage
+home equity line of credit
+heloc
+qm
+qualified loan
+qualified mortgage
+hecm
+reverse mortgage
+2nd home
+vacation home
+second home
+2nd mortgage
+second loan
+2nd loan
+second mortgage
+va loan
+va mortgage
+section 32 loans
+hoepa
+high rate mortgage
+refinance
+refinancing
+refinanced
+etc.
+refinance
+student debt
+student loan
+federal student loan
+government student loan
+stafford loan
+ffel
+ffelp
+federal family education loan
+fdslp
+direct student loan
+alternative education loan
+private student loan
+federal student loan
+government student loan
+perkins loan
+personal loan
+consumer loan
+ral
+rac
+refund anticipation loan/check
+vehicle loan
+car loan
+automobile loan
+installment loan
+auto loan
+payday lending
+payday loan
+loc
+line of credit
+auto title loan
+pink slip loan
+title loan
+retail credit cards
+store credit card
+retail store loan
+online loan
+internet loan
+deposit account
+bank account
+atm card
+check card
+debit card
+ira
+traditional
+roth
+sep
+simple
+individual retirement account
+mma
+mmda
+money market deposit account
+money market savings account
+money market account
+cd
+time deposit
+certificate of deposit
+electronic transfer
+eft
+electronic funds transfer
+wire transfer
+money transfer
+wire transfer
+electronic fund transfer
+eft
+paypal
+third party online payment service
+domestic money transfer
+remittance
+money remittance
+remittance transfer
+wire transfer to foreign country
+international money transfer
+official check
+cashier's check
+money order
+banker's check
+traveler's check
+prepaid debit card
+prepaid credit card
+prepaid card
+identity fraud protection
+identity theft protection
+credit report
+credit score
+credit check
+credit reporting
+force-placed insurance
+lender-placed insurance
+forced-place insurance
+pmi
+lpmi
+lmi
+lender paid mortgage insurance
+private mortgage insurance
+payment protection insurance
+ppi
+payment protection plan
+credit protection insurance
+payment protection
+faulty manufacture
+responsibility to repair
+extended warranty
+warranty
+gaps
+gap insurance
+cash-o-matic
+cash reserve checking
+overdraft protection
+problem
+issue
+promo rate
+teaser rate
+usury
+rate too high
+rate increase
+rate decrease
+rate reset
+rate change
+no option to speak to a human
+talk to a real person
+automated phone system
+call was transferred to india
+spoke to someone in the philippines
+had to talk with someone outsides the us
+foreign contact center
+receive x number of calls per day/week
+frequent calls
+robo calls
+robocalls
+infringement letter
+demand letter
+cease and desist
+calls at all hours
+calls early/late
+no continuity of contact
+spoke to different people
+no main contact
+no one contact
+no one person contact
+single point of contact
+transferred to multiple reps
+multiple points of contact
+calling friends
+calling neighbors
+privacy
+third party communication issues
+wrong info
+wrong person
+incorrect info
+inaccurate information
+would not provide answers
+couldnt provide information
+unable to provide answers
+notice of error
+error resolution
+foreclose
+foreclosure
+waterfall
+loss mitigation
+deed in lieu
+deed-in-lieu
+notice of foreclosure
+notice of default and sale
+notice of default
+notice of sale
+foreclosure notice
+home affordable refinance program
+harp
+nml
+national mortgage settlement
+reduce my principal
+reduce my principle
+principal balance reduction
+robo signed
+robo signing
+sfb
+special forbearance
+zombie title
+property in limbo
+zombie foreclosure
+loan modification
+modify the loan
+modified loan
+mortgage modification
+modification application
+hamp
+loan modification
+debt settlement
+settlement agreements
+in-house modification
+proprietary modification
+trial payments
+trial modification
+consolidation loan
+loan consolidation
+loan sold
+transfer of loan
+debt assignment
+transfer of servicing
+quick claim
+quit claim
+quitclaim deed
+foreclosure rescue
+redemption period
+opening account
+account opening
+account opening
+escheat
+escheatment
+did not receive refund
+refund
+card activity
+credit card charges
+credit card activity
+cash back bonus
+cash back
+reward
+incorrect amount
+wrong amount
+monthly statement
+billing statement
+bill
+periodic statement
+billing
+wrong charge
+overcharged
+billing error
+old debt
+old info
+7+ year old activity
+annual credit report
+free annual report
+free credit report
+permissible purpose
+credit insurance
+balance to limit ratio
+utilization ratio
+housing denied
+employment denied
+adverse action
+prescreened reports
+mailing lists
+prescreening
+employee misconduct reports
+employment reports
+bounced check fee
+returned check fee
+insufficient check fee
+overdraft fee
+insufficient funds fee
+late fee
+late payment fee
+late charge
+improper late fee
+excessive late fee
+late fee
+advanced-fee loan
+advance fee loan
+advance-fee
+maintenance fee
+service fee
+debt verification
+debt validation
+time-barred
+sol
+statute of limitations
+collecting on paid debt
+set-off
+offset
+subordination
+subordination lien
+subordinate lien issues
+misapplication of payment
+applying payments incorrectly
+payment processing delay
+delay applying payment
+postpone payments
+deferment and forbearance
+balance is more than before
+increase in principal balance
+lost payments
+missing payment
+did not receive money
+no receipt of money received
+no proof of payment
+paying more than supposed to
+overpayment
+struggle
+distressed
+cannot afford payments
+trouble making payments
+online bill pay
+online payment
+increase in principal balance
+underpayment
+partial payments accepted
+ibr
+income based repayment
+balloon payment
+unexpected balloon payment
+reduced payment plan
+workout plan
+repayment plan
+automatic payments
+auto pay
+not making funds available
+pending deposit
+holding deposit
+fund availability
+policy change
+change in account terms
+credit increase
+credit decrease
+change in credit line
+fraud
+false pretenses
+identity theft
+lied
+misleading
+udaap
+deceptive business practice
+misleading ads
+bait and switch
+not true
+false or deceptive advertising
+inducement
+sales tactics
+convenience check
+unsolicited issuance
+opt out
+opt-in or -out issues
+negam
+deferred interest
+graduated payment mortgage
+negative amortization
+qdro
+qualified domestic relations order
+will
+estates and probate
+title and registration
+trade in
+appraisal
+property inspection
+kickback
+third party business association
+payoffs
+loan originator compensation
+exchange rate
+currency exchange
+lost documents
+original documents
+original documents
+multiple document requests
+repeat processing paperwork
+repeat document requests
+qualified written request
+notice of error
+inconsistent documents
+inaccurate or incomplete documentation
+does not receive notices
+does not receive account information
+cosigner access to information
+payoff demand
+payoff statement
+payoff  quote issues
+bankruptcy
+chapter 7
+chapter 13
+discharge
+bankruptcy
+civil action
+lawsuit
+litigation
+hardship
+student loan hardship
+neighbor
+friend
+observer
+impacted party
+bystander

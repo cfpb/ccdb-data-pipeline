@@ -1,7 +1,12 @@
 import os
 import configargparse
-import complaints.index as index
+import logging
+from elasticsearch import Elasticsearch
+import complaints.ccdb.index_ccdb as ccdb_index
+import complaints.taxonomy.index_taxonomy as taxonomy_index
 from complaints.streamParser import parse_json
+
+DOC_TYPE_NAME = 'complaint'
 
 def build_arg_parser():
     p = configargparse.ArgParser(prog='run_pipeline',
@@ -21,7 +26,28 @@ def build_arg_parser():
         help='Elasticsearch index name')
     return p
 
+
+def setup_complaint_logging(doc_type_name):
+    logger = logging.getLogger(doc_type_name)
+    logger.setLevel(logging.DEBUG)
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    ch.setFormatter(formatter)
+    logger.addHandler(ch)
+    return logger
+
+
+def get_es_connection():
+    url = "{}://{}:{}".format("http", os.getenv('ES_HOST', ''), os.getenv('ES_PORT', ''))
+    es = Elasticsearch(url, http_auth=(os.getenv('ES_USERNAME', ''), os.getenv('ES_PASSWORD', '')), user_ssl=True, timeout=1000)
+    return es
+
+
 def download_and_index(parser_args):
+    global logger
+    logger = setup_complaint_logging(DOC_TYPE_NAME)
+
     c = parser_args
     
     os.environ["ES_HOST"] = c.es_host
@@ -37,8 +63,12 @@ def download_and_index(parser_args):
     input_file_name = 'https://data.consumerfinance.gov/api/views/nsyy-je5y/rows.json'
     parse_json(input_file_name,output_file_name)
 
-    index.index_json_data('complaints/settings.json', 'complaints/ccdb/ccdb_mapping.json', \
+    es = get_es_connection()
+
+    ccdb_index.index_json_data(es, logger, DOC_TYPE_NAME, 'complaints/settings.json', 'complaints/ccdb/ccdb_mapping.json', \
       'complaints/ccdb/ccdb_output.json', index_name, backup_index_name, index_alias)
+
+    taxonomy_index.index_taxonomy(es, logger, 'complaints/taxonomy/taxonomy.txt', index_alias)
 
 def main():
     p = build_arg_parser()

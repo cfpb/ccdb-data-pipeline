@@ -1,28 +1,24 @@
 # CCDB Data Pipeline
 
-**Description**: This purpose of this code is to provide data for Consumer Complaint Search. This pipeline downloads scrubbed consumer complaint data and indexes that data in Elasticsearch for the Complaint Search to use.
+A lightweight ETL data pipeline intended to support the operations of the Consumer Complaint Search application.
 
-Other things to include:
+**Description**: This purpose of this code is to provide data for Consumer Complaint Search. This pipeline downloads scrubbed consumer complaint data and indexes that data in Elasticsearch for the Complaint Search application to display and analyze.
 
-  - **Technology stack**: 
-  - **Status**:  Alpha
+**Status**:  Pre-Alpha
 
 ## Dependencies
 
-This pipeline is intended to index data in Elasticsearch, and therefore is dependent on having an Elasticsearch instance to interface with.
+This pipeline is intended to index data in Elasticsearch and is dependent on having an Elasticsearch instance to interface with.
+
+## Installation
+
+Detailed instructions on how to install, configure, and get the project running are in the [INSTALL](INSTALL.md) document.
 
 ## Usage
 
 usage: run_pipeline [-h] -c MY_CONFIG --es-host ES_HOST --es-port ES_PORT
-                    --es-username ES_USERNAME --es-password ES_PASSWORD
+                    [--es-username ES_USERNAME] [--es-password ES_PASSWORD]
                     --index-name INDEX_NAME
-
-download complaints and index in Elasticsearch Args that start with '--' (eg.
---es-host) can also be set in a config file (specified via -c). Config file
-syntax allows: key=value, flag=true, stuff=[a,b,c] (for details, see syntax at
-https://goo.gl/R74nmi). If an arg is specified in more than one place, then
-commandline values override environment variables which override config file
-values which override defaults.
 
 Arguments:
 * -h, --help
@@ -30,26 +26,22 @@ Arguments:
 * -c MY_CONFIG, --my-config MY_CONFIG
     * config file path
 * --es-host ES_HOST, -o ES_HOST
-    * Elasticsearch host [env var: ES_HOST]
-    * **Required Parameter**
+    * Elasticsearch host (**Required Parameter**)
 * --es-port ES_PORT, -p ES_PORT
-    * Elasticsearch port [env var: ES_PORT]
-    * **Required Parameter**
+    * Elasticsearch port (**Required Parameter**)
 * --es-username ES_USERNAME, -u ES_USERNAME
-    * Elasticsearch username [env var: ES_USERNAME]
+    * Elasticsearch username
 * --es-password ES_PASSWORD, -a ES_PASSWORD
-    * Elasticsearch password [env var: ES_PASSWORD]
+    * Elasticsearch password
 * --index-name INDEX_NAME, -i INDEX_NAME
-    * Elasticsearch index name
-    * **Required Parameter**
+    * Elasticsearch index name (**Required Parameter**)
 
-Though the arguments ES_HOST, ES_PORT and INDEX_NAME are required, you may choose to combine those values into a config file and provide that as an argument instead.
+Though the arguments ES_HOST, ES_PORT and INDEX_NAME are required, you may choose to combine those values into a config file and provide that as an argument instead. For config file syntax, see [here](https://goo.gl/R74nmi). If an arg is specified in more than one place, then commandline values override environment variables which override config file values which override defaults.
 
 ## Getting help
 
 Instruct users how to get help with this software; this might include links to an issue tracker, wiki, mailing list, etc.
 
-----
 
 ## Open source licensing info
 1. [TERMS](TERMS.md)

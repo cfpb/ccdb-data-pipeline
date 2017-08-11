@@ -60,7 +60,7 @@ def download_and_index(parser_args):
     backup_index_name = "{}-v2".format(index_alias)
 
     output_file_name = 'complaints/ccdb/ccdb_output.json'
-    input_file_name = 'https://data.consumerfinance.gov/api/views/nsyy-je5y/rows.json'
+    input_file_name = 'https://data.consumerfinance.gov/api/views/s6ew-h6mp/rows.json'
     parse_json(input_file_name,output_file_name)
 
     es = get_es_connection()

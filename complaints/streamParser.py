@@ -15,7 +15,7 @@ def parse_json(input_url_path, output_file_name, logger):
         download_file = urllib.URLopener()
         download_file.retrieve(input_url_path, tmp_file_name)
 
-    parse_json_file(tmp_file_name, output_file_name)
+    parse_json_file(tmp_file_name, output_file_name, logger)
 
     try:
         logger.info("Removing temporary data file")
@@ -24,7 +24,7 @@ def parse_json(input_url_path, output_file_name, logger):
         print "Failed temp file removal in fake_crdb_data.py"
         pass
 
-def parse_json_file(input_file_name, output_file_name):
+def parse_json_file(input_file_name, output_file_name, logger):
     target = open(output_file_name, 'w')
 
     logger.info("Begin processing JSON data and writing to file")
@@ -48,5 +48,7 @@ def parse_json_file(input_file_name, output_file_name):
                 target.write('\n')
             elif prefix == 'meta.view.columns.item.fieldName':
                 my_column_array.append(value)
+
+    target.close()
 
 __all__ = ['parse_json']

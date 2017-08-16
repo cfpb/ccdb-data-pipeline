@@ -15,6 +15,7 @@ def parse_json(input_url_path, output_file_name, logger):
         download_file = urllib.URLopener()
         download_file.retrieve(input_url_path, tmp_file_name)
 
+    logger.info("Begin processing JSON data and writing to file")
     parse_json_file(tmp_file_name, output_file_name, logger)
 
     try:
@@ -27,8 +28,8 @@ def parse_json(input_url_path, output_file_name, logger):
 def parse_json_file(input_file_name, output_file_name, logger):
     target = open(output_file_name, 'w')
 
-    logger.info("Begin processing JSON data and writing to file")
     with open(input_file_name,'r') as f:
+        logger.info("Opened input file")
         parser = ijson.parse(f)
 
         my_data_array = []

@@ -30,6 +30,7 @@ def parse_json_file(input_file_name, output_file_name, logger):
     line_count_total = 0
 
     target = open(output_file_name, 'w')
+    logger.info("Opened output file")
 
     with open(input_file_name,'r') as f:
         logger.info("Opened input file")

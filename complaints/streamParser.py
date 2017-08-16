@@ -6,17 +6,19 @@ import urllib
 # Temp File Creation
 import os
 
-def parse_json(input_url_path, output_file_name):
+def parse_json(input_url_path, output_file_name, logger):
     # Saves downloaded file - on failure this file will remain for inspection
     tmp_file_name = "todaysData.json"
 
     if not os.path.isfile(tmp_file_name):
+        logger.info("Creating temporary data file")
         download_file = urllib.URLopener()
         download_file.retrieve(input_url_path, tmp_file_name)
 
     parse_json_file(tmp_file_name, output_file_name)
 
     try:
+        logger.info("Removing temporary data file")
         os.remove(tmp_file_name)
     except OSError:
         print "Failed temp file removal in fake_crdb_data.py"
@@ -25,6 +27,7 @@ def parse_json(input_url_path, output_file_name):
 def parse_json_file(input_file_name, output_file_name):
     target = open(output_file_name, 'w')
 
+    logger.info("Begin processing JSON data and writing to file")
     with open(input_file_name,'r') as f:
         parser = ijson.parse(f)
 

@@ -61,7 +61,9 @@ def download_and_index(parser_args):
 
     output_file_name = 'complaints/ccdb/ccdb_output.json'
     input_file_name = 'https://data.consumerfinance.gov/api/views/s6ew-h6mp/rows.json'
-    parse_json(input_file_name,output_file_name)
+
+    logger.info("Begin downloading and parsing input data")
+    parse_json(input_file_name, output_file_name, logger)
 
     es = get_es_connection()
 

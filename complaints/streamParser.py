@@ -57,10 +57,15 @@ def parse_json_file(input_file_name, output_file_name, logger):
                 my_column_array.append(value)
 
             line_counter += 1
-            if line_counter >= 10000:
+            if line_counter >= 50000:
                 line_count_total += line_counter
                 logger.info("Processed {} lines, {} total".format(line_counter, line_count_total))
                 line_counter = 0
+
+        if line_counter > 0:
+            line_count_total += line_counter
+            logger.info("Processed {} lines, {} total".format(line_counter, line_count_total))
+
 
     target.close()
 

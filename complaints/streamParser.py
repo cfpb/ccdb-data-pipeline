@@ -14,6 +14,8 @@ def parse_json(input_url_path, output_file_name, logger):
         logger.info("Downloading input data")
         download_file = urllib.URLopener()
         download_file.retrieve(input_url_path, tmp_file_name)
+    else:
+        logger.info("Input data file already exists")
 
     logger.info("Begin processing JSON data and writing to output file")
     parse_json_file(tmp_file_name, output_file_name, logger)
@@ -57,7 +59,7 @@ def parse_json_file(input_file_name, output_file_name, logger):
                 my_column_array.append(value)
 
             line_counter += 1
-            if line_counter >= 50000:
+            if line_counter >= 100000:
                 line_count_total += line_counter
                 logger.info("Processed {} lines, {} total".format(line_counter, line_count_total))
                 line_counter = 0
@@ -68,5 +70,6 @@ def parse_json_file(input_file_name, output_file_name, logger):
 
 
     target.close()
+    logger.info("Closed output file")
 
 __all__ = ['parse_json']

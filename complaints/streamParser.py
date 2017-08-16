@@ -11,11 +11,11 @@ def parse_json(input_url_path, output_file_name, logger):
     tmp_file_name = "todaysData.json"
 
     if not os.path.isfile(tmp_file_name):
-        logger.info("Creating temporary data file")
+        logger.info("Downloading input data")
         download_file = urllib.URLopener()
         download_file.retrieve(input_url_path, tmp_file_name)
 
-    logger.info("Begin processing JSON data and writing to file")
+    logger.info("Begin processing JSON data and writing to output file")
     parse_json_file(tmp_file_name, output_file_name, logger)
 
     try:
@@ -26,11 +26,16 @@ def parse_json(input_url_path, output_file_name, logger):
         pass
 
 def parse_json_file(input_file_name, output_file_name, logger):
+    line_counter = 0
+    line_count_total = 0
+
     target = open(output_file_name, 'w')
 
     with open(input_file_name,'r') as f:
         logger.info("Opened input file")
+        
         parser = ijson.parse(f)
+        logger.info("Completed parsing input file")
 
         my_data_array = []
         my_column_array = []
@@ -49,6 +54,11 @@ def parse_json_file(input_file_name, output_file_name, logger):
                 target.write('\n')
             elif prefix == 'meta.view.columns.item.fieldName':
                 my_column_array.append(value)
+
+            line_counter += 1
+            if line_counter >= 10000:
+                line_count_total += line_counter
+                logger.info("Processed {} lines, {} total".format(line_counter, line_count_total))
 
     target.close()
 

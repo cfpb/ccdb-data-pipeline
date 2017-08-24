@@ -43,6 +43,24 @@ def get_es_connection():
     es = Elasticsearch(url, http_auth=(os.getenv('ES_USERNAME', ''), os.getenv('ES_PASSWORD', '')), user_ssl=True, timeout=1000)
     return es
 
+def test_index_growing(es, index_name):
+    ''' count index and make sure that number is stable or growing '''
+    filename='count_data_' + index_name + '-' + DOC_TYPE_NAME + '.txt'
+    res = es.search(index=index_name, doc_type=DOC_TYPE_NAME)
+    hits_count = res['hits']['total']
+    assert 'hits' in res
+    try:
+        with open(filename, 'r') as f:
+            prev_total = int(f.read())
+    except:
+        prev_total = 0
+        logger.info("count file did not exist")
+    logger.info("%s >= %d" % (hits_count, prev_total))
+    assert hits_count >= prev_total
+    with open(filename, 'w+') as f:
+        f.write(str(hits_count))
+    logger.info("Count written to file")
+
 
 def download_and_index(parser_args):
     global logger
@@ -59,13 +77,17 @@ def download_and_index(parser_args):
     index_name = "{}-v1".format(index_alias)
     backup_index_name = "{}-v2".format(index_alias)
 
+    logger.info("Creating Elasticsearch Connection")
+    es = get_es_connection()
+
+    logger.info("Testing to ensure Socrata index is stable or growing")
+    test_index_growing(es, index_name)
+
     output_file_name = 'complaints/ccdb/ccdb_output.json'
     input_file_name = 'https://data.consumerfinance.gov/api/views/s6ew-h6mp/rows.json'
 
     logger.info("Begin processing input")
     parse_json(input_file_name, output_file_name, logger)
-
-    es = get_es_connection()
 
     logger.info("Begin indexing data in Elasticsearch")
     ccdb_index.index_json_data(es, logger, DOC_TYPE_NAME, 'complaints/settings.json', 'complaints/ccdb/ccdb_mapping.json', \

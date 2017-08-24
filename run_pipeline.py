@@ -56,7 +56,7 @@ def test_index_growing(es, index_name):
         prev_total = 0
         logger.info("count file did not exist")
     logger.info("%s >= %d" % (hits_count, prev_total))
-    assert hits_count >= prev_total
+    assert hits_count < prev_total
     with open(filename, 'w+') as f:
         f.write(str(hits_count))
     logger.info("Count written to file")

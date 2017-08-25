@@ -6,6 +6,8 @@ import urllib
 # Temp File Creation
 import os
 
+
+
 def parse_json(input_url_path, output_file_name):
     # Saves downloaded file - on failure this file will remain for inspection
     tmp_file_name = "todaysData.json"
@@ -40,6 +42,12 @@ def parse_json_file(input_file_name, output_file_name):
             elif (prefix, event) == ('data.item', 'end_array'):
                 new_complaint = dict(zip(my_column_array, my_data_array))
                 new_complaint["has_narrative"] = (not (not new_complaint["complaint_what_happened"] or len(new_complaint["complaint_what_happened"]) == 0))
+
+                if new_complaint["tags"] == None:
+                    new_complaint["tags"] = []
+                else:
+                    new_complaint["tags"] = new_complaint["tags"].split(", ")
+
                 my_data_array = []
                 target.write(json.dumps(new_complaint))
                 target.write('\n')

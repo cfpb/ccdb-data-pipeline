@@ -68,7 +68,7 @@ def parse_json_file(input_file_name, output_file_name, logger):
             if line_counter > 0:
                 line_count_total += line_counter
                 logger.info("Processed {} lines, {} total".format(line_counter, line_count_total))
-        except IncompleteJSONError as e:
+        except ijson.common.IncompleteJSONError as e:
             logger.info('IncompleteJSONError: {}'.format(e))
 
 

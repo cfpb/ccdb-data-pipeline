@@ -138,9 +138,9 @@
       "search_analyzer": "standard",
       "type": "completion"
     },
-    "tag": {
-      "index": "not_analyzed",
-      "type": "string"
+    "tags": {
+      "type": "string",
+      "index": "not_analyzed"
     },
     "timely": {
       "index": "not_analyzed",

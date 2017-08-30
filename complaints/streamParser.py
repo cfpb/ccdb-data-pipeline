@@ -6,6 +6,7 @@ import urllib
 # Temp File Creation
 import os
 
+
 def parse_json(input_url_path, output_file_name, logger):
     # Saves downloaded file - on failure this file will remain for inspection
     tmp_file_name = "todaysData.json"

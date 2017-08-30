@@ -11,12 +11,13 @@ def parse_json(input_url_path, output_file_name, logger):
     # Saves downloaded file - on failure this file will remain for inspection
     tmp_file_name = "todaysData.json"
 
-    if not os.path.isfile(tmp_file_name):
-        logger.info("Downloading input data")
-        download_file = urllib.URLopener()
-        download_file.retrieve(input_url_path, tmp_file_name)
-    else:
-        logger.info("Input data file already exists")
+    if os.path.isfile(tmp_file_name):
+        logger.info("Input file exists. Deleting...")
+        os.remove(tmp_file_name)
+
+    logger.info("Downloading input file...")
+    download_file = urllib.URLopener()
+    download_file.retrieve(input_url_path, tmp_file_name)
 
     logger.info("Begin processing JSON data and writing to output file")
     parse_json_file(tmp_file_name, output_file_name, logger)

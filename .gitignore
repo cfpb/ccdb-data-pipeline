@@ -73,6 +73,7 @@ dist/
 
 # Generated Files
 ccdb_output.json
+count_data*
 
 # Sensitive Configuration
 config.ini

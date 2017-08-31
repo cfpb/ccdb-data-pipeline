@@ -11,12 +11,13 @@ def parse_json(input_url_path, output_file_name, logger):
     # Saves downloaded file - on failure this file will remain for inspection
     tmp_file_name = "todaysData.json"
 
-    if not os.path.isfile(tmp_file_name):
-        logger.info("Downloading input data")
-        download_file = urllib.URLopener()
-        download_file.retrieve(input_url_path, tmp_file_name)
-    else:
-        logger.info("Input data file already exists")
+    if os.path.isfile(tmp_file_name):
+        logger.info("Input file exists. Deleting...")
+        os.remove(tmp_file_name)
+
+    logger.info("Downloading input file...")
+    download_file = urllib.URLopener()
+    download_file.retrieve(input_url_path, tmp_file_name)
 
     logger.info("Begin processing JSON data and writing to output file")
     parse_json_file(tmp_file_name, output_file_name, logger)
@@ -44,36 +45,33 @@ def parse_json_file(input_file_name, output_file_name, logger):
         my_data_array = []
         my_column_array = []
 
-        for prefix, event, value in parser:
-            if prefix == 'data.item.item':
-                my_data_array.append(value)
-            elif (prefix, event) == ('data.item', 'start_array'):
-                continue
-                n += 1
-            elif (prefix, event) == ('data.item', 'end_array'):
-                new_complaint = dict(zip(my_column_array, my_data_array))
-                new_complaint["has_narrative"] = (not (not new_complaint["complaint_what_happened"] or len(new_complaint["complaint_what_happened"]) == 0))
+        try:
+            for prefix, event, value in parser:
+                if prefix == 'data.item.item':
+                    my_data_array.append(value)
+                elif (prefix, event) == ('data.item', 'start_array'):
+                    continue
+                    n += 1
+                elif (prefix, event) == ('data.item', 'end_array'):
+                    new_complaint = dict(zip(my_column_array, my_data_array))
+                    new_complaint["has_narrative"] = (not (not new_complaint["complaint_what_happened"] or len(new_complaint["complaint_what_happened"]) == 0))
+                    my_data_array = []
+                    target.write(json.dumps(new_complaint))
+                    target.write('\n')
+                elif prefix == 'meta.view.columns.item.fieldName':
+                    my_column_array.append(value)
 
-                if new_complaint["tags"] == None:
-                    new_complaint["tags"] = []
-                else:
-                    new_complaint["tags"] = new_complaint["tags"].split(", ")
+                line_counter += 1
+                if line_counter >= 100000:
+                    line_count_total += line_counter
+                    logger.info("Processed {} lines, {} total".format(line_counter, line_count_total))
+                    line_counter = 0
 
-                my_data_array = []
-                target.write(json.dumps(new_complaint))
-                target.write('\n')
-            elif prefix == 'meta.view.columns.item.fieldName':
-                my_column_array.append(value)
-
-            line_counter += 1
-            if line_counter >= 100000:
+            if line_counter > 0:
                 line_count_total += line_counter
                 logger.info("Processed {} lines, {} total".format(line_counter, line_count_total))
-                line_counter = 0
-
-        if line_counter > 0:
-            line_count_total += line_counter
-            logger.info("Processed {} lines, {} total".format(line_counter, line_count_total))
+        except ijson.common.IncompleteJSONError as e:
+            logger.info('IncompleteJSONError! prefix: {}, event: {}, value: {}'.format(prefix, event, value))
 
 
     target.close()

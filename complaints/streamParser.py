@@ -2,6 +2,7 @@
 import json
 import ijson
 import urllib
+import requests
 
 # Temp File Creation
 import os
@@ -16,8 +17,11 @@ def parse_json(input_url_path, output_file_name, logger):
         os.remove(tmp_file_name)
 
     logger.info("Downloading input file...")
-    download_file = urllib.URLopener()
-    download_file.retrieve(input_url_path, tmp_file_name)
+    temp_file = open(tmp_file_name, 'w')
+    with requests.get(input_url_path, stream=True) as r:
+        temp_file.write(r.content)
+
+    temp_file.close()
 
     logger.info("Begin processing JSON data and writing to output file")
     parse_json_file(tmp_file_name, output_file_name, logger)

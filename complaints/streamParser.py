@@ -59,7 +59,7 @@ def parse_json_file(input_file_name, output_file_name, logger):
                 elif (prefix, event) == ('data.item', 'end_array'):
                     new_complaint = dict(zip(my_column_array, my_data_array))
                     new_complaint["has_narrative"] = (not (not new_complaint["complaint_what_happened"] or len(new_complaint["complaint_what_happened"]) == 0))
-
+                    new_complaint["company"] = new_complaint["company"].upper()
                     # :updated_at and :created_at will stay since they are being used
                     for meta in (":sid", ":id", ":meta", ":created_meta", ":position", ":updated_meta"): 
                         del new_complaint[meta]

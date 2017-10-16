@@ -57,6 +57,13 @@
           "lowercase",
           "cr_shingle"
         ]
+      },
+      "uppercase_analyzer": {
+        "type": "custom",
+        "tokenizer": "keyword",
+        "filter": [
+          "uppercase"
+        ]
       }
     }
   }

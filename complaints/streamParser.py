@@ -35,6 +35,8 @@ def parse_json(input_url_path, output_file_name, logger):
     except OSError:
         print "Failed temp file removal in fake_crdb_data.py"
         pass
+def format_date(date_str):
+    return datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%S').strftime("%m/%d/%y")
 
 def parse_json_file(input_file_name, output_file_name, logger):
     line_counter = 0
@@ -62,8 +64,8 @@ def parse_json_file(input_file_name, output_file_name, logger):
                 elif (prefix, event) == ('data.item', 'end_array'):
                     new_complaint = dict(zip(my_column_array, my_data_array))
                     new_complaint["has_narrative"] = (not (not new_complaint["complaint_what_happened"] or len(new_complaint["complaint_what_happened"]) == 0))
-                    new_complaint["date_received_formatted"] = datetime.strptime(new_complaint["date_received"], '%Y-%m-%dT%H:%M:%S').strftime("%m/%d/%y")
-                    new_complaint["date_sent_to_company_formatted"] = datetime.strptime(new_complaint["date_sent_to_company"], '%Y-%m-%dT%H:%M:%S').strftime("%m/%d/%y")
+                    new_complaint["date_received_formatted"] = format_date(new_complaint["date_received"])
+                    new_complaint["date_sent_to_company_formatted"] = format_date(new_complaint["date_sent_to_company"])
                     # :updated_at and :created_at will stay since they are being used
                     for meta in (":sid", ":id", ":meta", ":created_meta", ":position", ":updated_meta"): 
                         del new_complaint[meta]

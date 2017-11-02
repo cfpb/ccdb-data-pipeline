@@ -81,8 +81,16 @@
     "date_received": {
       "type": "date"
     },
+    "date_received_formatted": {
+      "type": "date",
+      "format": "MM/dd/yyyy"
+    },
     "date_sent_to_company": {
       "type": "date"
+    },
+    "date_sent_to_company_formatted": {
+      "type": "date",
+      "format": "MM/dd/yyyy"
     },
     "has_narrative": {
       "index": "not_analyzed",

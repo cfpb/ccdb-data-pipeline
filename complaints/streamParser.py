@@ -92,8 +92,9 @@ def parse_json_file(input_file_name, output_file_name, logger):
                     new_complaint["date_sent_to_company"] = format_date_est(d)
                     new_complaint["date_sent_to_company_formatted"] = format_date_as_mdy(d)
 
-                    new_complaint["date_indexed"] = format_date_est(datetime.now)
-                    new_complaint["date_indexed_formatted"] = format_date_as_mdy(datetime.now)
+                    d = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+                    new_complaint["date_indexed"] = format_date_est(d)
+                    new_complaint["date_indexed_formatted"] = format_date_as_mdy(d)
 
                     # :updated_at and :created_at will stay since they are being used
                     for meta in (":sid", ":id", ":meta", ":created_meta", ":position", ":updated_meta"):

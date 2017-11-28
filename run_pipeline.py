@@ -8,6 +8,7 @@ from complaints.streamParser import parse_json
 
 DOC_TYPE_NAME = 'complaint'
 
+
 def build_arg_parser():
     p = configargparse.getArgumentParser(
         prog='run_pipeline',
@@ -17,6 +18,8 @@ def build_arg_parser():
         args_for_setting_config_path=['-c', '--config'],
         args_for_writing_out_config_file=['--save-config']
     )
+    p.add('--dump-config', action='store_true', dest='dump_config',
+          help='dump config vars and their source')
     p.add('--es-host', '-o', required=True, dest='es_host',
           help='Elasticsearch host', env_var='ES_HOST')
     p.add('--es-port', '-p', required=True, dest='es_port',
@@ -50,6 +53,7 @@ def get_es_connection(config):
         user_ssl=True, timeout=1000
     )
     return es
+
 
 def test_index_growing(es, index_name):
     ''' count index and make sure that number is stable or growing '''
@@ -93,15 +97,24 @@ def download_and_index(parser_args):
     parse_json(input_file_name, output_file_name, logger)
 
     logger.info("Begin indexing data in Elasticsearch")
-    ccdb_index.index_json_data(es, logger, DOC_TYPE_NAME, 'complaints/settings.json', 'complaints/ccdb/ccdb_mapping.json', \
-      'complaints/ccdb/ccdb_output.json', index_name, backup_index_name, index_alias)
+    ccdb_index.index_json_data(es, logger, DOC_TYPE_NAME,
+                               'complaints/settings.json',
+                               'complaints/ccdb/ccdb_mapping.json',
+                               'complaints/ccdb/ccdb_output.json',
+                               index_name, backup_index_name, index_alias)
 
-    taxonomy_index.index_taxonomy(es, logger, 'complaints/taxonomy/taxonomy.txt', index_alias)
+    taxonomy_index.index_taxonomy(es, logger,
+                                  'complaints/taxonomy/taxonomy.txt',
+                                  index_alias)
+
 
 def main():
     p = build_arg_parser()
     c = p.parse()
-    print(p.format_values())    
+
+    if c.dump_config:
+        print(p.format_values())
+
     download_and_index(c)
 
 if __name__ == '__main__':

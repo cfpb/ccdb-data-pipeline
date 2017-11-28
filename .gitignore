@@ -74,6 +74,7 @@ dist/
 # Generated Files
 ccdb_output.json
 count_data*
+todaysData.json
 
 # Sensitive Configuration
 config.ini

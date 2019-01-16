@@ -1,9 +1,16 @@
+import configargparse
 import os
 import sys
 import json
+from common.es_proxy import add_basic_es_arguments, get_es_connection
+from common.log import setup_logging
 from elasticsearch import TransportError
 from elasticsearch.helpers import bulk
 
+
+# -----------------------------------------------------------------------------
+# Original Functions
+# -----------------------------------------------------------------------------
 
 def update_indexes_in_alias(es, logger, alias, backup_index_name, index_name):
     ''' cycle alias from backup if it exists, or add index,
@@ -61,6 +68,8 @@ def data_load_strategy_complaint(data):
     with open(data) as f:
         for line in f.readlines():
             doc = json.loads(line)
+            if 'complaint_id' not in doc:
+                doc['complaint_id'] = doc['public_id']
             yield {'_op_type': 'create',
                    '_id': doc['complaint_id'],
                    '_source': doc}
@@ -132,5 +141,57 @@ def index_json_data(
         sys.exit(e.error)
 
 
+# -----------------------------------------------------------------------------
+# Main
+# -----------------------------------------------------------------------------
+
+
+def build_arg_parser():
+    p = configargparse.getArgumentParser(
+        prog='index_ccdb',
+        description='fill Elasticsearch with public complaint data',
+        ignore_unknown_config_file_keys=True,
+        default_config_files=['./config.ini'],
+        args_for_setting_config_path=['-c', '--config'],
+        args_for_writing_out_config_file=['--save-config']
+    )
+    p.add('--dump-config', action='store_true', dest='dump_config',
+          help='dump config vars and their source')
+    group = add_basic_es_arguments(p)
+    group.add('--settings', required=True,
+              help="Describes how the ES index should function")
+    group.add('--mapping', required=True,
+              help="Describes how process the input documents")
+    group.add('--doc-type', dest='doc_type', default='complaint',
+              help='Elasticsearch document type')
+    group = p.add_argument_group('Files')
+    group.add('--dataset', dest='dataset', required=True,
+              help="Complaint data in NDJSON format")
+    return p
+
+
 if __name__ == '__main__':
-    index_json_data()
+    p = build_arg_parser()
+    cfg = p.parse_args()
+
+    logger = setup_logging(cfg.doc_type)
+
+    if cfg.dump_config:
+        logger.info('Running index_ccdb with')
+        logger.info(p.format_values())
+
+    index_alias = cfg.index_name
+    index_name = "{}-v1".format(index_alias)
+    backup_index_name = "{}-v2".format(index_alias)
+
+    logger.info("Creating Elasticsearch Connection")
+    es = get_es_connection(cfg)
+
+    logger.info("Begin indexing data in Elasticsearch")
+    index_json_data(
+        es, logger, cfg.doc_type,
+        cfg.settings,
+        cfg.mapping,
+        cfg.dataset,
+        index_name, backup_index_name, index_alias
+    )

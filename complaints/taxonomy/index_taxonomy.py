@@ -3,7 +3,8 @@ import os
 
 
 def alias_to_index_name(es, logger, alias, suffix=''):
-    ''' figure out the correct index name -- should be alias-v1 or alias-v2 by convention '''
+    ''' figure out the correct index name -- should be alias-v1 or alias-v2
+        by convention '''
     index_name = alias + suffix + '-v1'
     if not es.indices.exists_alias(name=alias, index=index_name):
         index_name = alias + suffix + '-v2'
@@ -23,7 +24,7 @@ def index_taxonomy(es, logger, taxonomy_text, alias):
                                 },
                     'text': {'type': 'string'}
                     }
-                }
+               }
 
     with open(taxonomy_text) as f:
         words = f.read().split('\n')
@@ -40,5 +41,7 @@ def index_taxonomy(es, logger, taxonomy_text, alias):
     )
 
     logger.info("Indexing taxonomy...")
-    es.index(body=doc, index=index_name, doc_type='taxonomy', id=1, refresh=True)
+    es.index(
+        body=doc, index=index_name, doc_type='taxonomy', id=1, refresh=True
+    )
     logger.info("Completed indexing taxonomy")

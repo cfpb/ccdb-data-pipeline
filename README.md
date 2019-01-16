@@ -16,27 +16,13 @@ Detailed instructions on how to install, configure, and get the project running 
 
 ## Usage
 
-usage: run_pipeline [-h] -c MY_CONFIG --es-host ES_HOST --es-port ES_PORT
-                    [--es-username ES_USERNAME] [--es-password ES_PASSWORD]
-                    --index-name INDEX_NAME
-
-Arguments:
-* -h, --help
-    * show this help message and exit
-* -c MY_CONFIG, --my-config MY_CONFIG
-    * config file path
-* --es-host ES_HOST, -o ES_HOST
-    * Elasticsearch host (**Required Parameter**)
-* --es-port ES_PORT, -p ES_PORT
-    * Elasticsearch port (**Required Parameter**)
-* --es-username ES_USERNAME, -u ES_USERNAME
-    * Elasticsearch username
-* --es-password ES_PASSWORD, -a ES_PASSWORD
-    * Elasticsearch password
-* --index-name INDEX_NAME, -i INDEX_NAME
-    * Elasticsearch index name (**Required Parameter**)
-
-Though the arguments ES_HOST, ES_PORT and INDEX_NAME are required, you may choose to combine those values into a config file and provide that as an argument instead. For config file syntax, see [here](https://goo.gl/R74nmi). If an arg is specified in more than one place, then commandline values override environment variables which override config file values which override defaults.
+1. `source ./activate-virtualenv.sh`
+1. Set environment variables
+    1. `export ES_USERNAME=<foo>`
+    1. `export ES_PASSWORD=<bar>`
+    1. `export ENV=[ENVIRONMENT]`
+        1. where ENVIRONMENT=`dev`, `staging`, `prod`
+1. `make`
 
 ## Getting help
 

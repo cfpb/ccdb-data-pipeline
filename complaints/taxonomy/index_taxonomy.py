@@ -1,6 +1,13 @@
-import sys
+import configargparse
 import os
+import sys
+from common.es_proxy import add_basic_es_arguments, get_es_connection
+from common.log import setup_logging
 
+
+# -----------------------------------------------------------------------------
+# Original Functions
+# -----------------------------------------------------------------------------
 
 def alias_to_index_name(es, logger, alias, suffix=''):
     ''' figure out the correct index name -- should be alias-v1 or alias-v2
@@ -45,3 +52,42 @@ def index_taxonomy(es, logger, taxonomy_text, alias):
         body=doc, index=index_name, doc_type='taxonomy', id=1, refresh=True
     )
     logger.info("Completed indexing taxonomy")
+
+
+# -----------------------------------------------------------------------------
+# Main
+# -----------------------------------------------------------------------------
+
+
+def build_arg_parser():
+    p = configargparse.getArgumentParser(
+        prog='index_taxonomy',
+        description='fill Elasticsearch with taxonomy data',
+        ignore_unknown_config_file_keys=True,
+        default_config_files=['./config.ini'],
+        args_for_setting_config_path=['-c', '--config'],
+        args_for_writing_out_config_file=['--save-config']
+    )
+    p.add('--dump-config', action='store_true', dest='dump_config',
+          help='dump config vars and their source')
+    group = add_basic_es_arguments(p)
+    group = p.add_argument_group('Files')
+    group.add('--taxonomy', dest='taxonomy', required=True,
+              help="Taxonomy data")
+    return p
+
+
+if __name__ == '__main__':
+    p = build_arg_parser()
+    cfg = p.parse_args()
+
+    logger = setup_logging('taxonomy')
+
+    if cfg.dump_config:
+        logger.info('Running index_taxonomy with')
+        logger.info(p.format_values())
+
+    es = get_es_connection(cfg)
+
+    logger.info("Begin indexing taxonomy data in Elasticsearch")
+    index_taxonomy(es, logger, cfg.taxonomy, cfg.index_name)

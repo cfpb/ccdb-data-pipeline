@@ -2,5 +2,5 @@ ConfigArgParse==0.11.0
 boto3==1.9.80
 elasticsearch==2.3.0
 ijson==2.3
-requests==2.18.4
+requests==2.20.0
 pytz

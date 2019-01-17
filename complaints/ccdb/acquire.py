@@ -1,0 +1,93 @@
+from __future__ import print_function
+import boto3
+import configargparse
+import sys
+from common.log import setup_logging
+from datetime import date, datetime
+
+
+def serialize_helper(obj):
+    """JSON serializer for objects not serializable by default json code"""
+
+    if isinstance(obj, (datetime, date)):
+        return obj.isoformat()
+    raise TypeError("Type %s not serializable" % type(obj))
+
+
+# -----------------------------------------------------------------------------
+# Process
+# -----------------------------------------------------------------------------
+
+
+class ProgressPercentage(object):
+    def __init__(self, options):
+        self.options = options
+        self.seen_so_far = 0
+
+    def __call__(self, bytes_amount):
+        self.seen_so_far += bytes_amount
+        sys.stdout.write(
+            "\r{}  {:,d} bytes".format(self.options.outfile, self.seen_so_far)
+        )
+        sys.stdout.flush()
+
+
+def run(options):
+    import json
+    # s3 = boto3.client('s3')
+    # response = s3.list_objects(Bucket=options.bucket)
+    # print(json.dumps(response, indent=2, default=serialize_helper))
+
+    s3 = boto3.resource('s3')
+    bucket = s3.Bucket(options.bucket)
+
+    bucket.download_file(options.key, options.outfile,
+                         Callback=ProgressPercentage(options))
+
+    # Clear the buffer
+    sys.stdout.write("\n")
+    sys.stdout.flush()
+
+
+# -----------------------------------------------------------------------------
+# Main
+# -----------------------------------------------------------------------------
+
+
+def build_arg_parser():
+    p = configargparse.ArgParser(
+        prog='acquire',
+        description='retrieves the latest S3 file',
+        ignore_unknown_config_file_keys=True,
+        default_config_files=['./config.ini'],
+        args_for_setting_config_path=['-c', '--config'],
+        args_for_writing_out_config_file=['--save-config']
+    )
+    p.add('--dump-config', action='store_true', dest='dump_config',
+          help='dump config vars and their source')
+    group = p.add_argument_group('S3')
+    group.add('--s3-bucket', '-b', dest='bucket',
+              default='enterprise-data-team',
+              help='The S3 bucket that contains the data')
+    group.add('--s3-key', '-k', dest='key',
+              default='projects/consumer-complaints/public/'
+              'consumer_complaint_datashare.csv',
+              help='The S3 path to the data')
+    group = p.add_argument_group('Files')
+    group.add('--source-data', '--outfile', '-o',
+              dest='outfile', required=True,
+              help="The local name of the file to write")
+    return p
+
+
+if __name__ == '__main__':
+    p = build_arg_parser()
+    cfg = p.parse_args()
+
+    logger = setup_logging('ccdb_acquire')
+
+    if cfg.dump_config:
+        logger.info('Running ccdb_acquire with')
+        logger.info(p.format_values())
+
+    run(cfg)

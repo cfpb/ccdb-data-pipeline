@@ -68,6 +68,7 @@ ccdb_output.json
 consumer_complaint_datashare.csv
 count_data*
 todaysData.json
+.last_indexed
 
 # Sensitive Configuration
 config.ini

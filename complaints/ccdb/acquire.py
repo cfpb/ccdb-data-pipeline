@@ -3,21 +3,11 @@ import boto3
 import configargparse
 import sys
 from common.log import setup_logging
-from datetime import date, datetime
-
-
-def serialize_helper(obj):
-    """JSON serializer for objects not serializable by default json code"""
-
-    if isinstance(obj, (datetime, date)):
-        return obj.isoformat()
-    raise TypeError("Type %s not serializable" % type(obj))
 
 
 # -----------------------------------------------------------------------------
 # Process
 # -----------------------------------------------------------------------------
-
 
 class ProgressPercentage(object):
     def __init__(self, options):
@@ -74,7 +64,7 @@ def build_arg_parser():
               'consumer_complaint_datashare.csv',
               help='The S3 path to the data')
     group = p.add_argument_group('Files')
-    group.add('--source-data', '--outfile', '-o',
+    group.add('--outfile', '-o',
               dest='outfile', required=True,
               help="The local name of the file to write")
     return p

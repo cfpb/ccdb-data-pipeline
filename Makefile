@@ -17,12 +17,13 @@ DATASET_ND_JSON=complaints/ccdb/ccdb_output.json
 
 # Sentinels
 
-SENTINEL_CCDB=complaints/ccdb/.last_indexed
+INDEX_CCDB=complaints/ccdb/.last_indexed
+S3_TIMESTAMP=complaints/ccdb/.latest_dataset
 
 # Defaults
 
-ALL_LIST=$(SENTINEL_CCDB)
-ALL_FILE_TARGETS=$(DATASET_CSV) $(DATASET_ND_JSON) $(SENTINEL_CCDB)
+ALL_LIST=$(INDEX_CCDB)
+ALL_FILE_TARGETS=$(DATASET_CSV) $(DATASET_ND_JSON) $(INDEX_CCDB)
 
 # -----------------------------------------------------------------------------
 # Environment specific configuration
@@ -50,7 +51,7 @@ clean:
 # -----------------------------------------------------------------------------
 # Asset Targets
 
-$(SENTINEL_CCDB): complaints/ccdb/ccdb_mapping.json $(DATASET_ND_JSON) $(CONFIG_CCDB)
+$(INDEX_CCDB): complaints/ccdb/ccdb_mapping.json $(DATASET_ND_JSON) $(CONFIG_CCDB)
 	$(PY) -m complaints.ccdb.index_ccdb -c $(CONFIG_CCDB) \
 	   --dataset $(DATASET_ND_JSON) --index-name $(ALIAS)
 	$(PY) -m complaints.taxonomy.index_taxonomy -c $(CONFIG_CCDB) \

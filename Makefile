@@ -62,4 +62,4 @@ $(DATASET_CSV):
 	echo "download from https://s3.console.aws.amazon.com/s3/buckets/enterprise-data-team/projects/consumer-complaints/public/?region=us-east-1&tab=overview"
 
 $(DATASET_ND_JSON): $(DATASET_CSV)
-	$(PY) csv2json.py --limit $(MAX_RECORDS) --json-format NDJSON $< $@
+	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format NDJSON $< $@

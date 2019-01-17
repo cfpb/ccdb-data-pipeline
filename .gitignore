@@ -69,6 +69,7 @@ consumer_complaint_datashare.csv
 count_data*
 todaysData.json
 .last_indexed
+.latest_dataset
 
 # Sensitive Configuration
 config.ini

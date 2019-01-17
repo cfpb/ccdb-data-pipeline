@@ -22,12 +22,26 @@ class ProgressPercentage(object):
         sys.stdout.flush()
 
 
-def run(options):
-    import json
-    # s3 = boto3.client('s3')
-    # response = s3.list_objects(Bucket=options.bucket)
-    # print(json.dumps(response, indent=2, default=serialize_helper))
+def check_latest(options):
+    import os
+    import pytz
 
+    s3 = boto3.resource('s3')
+    bucket = s3.Bucket(options.bucket)
+    dataset = bucket.Object(options.key)
+
+    utc_dt = dataset.last_modified
+    local_dt = utc_dt.astimezone(pytz.timezone(options.timezone))
+    timestamp = int(local_dt.strftime("%s"))
+
+    if not os.path.exists(options.outfile):
+        open(options.outfile, 'a').close()
+
+    # The file is tagged with the current dataset time
+    os.utime(options.outfile, (timestamp, timestamp))
+
+
+def download(options):
     s3 = boto3.resource('s3')
     bucket = s3.Bucket(options.bucket)
 
@@ -55,6 +69,12 @@ def build_arg_parser():
     )
     p.add('--dump-config', action='store_true', dest='dump_config',
           help='dump config vars and their source')
+    p.add('--check-latest', '-t', action='store_true',
+          dest='get_latest',
+          help='check the timestamp of the most recent dataset')
+    p.add('--timezone', dest='timezone',
+          default='US/Eastern',
+          help='The local timezone specified in Olsen format')
     group = p.add_argument_group('S3')
     group.add('--s3-bucket', '-b', dest='bucket',
               default='enterprise-data-team',
@@ -80,4 +100,7 @@ if __name__ == '__main__':
         logger.info('Running ccdb_acquire with')
         logger.info(p.format_values())
 
-    run(cfg)
+    if cfg.get_latest:
+        check_latest(cfg)
+    else:
+        download(cfg)

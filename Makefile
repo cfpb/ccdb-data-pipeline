@@ -43,7 +43,11 @@ endif
 # -----------------------------------------------------------------------------
 # Action Targets
 
-all: $(ALL_LIST)
+all: check_latest $(ALL_LIST)
+
+check_latest:
+	# checking to see if there is a new dataset
+	$(PY) -m complaints.ccdb.acquire -c $(CONFIG_CCDB) -t -o $(S3_TIMESTAMP)
 
 clean:
 	rm -rf $(ALL_FILE_TARGETS)
@@ -61,7 +65,7 @@ $(INDEX_CCDB): complaints/ccdb/ccdb_mapping.json $(DATASET_ND_JSON) $(CONFIG_CCD
 $(CONFIG_CCDB):
 	cp config_sample.ini $(CONFIG_CCDB)
 
-$(DATASET_CSV):
+$(DATASET_CSV): $(S3_TIMESTAMP)
 	$(PY) -m complaints.ccdb.acquire -c $(CONFIG_CCDB) -o $@
 
 $(DATASET_ND_JSON): $(DATASET_CSV)

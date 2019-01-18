@@ -30,7 +30,7 @@ ALL_FILE_TARGETS=$(DATASET_CSV) $(DATASET_ND_JSON) $(INDEX_CCDB)
 
 ifeq ($(ENV), dev)
 	PY=python
-	MAX_RECORDS=20001
+	MAX_RECORDS=80001
 else ifeq ($(ENV), staging)
 	PY=.py/bin/python
 else ifeq ($(ENV), prod)
@@ -47,7 +47,7 @@ all: check_latest $(ALL_LIST)
 
 check_latest:
 	# checking to see if there is a new dataset
-	$(PY) -m complaints.ccdb.acquire -c $(CONFIG_CCDB) -t -o $(S3_TIMESTAMP)
+	$(PY) -m complaints.ccdb.acquire --check-latest -c $(CONFIG_CCDB) -o $(S3_TIMESTAMP)
 
 clean:
 	rm -rf $(ALL_FILE_TARGETS)

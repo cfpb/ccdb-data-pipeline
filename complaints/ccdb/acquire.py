@@ -2,7 +2,6 @@ from __future__ import print_function
 import boto3
 import configargparse
 import sys
-from common.log import setup_logging
 
 
 # -----------------------------------------------------------------------------
@@ -77,11 +76,10 @@ def build_arg_parser():
           help='The local timezone specified in Olsen format')
     group = p.add_argument_group('S3')
     group.add('--s3-bucket', '-b', dest='bucket',
-              default='enterprise-data-team',
+              required=True, env_var='CCDB_S3_BUCKET',
               help='The S3 bucket that contains the data')
     group.add('--s3-key', '-k', dest='key',
-              default='projects/consumer-complaints/public/'
-              'consumer_complaint_datashare.csv',
+              required=True, env_var='CCDB_S3_KEY',
               help='The S3 path to the data')
     group = p.add_argument_group('Files')
     group.add('--outfile', '-o',
@@ -94,11 +92,8 @@ if __name__ == '__main__':
     p = build_arg_parser()
     cfg = p.parse_args()
 
-    logger = setup_logging('ccdb_acquire')
-
     if cfg.dump_config:
-        logger.info('Running ccdb_acquire with')
-        logger.info(p.format_values())
+        print(p.format_values())
 
     if cfg.get_latest:
         check_latest(cfg)

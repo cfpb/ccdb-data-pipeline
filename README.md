@@ -20,8 +20,8 @@ Detailed instructions on how to install, configure, and get the project running 
 1. Set environment variables
     1. `export AWS_ACCESS_KEY_ID=<svc_account_access_key>`
     1. `export AWS_SECRET_ACCESS_KEY=<svc_account_secret_access_key>`
-    1. `export CCDB_S3_BUCKET="enterprise-data-team"`
-    1. `export CCDB_S3_KEY="projects/consumer-complaints/public/consumer_complaint_datashare.csv"`
+    1. `export CCDB_S3_BUCKET=<bucket-name>`
+    1. `export CCDB_S3_KEY=<path-to-csv>`
     1. `export ES_USERNAME=<foo>`
     1. `export ES_PASSWORD=<bar>`
     1. `export ENV=[ENVIRONMENT]`

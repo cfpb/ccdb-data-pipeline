@@ -36,8 +36,16 @@ def check_latest(options):
     if not os.path.exists(options.outfile):
         open(options.outfile, 'a').close()
 
-    # The file is tagged with the current dataset time
-    os.utime(options.outfile, (timestamp, timestamp))
+    # Get the current timestamp
+    stat = os.stat(options.outfile)
+
+    # Set the modification time of the file to be the same as the dataset
+    if stat.st_mtime != timestamp:
+        os.utime(options.outfile, (timestamp, timestamp))
+    else:
+        print('\nNo new data set since', local_dt.strftime(
+            '%I:%S %p %A, %B %d, %Y'
+        ))
 
 
 def download(options):

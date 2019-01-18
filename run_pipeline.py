@@ -40,7 +40,9 @@ def setup_complaint_logging(doc_type_name):
     logger.setLevel(logging.DEBUG)
     ch = logging.StreamHandler()
     ch.setLevel(logging.INFO)
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter(
+        '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
     ch.setFormatter(formatter)
     logger.addHandler(ch)
     return logger
@@ -57,14 +59,14 @@ def get_es_connection(config):
 
 def test_index_growing(es, index_name):
     ''' count index and make sure that number is stable or growing '''
-    filename='count_data_' + index_name + '-' + DOC_TYPE_NAME + '.txt'
+    filename = 'count_data_' + index_name + '-' + DOC_TYPE_NAME + '.txt'
     res = es.search(index=index_name, doc_type=DOC_TYPE_NAME)
     hits_count = res['hits']['total']
     assert 'hits' in res
     try:
         with open(filename, 'r') as f:
             prev_total = int(f.read())
-    except:
+    except Exception:
         prev_total = 0
         logger.info("count file did not exist")
     logger.info("%s >= %d" % (hits_count, prev_total))
@@ -90,11 +92,11 @@ def download_and_index(parser_args):
     logger.info("Testing to ensure Socrata index is stable or growing")
     test_index_growing(es, index_name)
 
-    output_file_name = 'complaints/ccdb/ccdb_output.json'
-    input_file_name = 'https://data.consumerfinance.gov/api/views/s6ew-h6mp/rows.json'
+    outfile = 'complaints/ccdb/ccdb_output.json'
+    infile = 'https://data.consumerfinance.gov/api/views/s6ew-h6mp/rows.json'
 
     logger.info("Begin processing input")
-    parse_json(input_file_name, output_file_name, logger)
+    parse_json(infile, outfile, logger)
 
     logger.info("Begin indexing data in Elasticsearch")
     ccdb_index.index_json_data(es, logger, DOC_TYPE_NAME,
@@ -116,6 +118,7 @@ def main():
         print(p.format_values())
 
     download_and_index(c)
+
 
 if __name__ == '__main__':
     main()

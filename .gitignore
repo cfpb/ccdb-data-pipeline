@@ -63,18 +63,14 @@ htmlcov/
 nosetests.xml
 coverage.xml
 
-# Front-End #
-#############
-node_modules/
-bower_components/
-.grunt/
-src/vendor/
-dist/
-
 # Generated Files
 ccdb_output.json
+consumer_complaint_datashare.csv
 count_data*
 todaysData.json
+.last_indexed
+.latest_dataset
 
 # Sensitive Configuration
 config.ini
+config-*.ini

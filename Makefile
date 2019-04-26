@@ -26,8 +26,6 @@ INPUT_S3_TIMESTAMP := complaints/ccdb/intake/.latest_dataset
 # Defaults
 
 ALL_LIST=$(INDEX_CCDB) $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON)
-ALL_FILE_TARGETS=$(DATASET_CSV) $(DATASET_ND_JSON) $(INDEX_CCDB) \
-								 $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON)
 
 # -----------------------------------------------------------------------------
 # Environment specific configuration
@@ -47,14 +45,14 @@ endif
 # -----------------------------------------------------------------------------
 # Action Targets
 
-all: check_latest $(ALL_LIST)
+all: dirs check_latest $(ALL_LIST)
 
 check_latest:
 	# checking to see if there is a new dataset
 	$(PY) -m complaints.ccdb.acquire --check-latest -c $(CONFIG_CCDB) -o $(INPUT_S3_TIMESTAMP)
 
 clean:
-	rm -rf $(ALL_FILE_TARGETS)
+	for dir in $(DIRS) ; do rm -rf $$dir ; done
 
 dirs:
 	for dir in $(DIRS) ; do [ -d $$dir ] || mkdir -p $$dir ; done

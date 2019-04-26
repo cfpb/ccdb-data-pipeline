@@ -52,6 +52,13 @@ check_latest:
 clean:
 	rm -rf $(ALL_FILE_TARGETS)
 
+ls_in:
+	$(eval FOLDER=$(shell dirname $$INPUT_S3_KEY))
+	aws s3 ls --recursive "s3://$$INPUT_S3_BUCKET/$(FOLDER)"
+
+ls_out:
+	aws s3 ls --recursive "s3://$$OUTPUT_S3_BUCKET/$$OUTPUT_S3_FOLDER"
+
 # -----------------------------------------------------------------------------
 # Asset Targets
 

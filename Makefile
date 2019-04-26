@@ -22,10 +22,11 @@ DATASET_PUBLIC_JSON := complaints/ccdb/ready_s3/complaints.json
 
 INDEX_CCDB := complaints/ccdb/ready_es/.last_indexed
 INPUT_S3_TIMESTAMP := complaints/ccdb/intake/.latest_dataset
+PUSH_S3 := complaints/ccdb/ready_s3/.last_pushed
 
 # Defaults
 
-ALL_LIST=$(INDEX_CCDB) $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON)
+ALL_LIST=$(INDEX_CCDB) $(PUSH_S3)
 
 # -----------------------------------------------------------------------------
 # Environment specific configuration
@@ -72,6 +73,10 @@ $(INDEX_CCDB): complaints/ccdb/ccdb_mapping.json $(DATASET_ND_JSON) $(CONFIG_CCD
 	   --dataset $(DATASET_ND_JSON) --index-name $(ALIAS)
 	$(PY) -m complaints.taxonomy.index_taxonomy -c $(CONFIG_CCDB) \
 	   --taxonomy complaints/taxonomy/taxonomy.txt --index-name $(ALIAS)
+	touch $@
+
+$(PUSH_S3): $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON)
+	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_JSON)
 	touch $@
 
 $(CONFIG_CCDB):

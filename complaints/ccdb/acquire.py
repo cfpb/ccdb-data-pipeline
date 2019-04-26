@@ -84,10 +84,10 @@ def build_arg_parser():
           help='The local timezone specified in Olsen format')
     group = p.add_argument_group('S3')
     group.add('--s3-bucket', '-b', dest='bucket',
-              required=True, env_var='CCDB_S3_BUCKET',
+              required=True, env_var='INPUT_S3_BUCKET',
               help='The S3 bucket that contains the data')
     group.add('--s3-key', '-k', dest='key',
-              required=True, env_var='CCDB_S3_KEY',
+              required=True, env_var='INPUT_S3_KEY',
               help='The S3 path to the data')
     group = p.add_argument_group('Files')
     group.add('--outfile', '-o',

@@ -2,39 +2,43 @@
 # "SOCRATA_JSON" = {metadata: {}, data: [[], [], []]}
 # ND-JSON = {}\n{}\n{}\n
 
-MAX_RECORDS=0
+DIRS := complaints/ccdb/intake complaints/ccdb/ready_es complaints/ccdb/ready_s3
+MAX_RECORDS := 0
 
 # Aliases
 
-ALIAS=complaint-public-$(ENV)
+ALIAS := complaint-public-$(ENV)
 
 # File Targets
 
-CONFIG_CCDB=config-ccdb.ini
+CONFIG_CCDB := config-ccdb.ini
 
-DATASET_CSV=complaints/ccdb/consumer_complaint_datashare.csv
-DATASET_ND_JSON=complaints/ccdb/ccdb_output.json
+DATASET_CSV := complaints/ccdb/intake/complaints.csv
+DATASET_ND_JSON := complaints/ccdb/ready_es/complaints.json
+DATASET_PUBLIC_CSV := complaints/ccdb/ready_s3/complaints.csv
+DATASET_PUBLIC_JSON := complaints/ccdb/ready_s3/complaints.json
 
 # Sentinels
 
-INDEX_CCDB=complaints/ccdb/.last_indexed
-S3_TIMESTAMP=complaints/ccdb/.latest_dataset
+INDEX_CCDB := complaints/ccdb/ready_es/.last_indexed
+INPUT_S3_TIMESTAMP := complaints/ccdb/intake/.latest_dataset
 
 # Defaults
 
-ALL_LIST=$(INDEX_CCDB)
-ALL_FILE_TARGETS=$(DATASET_CSV) $(DATASET_ND_JSON) $(INDEX_CCDB)
+ALL_LIST=$(INDEX_CCDB) $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON)
+ALL_FILE_TARGETS=$(DATASET_CSV) $(DATASET_ND_JSON) $(INDEX_CCDB) \
+								 $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON)
 
 # -----------------------------------------------------------------------------
 # Environment specific configuration
 
 ifeq ($(ENV), dev)
-	PY=python
-	MAX_RECORDS=80001
+	PY := python
+	MAX_RECORDS := 80001
 else ifeq ($(ENV), staging)
-	PY=.py/bin/python
+	PY := .py/bin/python
 else ifeq ($(ENV), prod)
-	PY=.py/bin/python
+	PY := .py/bin/python
 else
 	$(error "must specify ENV={dev, staging, prod}")
 	exit 1;
@@ -47,10 +51,13 @@ all: check_latest $(ALL_LIST)
 
 check_latest:
 	# checking to see if there is a new dataset
-	$(PY) -m complaints.ccdb.acquire --check-latest -c $(CONFIG_CCDB) -o $(S3_TIMESTAMP)
+	$(PY) -m complaints.ccdb.acquire --check-latest -c $(CONFIG_CCDB) -o $(INPUT_S3_TIMESTAMP)
 
 clean:
 	rm -rf $(ALL_FILE_TARGETS)
+
+dirs:
+	for dir in $(DIRS) ; do [ -d $$dir ] || mkdir -p $$dir ; done
 
 ls_in:
 	$(eval FOLDER=$(shell dirname $$INPUT_S3_KEY))
@@ -72,8 +79,14 @@ $(INDEX_CCDB): complaints/ccdb/ccdb_mapping.json $(DATASET_ND_JSON) $(CONFIG_CCD
 $(CONFIG_CCDB):
 	cp config_sample.ini $(CONFIG_CCDB)
 
-$(DATASET_CSV): $(S3_TIMESTAMP)
+$(DATASET_CSV): $(INPUT_S3_TIMESTAMP)
 	$(PY) -m complaints.ccdb.acquire -c $(CONFIG_CCDB) -o $@
 
 $(DATASET_ND_JSON): $(DATASET_CSV)
 	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format NDJSON $< $@
+
+$(DATASET_PUBLIC_CSV): $(DATASET_CSV)
+	cp $^ $@
+
+$(DATASET_PUBLIC_JSON): $(DATASET_PUBLIC_CSV)
+	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format JSON $< $@

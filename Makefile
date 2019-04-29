@@ -18,6 +18,11 @@ DATASET_ND_JSON := complaints/ccdb/ready_es/complaints.json
 DATASET_PUBLIC_CSV := complaints/ccdb/ready_s3/complaints.csv
 DATASET_PUBLIC_JSON := complaints/ccdb/ready_s3/complaints.json
 
+# Field Names
+
+FIELDS_S3_CSV := complaints/ccdb/fields-s3-csv.txt
+FIELDS_S3_JSON := complaints/ccdb/fields-s3-json.txt
+
 # Sentinels
 
 INDEX_CCDB := complaints/ccdb/ready_es/.last_indexed
@@ -77,6 +82,7 @@ $(INDEX_CCDB): complaints/ccdb/ccdb_mapping.json $(DATASET_ND_JSON) $(CONFIG_CCD
 
 $(PUSH_S3): $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_JSON)
+	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_CSV)
 	touch $@
 
 $(CONFIG_CCDB):
@@ -88,8 +94,13 @@ $(DATASET_CSV): $(INPUT_S3_TIMESTAMP)
 $(DATASET_ND_JSON): $(DATASET_CSV)
 	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format NDJSON $< $@
 
-$(DATASET_PUBLIC_CSV): $(DATASET_CSV)
-	cp $^ $@
+$(DATASET_PUBLIC_CSV): $(DATASET_CSV) $(FIELDS_S3_CSV)
+	cp $< $@
+	$(eval FIELDS=$(shell cat $(FIELDS_S3_CSV) | tr '\n' ','))
+	@# Replace first line of CSV with expected column names
+	@# https://stackoverflow.com/a/13438118
+	sed -i '' "1s/.*/$(FIELDS)/" $@
 
-$(DATASET_PUBLIC_JSON): $(DATASET_PUBLIC_CSV)
-	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format JSON $< $@
+$(DATASET_PUBLIC_JSON): $(DATASET_CSV) $(FIELDS_S3_JSON)
+	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format JSON \
+	                         --fields $(FIELDS_S3_JSON) $< $@

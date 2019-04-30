@@ -91,8 +91,9 @@ $(CONFIG_CCDB):
 $(DATASET_CSV): $(INPUT_S3_TIMESTAMP)
 	$(PY) -m complaints.ccdb.acquire -c $(CONFIG_CCDB) -o $@
 
-$(DATASET_ND_JSON): $(DATASET_CSV)
-	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format NDJSON $< $@
+$(DATASET_ND_JSON): $(DATASET_CSV) $(FIELDS_S3_JSON)
+	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format NDJSON \
+	                         --fields $(FIELDS_S3_JSON) $< $@
 
 $(DATASET_PUBLIC_CSV): $(DATASET_CSV) $(FIELDS_S3_CSV)
 	cp $< $@

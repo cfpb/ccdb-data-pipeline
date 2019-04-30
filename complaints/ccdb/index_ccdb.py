@@ -190,8 +190,9 @@ def index_json_data(
             )
             total_rows_of_data += success
             logger.info(
-                "%d records indexed, total = %d"
-                % (success, total_rows_of_data)
+                "{:,d} records indexed, total = {:,d}".format(
+                    success, total_rows_of_data
+                )
             )
         update_indexes_in_alias(
             es, logger, alias, backup_index_name, index_name

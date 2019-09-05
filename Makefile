@@ -74,6 +74,8 @@ ls_out:
 # -----------------------------------------------------------------------------
 # Asset Targets
 
+.DELETE_ON_ERROR :
+
 $(INDEX_CCDB): complaints/ccdb/ccdb_mapping.json $(DATASET_ND_JSON) $(CONFIG_CCDB)
 	$(PY) -m complaints.ccdb.index_ccdb -c $(CONFIG_CCDB) \
 	   --dataset $(DATASET_ND_JSON) --index-name $(ALIAS)

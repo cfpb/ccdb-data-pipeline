@@ -20,11 +20,16 @@ else:  # pragma: no cover
 # -----------------------------------------------------------------------------
 
 def unicode_csv_reader(unicode_csv_data, dialect=csv.excel, **kwargs):
-    csv_reader = csv.reader(utf_8_encoder(unicode_csv_data),
-                            dialect=dialect, **kwargs)
-    for row in csv_reader:
-        # decode UTF-8 back to Unicode, cell by cell:
-        yield [_unicode(cell, 'utf-8') for cell in row]
+    if sys.version >= '3':
+        csv_reader = csv.reader(unicode_csv_data, dialect=dialect, **kwargs)
+        for row in csv_reader:
+            yield row
+    else:
+        csv_reader = csv.reader(utf_8_encoder(unicode_csv_data),
+                                dialect=dialect, **kwargs)
+        for row in csv_reader:
+            # decode UTF-8 back to Unicode, cell by cell:
+            yield [_unicode(cell, 'utf-8') for cell in row]
 
 
 def utf_8_encoder(unicode_csv_data):

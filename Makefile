@@ -31,7 +31,7 @@ PUSH_S3 := complaints/ccdb/ready_s3/.last_pushed
 
 # Defaults
 
-ALL_LIST=$(INDEX_CCDB) $(PUSH_S3)
+ALL_LIST=$(PUSH_S3) $(INDEX_CCDB)
 
 # -----------------------------------------------------------------------------
 # Environment specific configuration
@@ -64,12 +64,18 @@ clean:
 dirs:
 	for dir in $(DIRS) ; do [ -d $$dir ] || mkdir -p $$dir ; done
 
+elasticsearch: $(INDEX_CCDB)
+
+
 ls_in:
 	$(eval FOLDER=$(shell dirname $$INPUT_S3_KEY))
 	aws s3 ls --recursive "s3://$$INPUT_S3_BUCKET/$(FOLDER)"
 
 ls_out:
 	aws s3 ls --recursive "s3://$$OUTPUT_S3_BUCKET/$$OUTPUT_S3_FOLDER"
+
+s3: $(PUSH_S3)
+
 
 # -----------------------------------------------------------------------------
 # Asset Targets

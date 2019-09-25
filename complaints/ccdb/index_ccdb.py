@@ -9,6 +9,8 @@ from datetime import datetime
 from elasticsearch import TransportError
 from elasticsearch.helpers import bulk
 
+FEATURE_MERGE_NEW_META = False
+
 
 # -----------------------------------------------------------------------------
 # Enhancing Functions
@@ -50,26 +52,28 @@ def enhance_complaint(complaint):
     if ':updated_at' in complaint:
         return complaint
 
-    # Simulate the Socrata field
-    dt = parse_date(complaint.get("date_received"))
-    complaint[":updated_at"] = time.mktime(dt.timetuple()) if dt else 0.0
+    # "Feature Flag" - Merge in the new metadata
+    if FEATURE_MERGE_NEW_META:
+        # Simulate the Socrata field
+        dt = parse_date(complaint.get("date_received"))
+        complaint[":updated_at"] = time.mktime(dt.timetuple()) if dt else 0.0
 
-    # Add this field
-    s = complaint.get('complaint_what_happened')
-    complaint['has_narrative'] = s != '' and s is not None
+        # Add this field
+        s = complaint.get('complaint_what_happened')
+        complaint['has_narrative'] = s != '' and s is not None
 
-    # Provide different versions of these fields
-    d = complaint.get("date_received")
-    complaint["date_received"] = format_date_est(d)
-    complaint["date_received_formatted"] = format_date_as_mdy(d)
+        # Provide different versions of these fields
+        d = complaint.get("date_received")
+        complaint["date_received"] = format_date_est(d)
+        complaint["date_received_formatted"] = format_date_as_mdy(d)
 
-    d = complaint.get("date_sent_to_company")
-    complaint["date_sent_to_company"] = format_date_est(d)
-    complaint["date_sent_to_company_formatted"] = format_date_as_mdy(d)
+        d = complaint.get("date_sent_to_company")
+        complaint["date_sent_to_company"] = format_date_est(d)
+        complaint["date_sent_to_company_formatted"] = format_date_as_mdy(d)
 
-    d = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
-    complaint["date_indexed"] = format_date_est(d)
-    complaint["date_indexed_formatted"] = format_date_as_mdy(d)
+        d = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+        complaint["date_indexed"] = format_date_est(d)
+        complaint["date_indexed_formatted"] = format_date_as_mdy(d)
 
     return complaint
 
@@ -108,13 +112,13 @@ def swap_backup_index(es, logger, alias, index_name, backup_index_name):
     if es.indices.exists_alias(name=alias):
         if es.indices.exists_alias(name=alias, index=index_name):
             logger.info(
-                "Alias Exists for index %s.\nSwitiching to backup index %s."
+                "Alias Exists for index %s.\nSwitching to backup index %s."
                 % (index_name, backup_index_name)
             )
             backup_index_name, index_name = index_name, backup_index_name
         else:
             logger.info(
-                "Alias Exists for index %s.\nSwitiching to backup index %s."
+                "Alias Exists for index %s.\nSwitching to backup index %s."
                 % (backup_index_name, index_name)
             )
     return index_name, backup_index_name

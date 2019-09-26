@@ -1,11 +1,81 @@
 import configargparse
 import os
 import sys
+import time
 import json
 from common.es_proxy import add_basic_es_arguments, get_es_connection
 from common.log import setup_logging
+from datetime import datetime
 from elasticsearch import TransportError
 from elasticsearch.helpers import bulk
+
+FEATURE_MERGE_NEW_META = False
+
+
+# -----------------------------------------------------------------------------
+# Enhancing Functions
+# -----------------------------------------------------------------------------
+
+def parse_date(date_str):
+    if not date_str:
+        return None
+
+    for fmt in ['%Y-%m-%dT%H:%M:%S', '%Y-%m-%d']:
+        try:
+            return datetime.strptime(date_str, fmt)
+        except ValueError:
+            pass
+
+    return None
+
+
+def format_date_est(date_str):
+    """format the date at noon Eastern Standard Time"""
+    d = parse_date(date_str)
+    if not d:
+        return None
+    return d.strftime("%Y-%m-%d") + 'T12:00:00-05:00'
+
+
+def format_date_as_mdy(date_str):
+    d = parse_date(date_str)
+    if not d:
+        return None
+    return d.strftime("%m/%d/%y")
+
+
+def enhance_complaint(complaint):
+    if 'complaint_id' not in complaint:
+        complaint['complaint_id'] = complaint['public_id']
+
+    # Already provided by streamParser.py
+    if ':updated_at' in complaint:
+        return complaint
+
+    # "Feature Flag" - Merge in the new metadata
+    if FEATURE_MERGE_NEW_META:
+        # Simulate the Socrata field
+        dt = parse_date(complaint.get("date_received"))
+        complaint[":updated_at"] = time.mktime(dt.timetuple()) if dt else 0.0
+
+        # Add this field
+        s = complaint.get('complaint_what_happened')
+        complaint['has_narrative'] = s != '' and s is not None
+
+        # Provide different versions of these fields
+        d = complaint.get("date_received")
+        complaint["date_received"] = format_date_est(d)
+        complaint["date_received_formatted"] = format_date_as_mdy(d)
+
+        d = complaint.get("date_sent_to_company")
+        complaint["date_sent_to_company"] = format_date_est(d)
+        complaint["date_sent_to_company_formatted"] = format_date_as_mdy(d)
+
+        d = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+        complaint["date_indexed"] = format_date_est(d)
+        complaint["date_indexed_formatted"] = format_date_as_mdy(d)
+
+    return complaint
 
 
 # -----------------------------------------------------------------------------
@@ -42,13 +112,13 @@ def swap_backup_index(es, logger, alias, index_name, backup_index_name):
     if es.indices.exists_alias(name=alias):
         if es.indices.exists_alias(name=alias, index=index_name):
             logger.info(
-                "Alias Exists for index %s.\nSwitiching to backup index %s."
+                "Alias Exists for index %s.\nSwitching to backup index %s."
                 % (index_name, backup_index_name)
             )
             backup_index_name, index_name = index_name, backup_index_name
         else:
             logger.info(
-                "Alias Exists for index %s.\nSwitiching to backup index %s."
+                "Alias Exists for index %s.\nSwitching to backup index %s."
                 % (backup_index_name, index_name)
             )
     return index_name, backup_index_name
@@ -67,9 +137,7 @@ def load_json(logger, file):
 def data_load_strategy_complaint(data):
     with open(data) as f:
         for line in f.readlines():
-            doc = json.loads(line)
-            if 'complaint_id' not in doc:
-                doc['complaint_id'] = doc['public_id']
+            doc = enhance_complaint(json.loads(line))
             yield {'_op_type': 'create',
                    '_id': doc['complaint_id'],
                    '_source': doc}
@@ -126,8 +194,9 @@ def index_json_data(
             )
             total_rows_of_data += success
             logger.info(
-                "%d records indexed, total = %d"
-                % (success, total_rows_of_data)
+                "{:,d} records indexed, total = {:,d}".format(
+                    success, total_rows_of_data
+                )
             )
         update_indexes_in_alias(
             es, logger, alias, backup_index_name, index_name

@@ -65,11 +65,11 @@ coverage.xml
 
 # Generated Files
 ccdb_output.json
-consumer_complaint_datashare.csv
 count_data*
 todaysData.json
-.last_indexed
-.latest_dataset
+intake/
+ready_es/
+ready_s3/
 
 # Sensitive Configuration
 config.ini

@@ -1,6 +1,7 @@
 from __future__ import print_function
 import boto3
 import configargparse
+import os
 import sys
 
 
@@ -16,44 +17,21 @@ class ProgressPercentage(object):
     def __call__(self, bytes_amount):
         self.seen_so_far += bytes_amount
         sys.stdout.write(
-            "\r{}  {:,d} bytes".format(self.options.outfile, self.seen_so_far)
+            "\r{}  {:,d} bytes".format(self.options.infile, self.seen_so_far)
         )
         sys.stdout.flush()
 
 
-def check_latest(options):
-    import os
-    import pytz
-
-    s3 = boto3.resource('s3')
-    bucket = s3.Bucket(options.bucket)
-    dataset = bucket.Object(options.key)
-
-    utc_dt = dataset.last_modified
-    local_dt = utc_dt.astimezone(pytz.timezone(options.timezone))
-    timestamp = int(local_dt.strftime("%s"))
-
-    if not os.path.exists(options.outfile):
-        open(options.outfile, 'a').close()
-
-    # Get the current timestamp
-    stat = os.stat(options.outfile)
-
-    # Set the modification time of the file to be the same as the dataset
-    if stat.st_mtime != timestamp:
-        os.utime(options.outfile, (timestamp, timestamp))
-    else:
-        print('\nNo new data set since', local_dt.strftime(
-            '%I:%S %p %A, %B %d, %Y'
-        ))
-
-
-def download(options):
+def upload(options):
     s3 = boto3.resource('s3')
     bucket = s3.Bucket(options.bucket)
 
-    bucket.download_file(options.key, options.outfile,
-                         Callback=ProgressPercentage(options))
+    _, filename = os.path.split(options.infile)
+    key = options.folder + '/' + filename
+
+    bucket.upload_file(
+        options.infile, key, Callback=ProgressPercentage(options)
+    )
 
     # Clear the buffer
     sys.stdout.write("\n")
@@ -84,14 +62,13 @@ def build_arg_parser():
           help='The local timezone specified in Olsen format')
     group = p.add_argument_group('S3')
     group.add('--s3-bucket', '-b', dest='bucket',
-              required=True, env_var='INPUT_S3_BUCKET',
-              help='The S3 bucket that contains the data')
-    group.add('--s3-key', '-k', dest='key',
-              required=True, env_var='INPUT_S3_KEY',
-              help='The S3 path to the data')
+              required=True, env_var='OUTPUT_S3_BUCKET',
+              help='The S3 bucket that will contain the data')
+    group.add('--s3-folder', dest='folder',
+              required=True, env_var='OUTPUT_S3_FOLDER',
+              help='The S3 path to use')
     group = p.add_argument_group('Files')
-    group.add('--outfile', '-o',
-              dest='outfile', required=True,
+    group.add(dest='infile',
               help="The local name of the file to write")
     return p
 
@@ -106,4 +83,4 @@ if __name__ == '__main__':
     if cfg.get_latest:
         check_latest(cfg)
     else:
-        download(cfg)
+        upload(cfg)

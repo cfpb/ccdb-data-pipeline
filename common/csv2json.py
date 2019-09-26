@@ -20,11 +20,16 @@ else:  # pragma: no cover
 # -----------------------------------------------------------------------------
 
 def unicode_csv_reader(unicode_csv_data, dialect=csv.excel, **kwargs):
-    csv_reader = csv.reader(utf_8_encoder(unicode_csv_data),
-                            dialect=dialect, **kwargs)
-    for row in csv_reader:
-        # decode UTF-8 back to Unicode, cell by cell:
-        yield [_unicode(cell, 'utf-8') for cell in row]
+    if sys.version >= '3':
+        csv_reader = csv.reader(unicode_csv_data, dialect=dialect, **kwargs)
+        for row in csv_reader:
+            yield row
+    else:
+        csv_reader = csv.reader(utf_8_encoder(unicode_csv_data),
+                                dialect=dialect, **kwargs)
+        for row in csv_reader:
+            # decode UTF-8 back to Unicode, cell by cell:
+            yield [_unicode(cell, 'utf-8') for cell in row]
 
 
 def utf_8_encoder(unicode_csv_data):
@@ -69,6 +74,12 @@ def saveStandardJson(options):
 # -----------------------------------------------------------------------------
 
 def run(options):
+    # Load the column names
+    ovr_columns = []
+    if options.fields:
+        with open(options.fields) as f:
+            ovr_columns = [l.strip() for l in f]
+
     formatters = {
         'JSON': saveStandardJson,
         'NDJSON': saveNewlineDelimitedJson
@@ -78,7 +89,19 @@ def run(options):
 
     with io.open(options.infile, 'r', encoding='utf-8') as f:
         parser = unicode_csv_reader(f)
-        columns = next(parser)
+        src_columns = next(parser)
+
+        columns = src_columns
+        if len(ovr_columns):
+            if len(ovr_columns) == len(src_columns):
+                columns = ovr_columns
+            else:
+                sys.stderr.write(
+                    '{} only has {} fields.  Expected {}\n'.format(
+                        options.fields, len(ovr_columns), len(src_columns)
+                    )
+                )
+                sys.stderr.flush()
 
         for row in parser:
             obj = dict(zip(columns, row))
@@ -101,6 +124,8 @@ def build_arg_parser():
     p = configargparse.ArgParser(prog='csv2json',
                                  description='converts a CSV to JSON',
                                  ignore_unknown_config_file_keys=True)
+    p.add('--fields', dest='fields', default=None,
+          help='The columns names to use instead of the source names')
     p.add('--limit', '-n', dest='limit', type=int, default=0,
           help='Stop at this many records')
     p.add('--json-format', dest='jsonFormat',

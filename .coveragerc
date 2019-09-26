@@ -1,0 +1,16 @@
+[run]
+branch = True
+omit =
+    */__init__.py
+    */__main__.py
+    */test_*.py
+    .tox/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    except ImportError:
+    raise AssertionError
+    raise NotImplementedError
+    if __name__ == .__main__.:

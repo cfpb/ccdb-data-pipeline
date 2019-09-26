@@ -3,7 +3,6 @@ import configargparse
 import csv
 import json
 import io
-import os
 import sys
 from itertools import count
 
@@ -97,17 +96,17 @@ def run(options):
                 columns = ovr_columns
             else:
                 sys.stderr.write(
-                    '{} only has {} fields.  Expected {}\n'.format(
+                    '{} has {} fields.  Expected {}\n'.format(
                         options.fields, len(ovr_columns), len(src_columns)
                     )
                 )
                 sys.stderr.flush()
 
-        for row in parser:
+        for row in parser:  # pragma: no branch
             obj = dict(zip(columns, row))
             i = formatter.send(obj)
 
-            if (i % 10000) == 0:
+            if (i % options.heartbeat) == 0:
                 print(' {:,d} rows processed'.format(i))
 
             if options.limit and i >= options.limit:
@@ -131,13 +130,19 @@ def build_arg_parser():
     p.add('--json-format', dest='jsonFormat',
           choices=['JSON', 'NDJSON'], default='JSON',
           help='The output format')
+    p.add('--heartbeat', dest='heartbeat', type=int, default=10000,
+          help='Indicate rows are being processed every N records')
     p.add('infile', help="The name of the CSV file")
     p.add('outfile', help="The name of the JSON file to write")
     return p
 
 
-if __name__ == '__main__':
+def main():
     p = build_arg_parser()
     cfg = p.parse_args()
 
     run(cfg)
+
+
+if __name__ == '__main__':
+    main()

@@ -2,18 +2,30 @@ import sys
 from contextlib import contextmanager
 
 
+def build_argv(optional=[], positional=[]):
+    import itertools
+
+    return [x for x in itertools.chain(['prog'], optional, positional)]
+
+
 @contextmanager
-def captured_output():
+def captured_output(argv):
     try:
         from StringIO import StringIO
     except ImportError:
         from io import StringIO
 
+    try:
+        from unittest.mock import patch
+    except ImportError:
+        from mock import patch
+
     new_out, new_err = StringIO(), StringIO()
     old_out, old_err = sys.stdout, sys.stderr
     try:
         sys.stdout, sys.stderr = new_out, new_err
-        yield sys.stdout, sys.stderr
+        with patch.object(sys, 'argv', argv):
+            yield sys.stdout, sys.stderr
     finally:
         sys.stdout, sys.stderr = old_out, old_err
 

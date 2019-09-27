@@ -3,12 +3,7 @@ import common.csv2json as sut
 import os
 import sys
 import unittest
-from common.tests import captured_output, validate_json
-
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
+from common.tests import build_argv, captured_output, validate_json
 
 
 def fixtureToAbsolute(fixture_file):
@@ -24,11 +19,11 @@ def fixtureToAbsolute(fixture_file):
 class TestMain(unittest.TestCase):
     def setUp(self):
         self.actual_file = fixtureToAbsolute('actual.')
-
-        self.testargs = [
-            'prog',
+        self.optional = [
             '--heartbeat', '2',
-            '--limit', '3',
+            '--limit', '3'
+        ]
+        self.positional = [
             fixtureToAbsolute('utf-8.csv'),
             self.actual_file
         ]
@@ -40,9 +35,10 @@ class TestMain(unittest.TestCase):
             pass
 
     def test_json(self):
-        with captured_output() as (out, err):
-            with patch.object(sys, 'argv', self.testargs):
-                sut.main()
+        argv = build_argv(self.optional, self.positional)
+
+        with captured_output(argv) as (out, err):
+            sut.main()
 
         validate_json(self.actual_file, fixtureToAbsolute('utf-8.json'))
 
@@ -50,11 +46,11 @@ class TestMain(unittest.TestCase):
         self.assertEqual('2 rows processed', actual_print)
 
     def test_ndjson(self):
-        self.testargs[1:1] = ['--json-format', 'NDJSON']
+        self.optional.extend(['--json-format', 'NDJSON'])
+        argv = build_argv(self.optional, self.positional)
 
-        with captured_output() as (out, err):
-            with patch.object(sys, 'argv', self.testargs):
-                sut.main()
+        with captured_output(argv) as (out, err):
+            sut.main()
 
         validate_json(self.actual_file, fixtureToAbsolute('utf-8.ndjson'))
 
@@ -62,21 +58,25 @@ class TestMain(unittest.TestCase):
         self.assertEqual('2 rows processed', actual_print)
 
     def test_switch_fields(self):
-        self.testargs[1:1] = ['--fields', fixtureToAbsolute('fields-good.txt')]
+        self.optional.extend(
+            ['--fields', fixtureToAbsolute('fields-good.txt')]
+        )
+        argv = build_argv(self.optional, self.positional)
 
-        with captured_output() as (out, err):
-            with patch.object(sys, 'argv', self.testargs):
-                sut.main()
+        with captured_output(argv) as (out, err):
+            sut.main()
 
         validate_json(self.actual_file,
                       fixtureToAbsolute('utf-8-switched.json'))
 
     def test_switch_fields_too_many(self):
-        self.testargs[1:1] = ['--fields', fixtureToAbsolute('fields-bad.txt')]
+        self.optional.extend(
+            ['--fields', fixtureToAbsolute('fields-bad.txt')]
+        )
+        argv = build_argv(self.optional, self.positional)
 
-        with captured_output() as (out, err):
-            with patch.object(sys, 'argv', self.testargs):
-                sut.main()
+        with captured_output(argv) as (out, err):
+            sut.main()
 
         # Still processes!
         validate_json(self.actual_file, fixtureToAbsolute('utf-8.json'))

@@ -1,0 +1,1696 @@
+{
+  "meta": {
+    "view": {
+      "id": "s6ew-h6mp",
+      "name": "Consumer Complaints",
+      "averageRating": 100,
+      "createdAt": 1431450318,
+      "description": "Each week we send thousands of consumers' complaints about financial products and services to companies for response. Complaints are listed in the database after the company responds or after they’ve had the complaint for 15 calendar days, whichever comes first.<br><br>\r\n\r\nWe publish the consumer’s description of what happened if the consumer opts to share it and after taking steps to remove personal information. See our <a href=\"http://files.consumerfinance.gov/a/assets/201503_cfpb_Narrative-Scrubbing-Standard.pdf\">Scrubbing Standard</a> for more details<br><br>\r\n\r\nWe don’t verify all the facts alleged in these complaints, but we take steps to confirm a commercial relationship. We may remove complaints if they don’t meet all of the publication criteria. Data is generally refreshed nightly. Company level information should be considered in context of company size and/or market share.<br><br>\r\n\r\n<a href=\"http://www.consumerfinance.gov/complaintdatabase/\">More about the Consumer Complaint Database</a> | <a href=\"http://www.consumerfinance.gov/complaint/data-use/\">How we use complaint data</a> | <a href=\"http://www.consumerfinance.gov/complaintdatabase/technical-documentation/\">Technical documentation</a>",
+      "displayType": "table",
+      "downloadCount": 274922,
+      "hideFromCatalog": false,
+      "hideFromDataJson": false,
+      "indexUpdatedAt": 1545211758,
+      "newBackend": true,
+      "numberOfComments": 0,
+      "oid": 22198008,
+      "provenance": "official",
+      "publicationAppendEnabled": false,
+      "publicationDate": 1467818298,
+      "publicationGroup": 2819740,
+      "publicationStage": "published",
+      "rowClass": "",
+      "rowsUpdatedAt": 1569573636,
+      "rowsUpdatedBy": "6rvs-5yxh",
+      "tableId": 11756201,
+      "totalTimesRated": 2,
+      "viewCount": 675883,
+      "viewLastModified": 1565097882,
+      "viewType": "tabular",
+      "approvals": [
+        {
+          "reviewedAt": 1501764095,
+          "reviewedAutomatically": true,
+          "state": "approved",
+          "submissionId": 794990,
+          "submissionObject": "public_audience_request",
+          "submissionOutcome": "change_audience",
+          "submittedAt": 1501764095,
+          "workflowId": 2174,
+          "submissionDetails": {
+            "permissionType": "READ"
+          },
+          "submissionOutcomeApplication": {
+            "failureCount": 0,
+            "status": "success"
+          },
+          "submitter": {
+            "id": "pjxg-ve4m",
+            "displayName": "Shannon Files"
+          }
+        }
+      ],
+      "columns": [
+        {
+          "id": -1,
+          "name": "sid",
+          "dataTypeName": "meta_data",
+          "fieldName": ":sid",
+          "position": 0,
+          "renderTypeName": "meta_data",
+          "format": {},
+          "flags": [
+            "hidden"
+          ]
+        },
+        {
+          "id": -1,
+          "name": "id",
+          "dataTypeName": "meta_data",
+          "fieldName": ":id",
+          "position": 0,
+          "renderTypeName": "meta_data",
+          "format": {},
+          "flags": [
+            "hidden"
+          ]
+        },
+        {
+          "id": -1,
+          "name": "position",
+          "dataTypeName": "meta_data",
+          "fieldName": ":position",
+          "position": 0,
+          "renderTypeName": "meta_data",
+          "format": {},
+          "flags": [
+            "hidden"
+          ]
+        },
+        {
+          "id": -1,
+          "name": "created_at",
+          "dataTypeName": "meta_data",
+          "fieldName": ":created_at",
+          "position": 0,
+          "renderTypeName": "meta_data",
+          "format": {},
+          "flags": [
+            "hidden"
+          ]
+        },
+        {
+          "id": -1,
+          "name": "created_meta",
+          "dataTypeName": "meta_data",
+          "fieldName": ":created_meta",
+          "position": 0,
+          "renderTypeName": "meta_data",
+          "format": {},
+          "flags": [
+            "hidden"
+          ]
+        },
+        {
+          "id": -1,
+          "name": "updated_at",
+          "dataTypeName": "meta_data",
+          "fieldName": ":updated_at",
+          "position": 0,
+          "renderTypeName": "meta_data",
+          "format": {},
+          "flags": [
+            "hidden"
+          ]
+        },
+        {
+          "id": -1,
+          "name": "updated_meta",
+          "dataTypeName": "meta_data",
+          "fieldName": ":updated_meta",
+          "position": 0,
+          "renderTypeName": "meta_data",
+          "format": {},
+          "flags": [
+            "hidden"
+          ]
+        },
+        {
+          "id": -1,
+          "name": "meta",
+          "dataTypeName": "meta_data",
+          "fieldName": ":meta",
+          "position": 0,
+          "renderTypeName": "meta_data",
+          "format": {},
+          "flags": [
+            "hidden"
+          ]
+        },
+        {
+          "id": 261888793,
+          "name": "Date received",
+          "dataTypeName": "calendar_date",
+          "description": "The date the CFPB received the complaint",
+          "fieldName": "date_received",
+          "position": 1,
+          "renderTypeName": "calendar_date",
+          "tableColumnId": 28249505,
+          "width": 91,
+          "cachedContents": {
+            "largest": "2019-09-26T00:00:00.000",
+            "non_null": 1182401,
+            "null": "0",
+            "top": [
+              {
+                "item": "2017-09-08T00:00:00.000",
+                "count": "3553"
+              },
+              {
+                "item": "2017-09-09T00:00:00.000",
+                "count": "2709"
+              },
+              {
+                "item": "2017-01-19T00:00:00.000",
+                "count": "2070"
+              },
+              {
+                "item": "2017-01-20T00:00:00.000",
+                "count": "1633"
+              },
+              {
+                "item": "2017-09-13T00:00:00.000",
+                "count": "1600"
+              },
+              {
+                "item": "2018-04-05T00:00:00.000",
+                "count": "1259"
+              },
+              {
+                "item": "2017-09-12T00:00:00.000",
+                "count": "1230"
+              },
+              {
+                "item": "2019-08-13T00:00:00.000",
+                "count": "1207"
+              },
+              {
+                "item": "2019-08-20T00:00:00.000",
+                "count": "1207"
+              },
+              {
+                "item": "2019-07-30T00:00:00.000",
+                "count": "1178"
+              },
+              {
+                "item": "2018-04-10T00:00:00.000",
+                "count": "1178"
+              },
+              {
+                "item": "2017-09-11T00:00:00.000",
+                "count": "1177"
+              },
+              {
+                "item": "2019-06-12T00:00:00.000",
+                "count": "1156"
+              },
+              {
+                "item": "2017-09-14T00:00:00.000",
+                "count": "1153"
+              },
+              {
+                "item": "2019-08-21T00:00:00.000",
+                "count": "1150"
+              },
+              {
+                "item": "2018-04-24T00:00:00.000",
+                "count": "1141"
+              },
+              {
+                "item": "2017-01-24T00:00:00.000",
+                "count": "1126"
+              },
+              {
+                "item": "2019-08-07T00:00:00.000",
+                "count": "1114"
+              },
+              {
+                "item": "2018-03-06T00:00:00.000",
+                "count": "1103"
+              },
+              {
+                "item": "2019-07-25T00:00:00.000",
+                "count": "1103"
+              }
+            ],
+            "smallest": "2011-12-01T00:00:00.000",
+            "not_null": "1392915",
+            "cardinality": "2856"
+          },
+          "format": {
+            "view": "date",
+            "align": "left"
+          }
+        },
+        {
+          "id": 261888794,
+          "name": "Product",
+          "dataTypeName": "text",
+          "description": "The type of product the consumer identified in the complaint",
+          "fieldName": "product",
+          "position": 2,
+          "renderTypeName": "text",
+          "tableColumnId": 28249497,
+          "width": 184,
+          "cachedContents": {
+            "largest": "Virtual currency",
+            "non_null": 1182401,
+            "null": "0",
+            "top": [
+              {
+                "item": "Mortgage",
+                "count": "286946"
+              },
+              {
+                "item": "Credit reporting, credit repair services, or other personal consumer reports",
+                "count": "281862"
+              },
+              {
+                "item": "Debt collection",
+                "count": "263340"
+              },
+              {
+                "item": "Credit reporting",
+                "count": "140432"
+              },
+              {
+                "item": "Credit card",
+                "count": "89190"
+              },
+              {
+                "item": "Bank account or service",
+                "count": "86206"
+              },
+              {
+                "item": "Credit card or prepaid card",
+                "count": "57740"
+              },
+              {
+                "item": "Student loan",
+                "count": "54144"
+              },
+              {
+                "item": "Checking or savings account",
+                "count": "49477"
+              },
+              {
+                "item": "Consumer Loan",
+                "count": "31604"
+              },
+              {
+                "item": "Vehicle loan or lease",
+                "count": "13549"
+              },
+              {
+                "item": "Money transfer, virtual currency, or money service",
+                "count": "12286"
+              },
+              {
+                "item": "Payday loan, title loan, or personal loan",
+                "count": "10345"
+              },
+              {
+                "item": "Payday loan",
+                "count": "5544"
+              },
+              {
+                "item": "Money transfers",
+                "count": "5354"
+              },
+              {
+                "item": "Prepaid card",
+                "count": "3819"
+              },
+              {
+                "item": "Other financial service",
+                "count": "1059"
+              },
+              {
+                "item": "Virtual currency",
+                "count": "18"
+              }
+            ],
+            "smallest": "Bank account or service",
+            "not_null": "1392915",
+            "cardinality": "18"
+          },
+          "format": {
+            "align": "left"
+          }
+        },
+        {
+          "id": 261888795,
+          "name": "Sub-product",
+          "dataTypeName": "text",
+          "description": "The type of sub-product the consumer identified in the complaint",
+          "fieldName": "sub_product",
+          "position": 3,
+          "renderTypeName": "text",
+          "tableColumnId": 28249498,
+          "width": 232,
+          "cachedContents": {
+            "largest": "Virtual currency",
+            "non_null": 947235,
+            "null": "235166",
+            "top": [
+              {
+                "item": "Credit reporting",
+                "count": "276635"
+              },
+              {
+                "item": "Checking account",
+                "count": "96180"
+              },
+              {
+                "item": "Other mortgage",
+                "count": "86635"
+              },
+              {
+                "item": "Conventional fixed mortgage",
+                "count": "70613"
+              },
+              {
+                "item": "I do not know",
+                "count": "54069"
+              },
+              {
+                "item": "General-purpose credit card or charge card",
+                "count": "44682"
+              },
+              {
+                "item": "Other (i.e. phone, health club, etc.)",
+                "count": "44544"
+              },
+              {
+                "item": "Other debt",
+                "count": "35501"
+              },
+              {
+                "item": "Conventional home mortgage",
+                "count": "34339"
+              },
+              {
+                "item": "FHA mortgage",
+                "count": "32934"
+              },
+              {
+                "item": "Credit card",
+                "count": "28698"
+              },
+              {
+                "item": "Conventional adjustable mortgage (ARM)",
+                "count": "25380"
+              },
+              {
+                "item": "Non-federal student loan",
+                "count": "25164"
+              },
+              {
+                "item": "Credit card debt",
+                "count": "24601"
+              },
+              {
+                "item": "Federal student loan servicing",
+                "count": "24097"
+              },
+              {
+                "item": "Medical",
+                "count": "21187"
+              },
+              {
+                "item": "Medical debt",
+                "count": "19128"
+              },
+              {
+                "item": "Other bank product/service",
+                "count": "17825"
+              },
+              {
+                "item": "Vehicle loan",
+                "count": "17782"
+              },
+              {
+                "item": "Installment loan",
+                "count": "12859"
+              }
+            ],
+            "smallest": "Auto",
+            "not_null": "1157749",
+            "cardinality": "76"
+          },
+          "format": {
+            "align": "left"
+          }
+        },
+        {
+          "id": 261888796,
+          "name": "Issue",
+          "dataTypeName": "text",
+          "description": "The issue the consumer identified in the complaint",
+          "fieldName": "issue",
+          "position": 4,
+          "renderTypeName": "text",
+          "tableColumnId": 28249499,
+          "width": 254,
+          "cachedContents": {
+            "largest": "Wrong amount charged or received",
+            "non_null": 1182401,
+            "null": "0",
+            "top": [
+              {
+                "item": "Incorrect information on your report",
+                "count": "170841"
+              },
+              {
+                "item": "Loan modification,collection,foreclosure",
+                "count": "112310"
+              },
+              {
+                "item": "Incorrect information on credit report",
+                "count": "102686"
+              },
+              {
+                "item": "Loan servicing, payments, escrow account",
+                "count": "77333"
+              },
+              {
+                "item": "Problem with a credit reporting company's investigation into an existing problem",
+                "count": "63866"
+              },
+              {
+                "item": "Cont'd attempts collect debt not owed",
+                "count": "60683"
+              },
+              {
+                "item": "Attempts to collect debt not owed",
+                "count": "51988"
+              },
+              {
+                "item": "Improper use of your report",
+                "count": "38556"
+              },
+              {
+                "item": "Account opening, closing, or management",
+                "count": "37961"
+              },
+              {
+                "item": "Communication tactics",
+                "count": "37356"
+              },
+              {
+                "item": "Managing an account",
+                "count": "31081"
+              },
+              {
+                "item": "Disclosure verification of debt",
+                "count": "30797"
+              },
+              {
+                "item": "Trouble during payment process",
+                "count": "27448"
+              },
+              {
+                "item": "Written notification about debt",
+                "count": "27416"
+              },
+              {
+                "item": "Deposits and withdrawals",
+                "count": "22851"
+              },
+              {
+                "item": "False statements or representation",
+                "count": "21836"
+              },
+              {
+                "item": "Struggling to pay mortgage",
+                "count": "21226"
+              },
+              {
+                "item": "Managing the loan or lease",
+                "count": "20170"
+              },
+              {
+                "item": "Dealing with my lender or servicer",
+                "count": "17630"
+              },
+              {
+                "item": "Application, originator, mortgage broker",
+                "count": "17229"
+              }
+            ],
+            "smallest": "Account opening, closing, or management",
+            "not_null": "1392915",
+            "cardinality": "166"
+          },
+          "format": {
+            "align": "left"
+          }
+        },
+        {
+          "id": 261888797,
+          "name": "Sub-issue",
+          "dataTypeName": "text",
+          "description": "The sub-issue the consumer identified in the complaint",
+          "fieldName": "sub_issue",
+          "position": 5,
+          "renderTypeName": "text",
+          "tableColumnId": 28249500,
+          "width": 212,
+          "cachedContents": {
+            "largest": "You told them to stop contacting you, but they keep trying",
+            "non_null": 664403,
+            "null": "545067",
+            "top": [
+              {
+                "item": "Information belongs to someone else",
+                "count": "81959"
+              },
+              {
+                "item": "Their investigation did not fix an error on your report",
+                "count": "46433"
+              },
+              {
+                "item": "Account status",
+                "count": "37057"
+              },
+              {
+                "item": "Debt is not mine",
+                "count": "36728"
+              },
+              {
+                "item": "Information is not mine",
+                "count": "32384"
+              },
+              {
+                "item": "Account status incorrect",
+                "count": "31872"
+              },
+              {
+                "item": "Account information incorrect",
+                "count": "28144"
+              },
+              {
+                "item": "Debt was paid",
+                "count": "27699"
+              },
+              {
+                "item": "Debt is not yours",
+                "count": "27514"
+              },
+              {
+                "item": "Credit inquiries on your report that you don't recognize",
+                "count": "25429"
+              },
+              {
+                "item": "Frequent or repeated calls",
+                "count": "21838"
+              },
+              {
+                "item": "Not given enough info to verify debt",
+                "count": "21813"
+              },
+              {
+                "item": "Didn't receive enough information to verify debt",
+                "count": "19826"
+              },
+              {
+                "item": "Attempted to collect wrong amount",
+                "count": "17271"
+              },
+              {
+                "item": "Reporting company used your report improperly",
+                "count": "12322"
+              },
+              {
+                "item": "Debt was result of identity theft",
+                "count": "11061"
+              },
+              {
+                "item": "Account terms",
+                "count": "10995"
+              },
+              {
+                "item": "Deposits and withdrawals",
+                "count": "10687"
+              },
+              {
+                "item": "Credit card company isn't resolving a dispute about a purchase on your statement",
+                "count": "9512"
+              },
+              {
+                "item": "Public record",
+                "count": "8876"
+              }
+            ],
+            "smallest": "Account information incorrect",
+            "not_null": "847848",
+            "cardinality": "218"
+          },
+          "format": {
+            "align": "left"
+          }
+        },
+        {
+          "id": 261888798,
+          "name": "Consumer complaint narrative",
+          "dataTypeName": "text",
+          "description": "Consumer complaint narrative is the consumer-submitted description of \"what happened\" from the complaint. Consumers must opt-in to share their narrative. We will not publish the narrative unless the consumer consents, and consumers can opt-out at any time. The CFPB takes reasonable steps to scrub personal information from each complaint that could be used to identify the consumer.",
+          "fieldName": "complaint_what_happened",
+          "position": 6,
+          "renderTypeName": "text",
+          "tableColumnId": 28249493,
+          "width": 376,
+          "cachedContents": {
+            "largest": "Zwicker has repeatedly tried to contact me at my in-laws even though I havent lived there since XXXX, the business involved in this debt was never registered there, and XXXX had my current address and contact info on file before sending me into collections with Zwicker and Associates. More recently, they said they had tried to called me repeatedly but they never left a voicemail even though, once after they called and left a message with father-in-law, I did call them back, gave them my proper number, and gave them permission to leave messages, and also made sure they have my current address. \n\nI had to ask 3 times ( twice on the phone and once in writing ) that they stop contacting my in-laws. My mother in-law also spoke to them at least twice and told them I didnt live there. Y father-in-law spoke to them too. When Zwicker decided to sue me, they tried to deliver the court summons to my in-laws instead of me. When Zwickers representative later came to my house with it, he just threw it at the end of the driveway where I didnt even see it when I got home. Instead, my husband found it we had no idea how long it had been there. \n\nOver the phone, I agreed to pay {$250.00} a month and they started taking monthly payments out of the account. Said they would take two to begin with and then more after I returned the court paperwork. I returned the court paperwork on time and then they stopped taking the payments wed agreed upon. There was no information in the agreement saying what constituted default or that the balance being due immediately meant that they would try to take it from my checking account. To my knowledge, the did not try to contact me before filing paperwork to levy my bank account. \n\nThe money in my checking account was from a federal student loan and so is not eligible for garnishment. I called them to discuss the issue and was then told that I the money had been taken because I hadnt paid since XXXX, which I had not been aware of. I thought payments were being taken as agreed since I hadnt heard anything from them. The lawyer kept telling me to hang up and call the collections department and the collections department kept telling me to hang up and call the lawyer and I got nowhere with them. Eventually, even though they had just frozen {$2000.00} of my checking account money, I was told I still needed to give them a payment ASAP. When I asked if they were going to continue to take money out of my account on a daily basis if I didnt give them a payment, they couldnt say. When I asked how the {$2000.00} didnt count as a payment, they said, Because we had to take it. You didnt give it to us willingly. I told them not to contact me again until after XX/XX/XXXX since I had no idea where I was going to find money for them. They started calling me again less than a week later on XX/XX/XXXX. \n\nOver the next week, I had to borrow money from my mother to cover my mortgage. I also borrowed money from sister to pay them {$250.00} for XXXX. After my husband and I got paid again, I sent them {$500.00} to make up for the missed months of XXXX and XXXX. As mentioned above, they called me again on XX/XX/XXXX. They didnt leave a message. They called again on XX/XX/XXXX. I answered and they asked me to pay the balance in full. I told the woman that I had a court judgement and that Id already sent them {$750.00} and that the {$2000.00} was still being held and that I had no more money for them. She said she had no record of any of that. I had to explain the entire court settlement/bank levy situation to her and then she had to go look for the checks I had sent. Thankfully she did eventually find them. She asked me if I was willing to set up a new payment plan. I told her I wanted to stick to the court judgement. She confirmed that my account is now up to date in accordance to that agreement, and that as long as I continued to pay on time, no more action would be taken. She also said that if I missed a payment by more than 30 days, it would be considered in default again. I asked her to confirm this 30-day policy and she twice confirmed that they dont take action until an account is 30 days past due. Of important note here, when Zwicker and Associates filed the paperwork to levy my bank account, it was only 28 days passed the payment due date.",
+            "non_null": 350651,
+            "null": "949391",
+            "top": [
+              {
+                "item": "There are many mistakes appear in my report without my understanding.",
+                "count": "1035"
+              },
+              {
+                "item": "I have been a victim of identity theft.",
+                "count": "133"
+              },
+              {
+                "item": "Equifax mishandled my information which has led to a breach that puts myself and millions of others at potential risk. I am extremely disappointed with how equifax has handled reporting this breach. Very little was done to notify the public for nearly a month after the breach was detected. I received no email, letter, or phone call and instead had to discover it via social media.",
+                "count": "118"
+              },
+              {
+                "item": "I am filing this complaint because Experian has ignored my request to provide me with the documents that their company has on file that was used to verify the accounts I disputed. Being that they have gone past the 30 day mark and can not verify these accounts, under Section 611 ( 5 ) ( A ) of the FCRA - they are required to \" ... promptly delete all information which can not be verified '' that I have disputed. Please resolve this manner as soon as possible. Thank you.",
+                "count": "103"
+              },
+              {
+                "item": "( a ) Block. Except as otherwise provided in this section, a consumer reporting agency shall block the reporting of any information in the file of a consumer that the consumer identifies as information that resulted from an alleged identity theft, not later than 4 business days after the date of receipt by such agency of ( 1 ) appropriate proof of the identity of the consumer ; ( 2 ) a copy of an identity theft report ; ( 3 ) the identification of such information by the consumer ; and ( 4 ) a statement by the consumer that the information is not information relating to any transaction by the consumer.\n\n( b ) Notification. A consumer reporting agency shall promptly notify the furnisher of information identified by the consumer under subsection ( a ) of this section ( 1 ) that the information may be a result of identity theft ; ( 2 ) that an identity theft report has been filed ; ( 3 ) that a block has been requested under this section ; and ( 4 ) of the effective dates of the block.\n\n( c ) Authority to decline or rescind.\n\n( 1 ) In general. A consumer reporting agency may decline to block, or may rescind any block, of information relating to a consumer under this section, if the consumer reporting agency reasonably determines that ( A ) the information was blocked in error or a block was requested by the consumer in error ; ( B ) the information was blocked, or a block was requested by the consumer, on the basis of a material misrepresentation of fact by the consumer relevant to the request to block ; or ( C ) the consumer obtained possession of goods, services, or money as a result of the blocked transaction or transactions.\n\n( 2 ) Notification to consumer. If a block of information is declined or rescinded under this subsection, the affected consumer shall be notified promptly, in the same manner as consumers are notified of the reinsertion of information under section 1681i ( a ) ( 5 ) ( B ) of this title.\n\n( 3 ) Significance of block. For purposes of this subsection, if a consumer reporting agency rescinds a block, the presence of information in the file of a consumer prior to the blocking of such information is not evidence of whether the consumer knew or should have known that the consumer obtained possession of any goods, services, or money as a result of the block.\n\n( d ) Exception for resellers.\n\n( 1 ) No reseller file. This section shall not apply to a consumer reporting agency, if the consumer reporting agency ( A ) is a reseller ; ( B ) is not, at the time of the request of the consumer under subsection ( a ) of this section, otherwise furnishing or reselling a consumer report concerning the information identified by the consumer ; and ( C ) informs the consumer, by any means, that the consumer may report the identity theft to the Bureau to obtain consumer information regarding identity theft.\n\n( 2 ) Reseller with file. The sole obligation of the consumer reporting agency under this section, with regard to any request of a consumer under this section, shall be to block the consumer report maintained by the consumer reporting agency from any subsequent use, if ( A ) the consumer, in accordance with the provisions of subsection ( a ) of this section, identifies, to a consumer reporting agency, information in the file of the consumer that resulted from identity theft ; and ( B ) the consumer reporting agency is a reseller of the identified information.\n\n( 3 ) Notice. In carrying out its obligation under paragraph ( 2 ), the reseller shall promptly provide a notice to the consumer of the decision to block the file. Such notice shall contain the name, address, and telephone number of each consumer reporting agency from which the consumer information was obtained for resale.\n\n( e ) Exception for verification companies. The provisions of this section do not apply to a check services company, acting as such, which issues authorizations for the purpose of approving or processing negotiable instruments, electronic fund transfers, or similar methods of payments, except that, beginning 4 business days after receipt of information described in paragraphs ( 1 ) through ( 3 ) of subsection ( a ) of this section, a check services company shall not report to a national consumer reporting agency described in section 1681a ( p ) of this title, any information identified in the subject identity theft report as resulting from identity theft.\n\n( f ) Access to blocked information by law enforcement agencies. No provision of this section shall be construed as requiring a consumer reporting agency to prevent a Federal, State, or local law enforcement agency from accessing blocked information in a consumer file to which the agency could otherwise obtain access under this subchapter.",
+                "count": "82"
+              },
+              {
+                "item": "Creditor is reporting accounts that are invalid and unverified. XXXX have investigated this account and they concluded the account was not matching my records of being assigned to me. I would like proof these accounts were disputed per FCRA/ FDCPA. This is causing me anguish and its slandering my good name. Please block this account from my report so I can breathe again.",
+                "count": "65"
+              },
+              {
+                "item": "I am a victim of identity theft",
+                "count": "63"
+              },
+              {
+                "item": "I am filing this complaint because TransUnion has ignored my request to provide me with the documents that their company has on file that was used to verify the accounts I disputed. Being that they have gone past the 30 day mark and can not verify these accounts, under Section 611 ( 5 ) ( A ) of the FCRA - they are required to \" ... promptly delete all information which can not be verified '' that I have disputed. Please resolve this manner as soon as possible. Thank you.",
+                "count": "50"
+              },
+              {
+                "item": "THE DISPUTED ACCOUNTS HAS BEEN HINDERING MY CREDIT AND HAS BEEN AFFECTING MY CHANCES OF ACQUIRING NEW CREDIT. PLEASE HAVE THESE ACCOUNTS REMOVE OFF MY CREDIT FILE. THOSE ACCOUNTS ARE CLOSED ACCOUNT THAT ARE REPORTING AS DEROGATORY AND DELINQUENT, PLEASE CONDUCT A REINVESTIGATION INTO THIS MATTER AND HAVE MY CREDIT REPORT UPDATED WITH THE APPROPRIATE ACCOUNT ACCURACIES.",
+                "count": "50"
+              },
+              {
+                "item": "This company continues to report on my credit report after I sent them a letter telling them that this account was not mine and I have no idea what it is or who it belongs to! \n\nI asked for proof of a signed contract, I asked for a license to collect in my state, I asked for copies of all information referenced for this debt and still to date, I have not received anything but harassment from this company! \n\nTHIS IS NOT MY DEBT! \n\nI WANT THIS ACCOUNT REMOVED FROM MY CREDIT REPORT AND THIS COMPANY TO STOP CONTACTING ME IMMEDIATELY!",
+                "count": "49"
+              },
+              {
+                "item": "After checking my credit I realize that I have been victim of identity theft, An identity theft report had been filed with the FTC and a police report will be filed. As require by FCRA any information reported as fraudulent should be removed from the consumer credit file. I'm reporting this as an effort to clear my name.",
+                "count": "48"
+              },
+              {
+                "item": "I am filing this complaint because Equifax has ignored my request to provide me with the documents that their company has on file that was used to verify the accounts I disputed. Being that they have gone past the 30 day mark and can not verify these accounts, under Section 611 ( 5 ) ( A ) of the FCRA - they are required to \" ... promptly delete all information which can not be verified '' that I have disputed. Please resolve this manner as soon as possible. Thank you.",
+                "count": "45"
+              },
+              {
+                "item": "I have disputed this item with the credit reporting agency and they reported you confirmed the account as valid. I honestly do not believe to ever have any relationship with this collection agency or original creditor. Also there are several inaccuracies with this account the way it's reporting and that's a total violation of FCRA and FDCPA laws and regulations. In a good faith effort to resolve the matter amicably, I must demand proof of this debt, specifically the alleged contract or other instrument bearing my signature, as well as proof of your authority in this matter. Absent such proof, you must correct any erroneous reports of this past debt as mine. I am writing to request that you please provide the following information : 1. Please evidence your authorization under 15 USC 1692 ( e ) and 15 USC 1692 ( f ) in this alleged matter. 2. What is your authorization of law for your collection of information? 3. What is your authorization of law for your collection of this alleged debt? 4. Please evidence your authorization to do business or operate in this state. 5. Please evidence proof of the alleged debt, including the alleged contract or other instrument bearing my signature. 6. Please provide a complete account history, including any charges added for collection activity.",
+                "count": "44"
+              },
+              {
+                "item": "I checked my credit report and identified personal information that does not belong to me. I am a victim of identity theft and that's one of the first steps that they told me to do is check my report for any discrepancies. I notified the credit bureaus, but no changes were made.",
+                "count": "41"
+              },
+              {
+                "item": "Creditor is reporting accounts that are invalid and unverified. XXXX  have investigated this account and they concluded the account was not matching my records of being assigned to me. I would like proof these accounts were disputed per FCRA/ FDCPA. This is causing me anguish and its slandering my good name. Please block this account from my report so I can breathe again.",
+                "count": "40"
+              },
+              {
+                "item": "I have been a victim of identity theft",
+                "count": "39"
+              },
+              {
+                "item": "Equifax mishandled my information which has led to a breach that puts myself and millions of others at potential risk. I am extremely disappointed with how equifax has handled reporting this breach. Very little was done to notify the public for nearly a month after the breach was detected. I received no email, letter, or phone call and instead had to discover it via social media. \n\nGoing forward equifax should be required to monitor every account and notify victims if any fraud occurs. Credit fraud protection should be mandatory for every account, not an option for us to have deal with. \n\nThis should be rectified firstly by making credit freezing free and refunding everyone who paid for it following this data breach. Requiring a police report is absurd when they clearly know if you were affected.",
+                "count": "36"
+              },
+              {
+                "item": "Equifax mishandled my information which has led to a breach that puts myself and millions of others at potential risk. I am extremely disappointed with how Equifax has handled reporting this breach. Very little was done to notify the public for nearly a month after the breach was detected. I received no email, letter, or phone call and instead had to discover it via social media.",
+                "count": "34"
+              },
+              {
+                "item": "AFTER REVIEWING MY CREDIT REPORT I DISCOVERED A FEW INACCURATE ACCOUNTS ON MY FILE. THE DISPUTED ACCOUNTS DOES NOT BELONG TO ME, THOSE ACCOUNTS WERE INACCURATELY PLACED ON MY CREDIT, PLEASE CONDUCT AN INVESTIGATION FOR THOSE DEROGATORY MARKS FOR THEY HAVE CAUSED SERIOUS DAMAGE ON MY CREDIT.",
+                "count": "33"
+              },
+              {
+                "item": "FCRA states information reporting has to be 100 % verifiable and 100 % accurate otherwise the information must be removed under federal law. XXXX has been reporting unverifiable and inaccurate information on my credit which has damaged my credit. I intend to litigate if they do no remove this file from my credit report. I request for them to provide the written contract and physical documentation to support the information they are reporting on my credit report via the CFPB portal. Do not send screenshots. Do not send medical statements. Send my actual signature on a contract. As this debt is Not mine.",
+                "count": "32"
+              }
+            ],
+            "smallest": "{$0.00} Account Details Last Reported XX/XX/XXXX Creditor Name GOLDEN 1 CU Account Type Credit Card Account Status Closed - Paid Opened Date XX/XX/XXXX Closed Date XX/XX/XXXX Limit {$500.00} Term -- Monthly Payment {$0.00} Responsibility Individual Balance {$0.00} Highest Balance {$690.00} Payment Status Current Worst Payment Status XXXX Days Late Date of Last Payment XX/XX/XXXX Amount Past Due $ XXXX  Times XX/XX/XXXX Days Late XXXX Remarks Canceled by credit grantor ] ] ] I would love to resolve this and remove from from credit. As I am new to credit and would greatly help you benefit in the future.",
+            "not_null": "443524",
+            "cardinality": "422608"
+          },
+          "format": {
+            "align": "left"
+          }
+        },
+        {
+          "id": 261888799,
+          "name": "Company public response",
+          "dataTypeName": "text",
+          "description": "The company's optional, public-facing response to a consumer's complaint. Companies provide a public response to the CFPB, for posting on the public database, by selecting a response from a set list of options.",
+          "fieldName": "company_public_response",
+          "position": 7,
+          "renderTypeName": "text",
+          "tableColumnId": 28249495,
+          "width": 376,
+          "cachedContents": {
+            "largest": "Company has responded to the consumer and the CFPB and chooses not to provide a public response",
+            "non_null": 398835,
+            "null": "885642",
+            "top": [
+              {
+                "item": "Company has responded to the consumer and the CFPB and chooses not to provide a public response",
+                "count": "363043"
+              },
+              {
+                "item": "Company believes it acted appropriately as authorized by contract or law",
+                "count": "66456"
+              },
+              {
+                "item": "Company chooses not to provide a public response",
+                "count": "52473"
+              },
+              {
+                "item": "Company believes the complaint is the result of a misunderstanding",
+                "count": "6160"
+              },
+              {
+                "item": "Company disputes the facts presented in the complaint",
+                "count": "5587"
+              },
+              {
+                "item": "Company believes complaint caused principally by actions of third party outside the control or direction of the company",
+                "count": "4203"
+              },
+              {
+                "item": "Company believes complaint is the result of an isolated error",
+                "count": "4028"
+              },
+              {
+                "item": "Company believes complaint represents an opportunity for improvement to better serve consumers",
+                "count": "2855"
+              },
+              {
+                "item": "Company can't verify or dispute the facts in the complaint",
+                "count": "2401"
+              },
+              {
+                "item": "Company believes complaint relates to a discontinued policy or procedure",
+                "count": "67"
+              }
+            ],
+            "smallest": "Company believes complaint caused principally by actions of third party outside the control or direction of the company",
+            "not_null": "507273",
+            "cardinality": "10"
+          },
+          "format": {
+            "align": "left"
+          }
+        },
+        {
+          "id": 261888800,
+          "name": "Company",
+          "dataTypeName": "text",
+          "description": "The complaint is about this company",
+          "fieldName": "company",
+          "position": 8,
+          "renderTypeName": "text",
+          "tableColumnId": 28249508,
+          "width": 319,
+          "cachedContents": {
+            "largest": " Lippman Recupero, LLC",
+            "non_null": 1182401,
+            "null": "0",
+            "top": [
+              {
+                "item": "EQUIFAX, INC.",
+                "count": "132157"
+              },
+              {
+                "item": "Experian Information Solutions Inc.",
+                "count": "117947"
+              },
+              {
+                "item": "TRANSUNION INTERMEDIATE HOLDINGS, INC.",
+                "count": "113147"
+              },
+              {
+                "item": "BANK OF AMERICA, NATIONAL ASSOCIATION",
+                "count": "85322"
+              },
+              {
+                "item": "WELLS FARGO & COMPANY",
+                "count": "73930"
+              },
+              {
+                "item": "JPMORGAN CHASE & CO.",
+                "count": "63556"
+              },
+              {
+                "item": "CITIBANK, N.A.",
+                "count": "51771"
+              },
+              {
+                "item": "CAPITAL ONE FINANCIAL CORPORATION",
+                "count": "37540"
+              },
+              {
+                "item": "Navient Solutions, LLC.",
+                "count": "30605"
+              },
+              {
+                "item": "OCWEN FINANCIAL CORPORATION",
+                "count": "28399"
+              },
+              {
+                "item": "SYNCHRONY FINANCIAL",
+                "count": "23767"
+              },
+              {
+                "item": "NATIONSTAR MORTGAGE",
+                "count": "21142"
+              },
+              {
+                "item": "U.S. BANCORP",
+                "count": "18110"
+              },
+              {
+                "item": "AMERICAN EXPRESS COMPANY",
+                "count": "14812"
+              },
+              {
+                "item": "Ditech Financial LLC",
+                "count": "14472"
+              },
+              {
+                "item": "PNC Bank N.A.",
+                "count": "12382"
+              },
+              {
+                "item": "ENCORE CAPITAL GROUP INC.",
+                "count": "12038"
+              },
+              {
+                "item": "PORTFOLIO RECOVERY ASSOCIATES INC",
+                "count": "11239"
+              },
+              {
+                "item": "DISCOVER BANK",
+                "count": "11183"
+              },
+              {
+                "item": "TD BANK US HOLDING COMPANY",
+                "count": "10468"
+              }
+            ],
+            "smallest": "10 Cent Title Pawn Inc",
+            "not_null": "1392915",
+            "cardinality": "5414"
+          },
+          "format": {
+            "align": "left"
+          }
+        },
+        {
+          "id": 261888801,
+          "name": "State",
+          "dataTypeName": "text",
+          "description": "The consumer’s reported mailing state for the complaint",
+          "fieldName": "state",
+          "position": 9,
+          "renderTypeName": "text",
+          "tableColumnId": 28249502,
+          "width": 50,
+          "cachedContents": {
+            "largest": "WY",
+            "non_null": 1166030,
+            "null": "22601",
+            "top": [
+              {
+                "item": "CA",
+                "count": "189568"
+              },
+              {
+                "item": "FL",
+                "count": "140149"
+              },
+              {
+                "item": "TX",
+                "count": "117748"
+              },
+              {
+                "item": "NY",
+                "count": "94447"
+              },
+              {
+                "item": "GA",
+                "count": "73889"
+              },
+              {
+                "item": "IL",
+                "count": "53633"
+              },
+              {
+                "item": "NJ",
+                "count": "51244"
+              },
+              {
+                "item": "PA",
+                "count": "47724"
+              },
+              {
+                "item": "NC",
+                "count": "43113"
+              },
+              {
+                "item": "OH",
+                "count": "41448"
+              },
+              {
+                "item": "VA",
+                "count": "40027"
+              },
+              {
+                "item": "MD",
+                "count": "38833"
+              },
+              {
+                "item": "MI",
+                "count": "32479"
+              },
+              {
+                "item": "AZ",
+                "count": "29367"
+              },
+              {
+                "item": "WA",
+                "count": "26115"
+              },
+              {
+                "item": "MA",
+                "count": "24324"
+              },
+              {
+                "item": "TN",
+                "count": "22950"
+              },
+              {
+                "item": "CO",
+                "count": "21837"
+              },
+              {
+                "item": "SC",
+                "count": "20947"
+              },
+              {
+                "item": "MO",
+                "count": "19843"
+              }
+            ],
+            "smallest": "AA",
+            "not_null": "1370314",
+            "cardinality": "63"
+          },
+          "format": {
+            "align": "left"
+          }
+        },
+        {
+          "id": 261888802,
+          "name": "ZIP code",
+          "dataTypeName": "text",
+          "description": "Mailing ZIP code provided by the consumer. This field may: i) include the first five digits of a ZIP code; ii) include the first three digits of a ZIP code (if the consumer consented to publication of their complaint narrative); or iii) be blank (if ZIP codes have been submitted with non-numeric values, if there are less than 20,000 people in a given ZIP code, or if the complaint has an address outside of the United States).",
+          "fieldName": "zip_code",
+          "position": 10,
+          "renderTypeName": "text",
+          "tableColumnId": 28249503,
+          "width": 63,
+          "cachedContents": {
+            "largest": "999XX",
+            "non_null": 1086317,
+            "null": "127231",
+            "top": [
+              {
+                "item": "300XX",
+                "count": "8422"
+              },
+              {
+                "item": "330XX",
+                "count": "6969"
+              },
+              {
+                "item": "770XX",
+                "count": "6785"
+              },
+              {
+                "item": "331XX",
+                "count": "6600"
+              },
+              {
+                "item": "606XX",
+                "count": "5610"
+              },
+              {
+                "item": "750XX",
+                "count": "5408"
+              },
+              {
+                "item": "334XX",
+                "count": "5308"
+              },
+              {
+                "item": "303XX",
+                "count": "5065"
+              },
+              {
+                "item": "900XX",
+                "count": "4564"
+              },
+              {
+                "item": "945XX",
+                "count": "4546"
+              },
+              {
+                "item": "333XX",
+                "count": "4288"
+              },
+              {
+                "item": "302XX",
+                "count": "4198"
+              },
+              {
+                "item": "891XX",
+                "count": "4001"
+              },
+              {
+                "item": "112XX",
+                "count": "3973"
+              },
+              {
+                "item": "070XX",
+                "count": "3831"
+              },
+              {
+                "item": "191XX",
+                "count": "3531"
+              },
+              {
+                "item": "207XX",
+                "count": "3504"
+              },
+              {
+                "item": "604XX",
+                "count": "3362"
+              },
+              {
+                "item": "301XX",
+                "count": "3298"
+              },
+              {
+                "item": "852XX",
+                "count": "3158"
+              }
+            ],
+            "smallest": "00009",
+            "not_null": "1265684",
+            "cardinality": "23175"
+          },
+          "format": {
+            "align": "left"
+          }
+        },
+        {
+          "id": 261888803,
+          "name": "Tags",
+          "dataTypeName": "text",
+          "description": "Data that supports easier searching and sorting of complaints submitted by or on behalf of consumers",
+          "fieldName": "tags",
+          "position": 11,
+          "renderTypeName": "text",
+          "tableColumnId": 34590265,
+          "width": 100,
+          "cachedContents": {
+            "largest": "Servicemember",
+            "non_null": 161581,
+            "null": "1202781",
+            "top": [
+              {
+                "item": "Servicemember",
+                "count": "93399"
+              },
+              {
+                "item": "Older American",
+                "count": "81349"
+              },
+              {
+                "item": "Older American, Servicemember",
+                "count": "15386"
+              }
+            ],
+            "smallest": "Older American",
+            "not_null": "190134",
+            "cardinality": "3"
+          },
+          "format": {
+            "align": "left"
+          }
+        },
+        {
+          "id": 261888804,
+          "name": "Consumer consent provided?",
+          "dataTypeName": "text",
+          "description": "Identifies whether the consumer opted in to publish their complaint narrative",
+          "fieldName": "consumer_consent_provided",
+          "position": 12,
+          "renderTypeName": "text",
+          "tableColumnId": 34590266,
+          "width": 100,
+          "cachedContents": {
+            "largest": "Other",
+            "non_null": 1167564,
+            "null": "18764",
+            "top": [
+              {
+                "item": "N/A",
+                "count": "580746"
+              },
+              {
+                "item": "Consent provided",
+                "count": "443860"
+              },
+              {
+                "item": "Consent not provided",
+                "count": "322145"
+              },
+              {
+                "item": "Other",
+                "count": "26080"
+              },
+              {
+                "item": "Consent withdrawn",
+                "count": "1320"
+              }
+            ],
+            "smallest": "Consent not provided",
+            "not_null": "1374151",
+            "cardinality": "5"
+          },
+          "format": {
+            "align": "left"
+          }
+        },
+        {
+          "id": 261888805,
+          "name": "Submitted via",
+          "dataTypeName": "text",
+          "description": "How the complaint was submitted to CFPB",
+          "fieldName": "submitted_via",
+          "position": 13,
+          "renderTypeName": "text",
+          "tableColumnId": 28249504,
+          "width": 110,
+          "cachedContents": {
+            "largest": "Web",
+            "non_null": 1182401,
+            "null": "0",
+            "top": [
+              {
+                "item": "Web",
+                "count": "1037307"
+              },
+              {
+                "item": "Referral",
+                "count": "181792"
+              },
+              {
+                "item": "Phone",
+                "count": "82815"
+              },
+              {
+                "item": "Postal mail",
+                "count": "70634"
+              },
+              {
+                "item": "Fax",
+                "count": "19977"
+              },
+              {
+                "item": "Email",
+                "count": "390"
+              }
+            ],
+            "smallest": "Email",
+            "not_null": "1392915",
+            "cardinality": "6"
+          },
+          "format": {
+            "align": "left"
+          }
+        },
+        {
+          "id": 261888806,
+          "name": "Date sent to company",
+          "dataTypeName": "calendar_date",
+          "description": "The date the CFPB sent the complaint to the company",
+          "fieldName": "date_sent_to_company",
+          "position": 14,
+          "renderTypeName": "calendar_date",
+          "tableColumnId": 28249507,
+          "width": 141,
+          "cachedContents": {
+            "largest": "2019-09-26T00:00:00.000",
+            "non_null": 1182401,
+            "null": "0",
+            "top": [
+              {
+                "item": "2017-09-08T00:00:00.000",
+                "count": "3387"
+              },
+              {
+                "item": "2017-09-09T00:00:00.000",
+                "count": "2656"
+              },
+              {
+                "item": "2017-01-19T00:00:00.000",
+                "count": "1613"
+              },
+              {
+                "item": "2017-09-13T00:00:00.000",
+                "count": "1535"
+              },
+              {
+                "item": "2017-01-20T00:00:00.000",
+                "count": "1467"
+              },
+              {
+                "item": "2017-09-14T00:00:00.000",
+                "count": "1264"
+              },
+              {
+                "item": "2019-08-21T00:00:00.000",
+                "count": "1237"
+              },
+              {
+                "item": "2017-01-24T00:00:00.000",
+                "count": "1235"
+              },
+              {
+                "item": "2019-08-13T00:00:00.000",
+                "count": "1232"
+              },
+              {
+                "item": "2019-08-20T00:00:00.000",
+                "count": "1203"
+              },
+              {
+                "item": "2019-07-30T00:00:00.000",
+                "count": "1193"
+              },
+              {
+                "item": "2018-04-10T00:00:00.000",
+                "count": "1191"
+              },
+              {
+                "item": "2019-05-31T00:00:00.000",
+                "count": "1191"
+              },
+              {
+                "item": "2019-04-02T00:00:00.000",
+                "count": "1175"
+              },
+              {
+                "item": "2019-06-12T00:00:00.000",
+                "count": "1166"
+              },
+              {
+                "item": "2017-01-25T00:00:00.000",
+                "count": "1148"
+              },
+              {
+                "item": "2019-04-16T00:00:00.000",
+                "count": "1143"
+              },
+              {
+                "item": "2017-09-12T00:00:00.000",
+                "count": "1138"
+              },
+              {
+                "item": "2019-07-25T00:00:00.000",
+                "count": "1138"
+              },
+              {
+                "item": "2019-08-15T00:00:00.000",
+                "count": "1137"
+              }
+            ],
+            "smallest": "2011-12-01T00:00:00.000",
+            "not_null": "1392915",
+            "cardinality": "2805"
+          },
+          "format": {
+            "view": "date",
+            "align": "left"
+          }
+        },
+        {
+          "id": 261888807,
+          "name": "Company response to consumer",
+          "dataTypeName": "text",
+          "description": "This is how the company responded",
+          "fieldName": "company_response",
+          "position": 15,
+          "renderTypeName": "text",
+          "tableColumnId": 28249509,
+          "width": 204,
+          "cachedContents": {
+            "largest": "Untimely response",
+            "non_null": 1182395,
+            "null": "1",
+            "top": [
+              {
+                "item": "Closed with explanation",
+                "count": "1081402"
+              },
+              {
+                "item": "Closed with non-monetary relief",
+                "count": "175732"
+              },
+              {
+                "item": "Closed with monetary relief",
+                "count": "78616"
+              },
+              {
+                "item": "Closed without relief",
+                "count": "17868"
+              },
+              {
+                "item": "Closed",
+                "count": "17611"
+              },
+              {
+                "item": "In progress",
+                "count": "9686"
+              },
+              {
+                "item": "Untimely response",
+                "count": "6695"
+              },
+              {
+                "item": "Closed with relief",
+                "count": "5304"
+              }
+            ],
+            "smallest": "Closed",
+            "not_null": "1392914",
+            "cardinality": "8"
+          },
+          "format": {
+            "align": "left"
+          }
+        },
+        {
+          "id": 261888808,
+          "name": "Timely response?",
+          "dataTypeName": "text",
+          "description": "Whether the company gave a timely response",
+          "fieldName": "timely",
+          "position": 16,
+          "renderTypeName": "text",
+          "tableColumnId": 28249510,
+          "width": 115,
+          "cachedContents": {
+            "largest": "Yes",
+            "non_null": 1182401,
+            "null": "0",
+            "top": [
+              {
+                "item": "Yes",
+                "count": "1359103"
+              },
+              {
+                "item": "No",
+                "count": "33812"
+              }
+            ],
+            "smallest": "No",
+            "not_null": "1392915",
+            "cardinality": "2"
+          },
+          "format": {
+            "align": "left"
+          }
+        },
+        {
+          "id": 261888809,
+          "name": "Consumer disputed?",
+          "dataTypeName": "text",
+          "description": "Whether the consumer disputed the company’s response",
+          "fieldName": "consumer_disputed",
+          "position": 17,
+          "renderTypeName": "text",
+          "tableColumnId": 28249511,
+          "width": 128,
+          "cachedContents": {
+            "largest": "Yes",
+            "non_null": 1182401,
+            "null": "0",
+            "top": [
+              {
+                "item": "N/A",
+                "count": "624430"
+              },
+              {
+                "item": "No",
+                "count": "620107"
+              },
+              {
+                "item": "Yes",
+                "count": "148378"
+              }
+            ],
+            "smallest": "N/A",
+            "not_null": "1392915",
+            "cardinality": "3"
+          },
+          "format": {
+            "align": "left"
+          }
+        },
+        {
+          "id": 261888810,
+          "name": "Complaint ID",
+          "dataTypeName": "number",
+          "description": "The unique identification number for a complaint",
+          "fieldName": "complaint_id",
+          "position": 18,
+          "renderTypeName": "number",
+          "tableColumnId": 28249492,
+          "width": 161,
+          "cachedContents": {
+            "largest": "3387940",
+            "non_null": 1182401,
+            "average": "1825594.417663720",
+            "null": "0",
+            "top": [
+              {
+                "item": "5",
+                "count": "1"
+              },
+              {
+                "item": "7",
+                "count": "1"
+              },
+              {
+                "item": "16",
+                "count": "1"
+              },
+              {
+                "item": "20",
+                "count": "1"
+              },
+              {
+                "item": "22",
+                "count": "1"
+              },
+              {
+                "item": "24",
+                "count": "1"
+              },
+              {
+                "item": "26",
+                "count": "1"
+              },
+              {
+                "item": "27",
+                "count": "1"
+              },
+              {
+                "item": "36",
+                "count": "1"
+              },
+              {
+                "item": "37",
+                "count": "1"
+              },
+              {
+                "item": "39",
+                "count": "1"
+              },
+              {
+                "item": "41",
+                "count": "1"
+              },
+              {
+                "item": "46",
+                "count": "1"
+              },
+              {
+                "item": "48",
+                "count": "1"
+              },
+              {
+                "item": "50",
+                "count": "1"
+              },
+              {
+                "item": "51",
+                "count": "1"
+              },
+              {
+                "item": "54",
+                "count": "1"
+              },
+              {
+                "item": "56",
+                "count": "1"
+              },
+              {
+                "item": "66",
+                "count": "1"
+              },
+              {
+                "item": "72",
+                "count": "1"
+              }
+            ],
+            "smallest": "1",
+            "not_null": "1392915",
+            "sum": "2158584665040",
+            "cardinality": "1392915"
+          },
+          "format": {
+            "precisionStyle": "standard",
+            "noCommas": "true",
+            "align": "left"
+          }
+        }
+      ],
+      "grants": [
+        {
+          "inherited": false,
+          "type": "viewer",
+          "flags": [
+            "public"
+          ]
+        }
+      ],
+      "metadata": {
+        "jsonQuery": {
+          "order": [
+            {
+              "ascending": false,
+              "columnFieldName": "date_received"
+            }
+          ]
+        },
+        "rdfSubject": "0",
+        "rdfClass": "",
+        "rowIdentifier": "0",
+        "availableDisplayTypes": [
+          "table",
+          "fatrow",
+          "page"
+        ],
+        "rowLabel": "Complaint",
+        "renderTypeConfig": {
+          "visible": {
+            "table": true
+          }
+        }
+      },
+      "owner": {
+        "id": "2i63-cj69",
+        "displayName": "DataOps",
+        "screenName": "DataOps",
+        "type": "interactive",
+        "flags": [
+          "mayBeStoriesCoOwner"
+        ]
+      },
+      "query": {
+        "orderBys": [
+          {
+            "ascending": false,
+            "expression": {
+              "columnId": 261888793,
+              "type": "column"
+            }
+          }
+        ]
+      },
+      "ratings": {
+        "rating": 100
+      },
+      "rights": [
+        "read"
+      ],
+      "tableAuthor": {
+        "id": "2i63-cj69",
+        "displayName": "DataOps",
+        "screenName": "DataOps",
+        "type": "interactive",
+        "flags": [
+          "mayBeStoriesCoOwner"
+        ]
+      },
+      "flags": [
+        "default",
+        "restorable",
+        "restorePossibleForType"
+      ]
+    }
+  },
+  "data": [
+    [ "jd-jn", "A49C660E2E89", 0, 69481641, null, 1569481641, null, "{ }", "2099-09-09T09:00:00", "Mortgage", "Home equity loan or line of credit (HELOC)", "Trouble during payment process", null, null, null, "PNC Bank N.A.", "FL", "330XX", null, null, "Web", "2019-09-10T00:00:00", "In progress", "Yes", "N/A", "3369434" ],
+    [ "qu-x7", "F40335E24C5C", 0, 68443004, null, 1568443004, null, "{ }", "2099-09-09T09:00:00", "Credit reporting, credit repair services, or other personal consumer reports", "Credit reporting", "Incorrect information on your report", "Information belongs to someone else", null, "Company has responded to the consumer and the CFPB and chooses not to provide a public response", "TRANSUNION INTERMEDIATE HOLDINGS, INC.", "NJ", "08104", null, "Consent not provided", "Web", "2019-09-10T00:00:00", "Closed with explanation", "Yes", "N/A", "3369530" ],
+    [ "rw.36", "AEA14B081B8C", 0, 68443004, null, 1568443004, null, "{ }", "2099-09-09T09:00:00", "Debt collection", "Medical debt", "Attempts to collect debt not owed", "Debt is not yours", null, null, "Capital Recovery Corporation", "WA", "98038", null, null, "Web", "2019-09-10T00:00:00", "Closed with explanation", "Yes", "N/A", "3369972" ],
+    [ "fx.49", "BAF373AB558B", 0, 69573636, null, 1569573636, null, "{ }", "2099-09-09T09:00:00", "Credit reporting, credit repair services, or other personal consumer reports", "Credit reporting", "Incorrect information on your report", "Account status incorrect", "I have inaccurate information on my credit report regarding a loan from XXXX XXXX XXXX that was paid off in full and no late payments. The loan is reporting inaccurately and causing me great distress.", "Company has responded to the consumer and the CFPB and chooses not to provide a public response", "Experian Information Solutions Inc.", "NC", null, null, "Consent provided", "Web", "2019-09-10T00:00:00", "Closed with non-monetary relief", "Yes", "N/A", "3370025" ],
+    [ "m7-pg", "D63A2D0C8A26", 0, 68443004, null, 1568443004, null, "{ }", "2099-09-09T09:00:00", "Credit reporting, credit repair services, or other personal consumer reports", "Credit reporting", "Improper use of your report", "Credit inquiries on your report that you don't recognize", null, "Company has responded to the consumer and the CFPB and chooses not to provide a public response", "TRANSUNION INTERMEDIATE HOLDINGS, INC.", "NJ", "07052", null, "Consent not provided", "Web", "2019-09-10T00:00:00", "Closed with explanation", "Yes", "N/A", "3369512" ],
+    [ "eq.y4", "05F7621408C1", 0, 68358283, null, 1568358283, null, "{ }", "2099-09-09T09:00:00", "Credit reporting, credit repair services, or other personal consumer reports", "Credit reporting", "Incorrect information on your report", "Information belongs to someone else", null, null, "JPMORGAN CHASE & CO.", "GA", "30078", null, null, "Web", "2019-09-10T00:00:00", "Closed with non-monetary relief", "Yes", "N/A", "3368724" ],
+    [ "td_wa", "AB40DC50C810", 0, 69391963, null, 1569391963, null, "{ }", "2099-09-09T09:00:00", "Debt collection", "I do not know", "Attempts to collect debt not owed", "Debt is not yours", null, null, "Holloway Credit Solutions", "AL", "357XX", null, null, "Web", "2019-09-10T00:00:00", "Closed with explanation", "Yes", "N/A", "3369314" ],
+    [ "23.zp", "53391AB0653A", 0, 69391963, null, 1569391963, null, "{ }", "2099-09-09T09:00:00", "Credit reporting, credit repair services, or other personal consumer reports", "Credit reporting", "Incorrect information on your report", "Account information incorrect", null, null, "CAVALRY INVESTMENTS, LLC", null, null, "Servicemember", "N/A", "Phone", "2019-09-10T00:00:00", "Closed with explanation", "Yes", "N/A", "3369860" ],
+    [ "t8-5t", "2E85C4384A47", 0, 68443004, null, 1568443004, null, "{ }", "2099-09-09T09:00:00", "Credit reporting, credit repair services, or other personal consumer reports", "Credit reporting", "Incorrect information on your report", "Information belongs to someone else", null, "Company has responded to the consumer and the CFPB and chooses not to provide a public response", "TRANSUNION INTERMEDIATE HOLDINGS, INC.", "MD", "21144", null, "Consent not provided", "Web", "2019-09-10T00:00:00", "Closed with explanation", "Yes", "N/A", "3369543" ],
+    [ "qg~w2", "001594E267D7", 0, 69305742, null, 1569305742, null, "{ }", "", "Credit card or prepaid card", "General-purpose credit card or charge card", "Problem when making payments", "Problem during payment process", null, null, "BANK OF AMERICA, NATIONAL ASSOCIATION", "VA", "229XX", null, null, "Web", "2019-09-10T00:00:00", "In progress", "Yes", "N/A", "3369295" ]
+  ]
+}

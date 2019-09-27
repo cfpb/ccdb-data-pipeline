@@ -127,4 +127,5 @@ def parse_json_file(input_file_name, output_file_name, logger):
     target.close()
     logger.info("Closed output file")
 
-__all__ = ['parse_json']
+
+__all__ = ['parse_json', 'parse_json_file']

@@ -54,7 +54,7 @@ endif
 
 all: dirs check_latest $(ALL_LIST)
 
-check_latest:
+check_latest: $(CONFIG_CCDB)
 	# checking to see if there is a new dataset
 	$(PY) -m complaints.ccdb.acquire --check-latest -c $(CONFIG_CCDB) -o $(INPUT_S3_TIMESTAMP)
 
@@ -64,7 +64,7 @@ clean:
 dirs:
 	for dir in $(DIRS) ; do [ -d $$dir ] || mkdir -p $$dir ; done
 
-elasticsearch: $(INDEX_CCDB)
+elasticsearch: dirs check_latest $(INDEX_CCDB)
 
 
 ls_in:
@@ -74,7 +74,7 @@ ls_in:
 ls_out:
 	aws s3 ls --recursive "s3://$$OUTPUT_S3_BUCKET/$$OUTPUT_S3_FOLDER"
 
-s3: $(PUSH_S3)
+s3: dirs check_latest $(PUSH_S3)
 
 
 # -----------------------------------------------------------------------------

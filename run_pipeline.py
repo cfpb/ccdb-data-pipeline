@@ -1,4 +1,3 @@
-import os
 import configargparse
 import logging
 from elasticsearch import Elasticsearch

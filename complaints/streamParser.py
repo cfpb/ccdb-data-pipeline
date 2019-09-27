@@ -1,7 +1,6 @@
 # Stream json data
 import json
 import ijson
-import urllib
 import requests
 
 # Temp File Creation
@@ -33,7 +32,7 @@ def parse_json(input_url_path, output_file_name, logger):
         logger.info("Removing temporary data file")
         os.remove(tmp_file_name)
     except OSError:
-        print "Failed temp file removal in fake_crdb_data.py"
+        print("Failed temp file removal in fake_crdb_data.py")
         pass
 
 
@@ -74,7 +73,6 @@ def parse_json_file(input_file_name, output_file_name, logger):
                     my_data_array.append(value)
                 elif (prefix, event) == ('data.item', 'start_array'):
                     continue
-                    n += 1
                 elif (prefix, event) == ('data.item', 'end_array'):
                     new_complaint = dict(zip(my_column_array, my_data_array))
                     new_complaint["has_narrative"] = (
@@ -86,18 +84,23 @@ def parse_json_file(input_file_name, output_file_name, logger):
 
                     d = new_complaint.get("date_received")
                     new_complaint["date_received"] = format_date_est(d)
-                    new_complaint["date_received_formatted"] = format_date_as_mdy(d)
+                    new_complaint["date_received_formatted"] = \
+                        format_date_as_mdy(d)
 
                     d = new_complaint.get("date_sent_to_company")
                     new_complaint["date_sent_to_company"] = format_date_est(d)
-                    new_complaint["date_sent_to_company_formatted"] = format_date_as_mdy(d)
+                    new_complaint["date_sent_to_company_formatted"] = \
+                        format_date_as_mdy(d)
 
                     d = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
                     new_complaint["date_indexed"] = format_date_est(d)
-                    new_complaint["date_indexed_formatted"] = format_date_as_mdy(d)
+                    new_complaint["date_indexed_formatted"] = \
+                        format_date_as_mdy(d)
 
-                    # :updated_at and :created_at will stay since they are being used
-                    for meta in (":sid", ":id", ":meta", ":created_meta", ":position", ":updated_meta"):
+                    # :updated_at and :created_at will stay
+                    # since they are being used
+                    for meta in (":sid", ":id", ":meta", ":created_meta",
+                                 ":position", ":updated_meta"):
                         del new_complaint[meta]
                     my_data_array = []
                     target.write(json.dumps(new_complaint))
@@ -108,14 +111,18 @@ def parse_json_file(input_file_name, output_file_name, logger):
                 line_counter += 1
                 if line_counter >= 2000000:
                     line_count_total += line_counter
-                    logger.info("Processed {} lines, {} total".format(line_counter, line_count_total))
+                    logger.info("Processed {} lines, {} total".format(
+                        line_counter, line_count_total))
                     line_counter = 0
 
             if line_counter > 0:
                 line_count_total += line_counter
-                logger.info("Processed {} lines, {} total".format(line_counter, line_count_total))
-        except ijson.common.IncompleteJSONError as e:
-            logger.info('IncompleteJSONError! prefix: {}, event: {}, value: {}'.format(prefix, event, value))
+                logger.info("Processed {} lines, {} total".format(
+                    line_counter, line_count_total))
+        except ijson.common.IncompleteJSONError:
+            logger.info(
+                'IncompleteJSONError! prefix: {}, event: {}, value: {}'.format(
+                    prefix, event, value))
 
     target.close()
     logger.info("Closed output file")

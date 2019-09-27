@@ -1,5 +1,4 @@
 import configargparse
-import os
 import sys
 from common.es_proxy import add_basic_es_arguments, get_es_connection
 from common.log import setup_logging

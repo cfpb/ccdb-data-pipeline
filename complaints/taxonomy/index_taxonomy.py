@@ -59,7 +59,7 @@ def index_taxonomy(es, logger, taxonomy_text, alias):
 
 
 def build_arg_parser():
-    p = configargparse.getArgumentParser(
+    p = configargparse.ArgParser(
         prog='index_taxonomy',
         description='fill Elasticsearch with taxonomy data',
         ignore_unknown_config_file_keys=True,
@@ -76,7 +76,7 @@ def build_arg_parser():
     return p
 
 
-if __name__ == '__main__':
+def main():
     p = build_arg_parser()
     cfg = p.parse_args()
 
@@ -90,3 +90,7 @@ if __name__ == '__main__':
 
     logger.info("Begin indexing taxonomy data in Elasticsearch")
     index_taxonomy(es, logger, cfg.taxonomy, cfg.index_name)
+
+
+if __name__ == '__main__':
+    main()

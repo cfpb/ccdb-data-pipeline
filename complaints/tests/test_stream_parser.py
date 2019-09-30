@@ -3,6 +3,7 @@ import complaints.streamParser as sut
 import os
 import unittest
 from common.tests import validate_json
+from freezegun import freeze_time
 
 try:
     from unittest.mock import Mock
@@ -30,6 +31,7 @@ class TestMain(unittest.TestCase):
         except Exception:
             pass
 
+    @freeze_time("2019-09-09")
     def test_json(self):
         logger = Mock()
 

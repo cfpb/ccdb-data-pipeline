@@ -56,4 +56,6 @@ def validate_json(actual_file, expected_file):
         # !@#$ Python random dictionary output
         tokens = act.split(',')
         for t in tokens:
-            assert t.strip(' {}\n') in expecteds[i]
+            assert t.strip(' {}\n') in expecteds[i], '{} not in {}'.format(
+                t, expecteds[i]
+            )

@@ -1,10 +1,12 @@
 from __future__ import print_function
-import configargparse
+
 import csv
-import json
 import io
+import json
 import sys
 from itertools import count
+
+import configargparse
 
 if sys.version < '3':  # pragma: no cover
     _unicode = unicode

@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
-import common.csv2json as sut
+
 import os
 import unittest
+
+import common.csv2json as sut
 from common.tests import build_argv, captured_output, validate_json
 
 

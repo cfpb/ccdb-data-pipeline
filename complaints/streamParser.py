@@ -1,13 +1,9 @@
-# Stream json data
 import json
+import os
+from datetime import datetime
+
 import ijson
 import requests
-
-# Temp File Creation
-import os
-
-# Create new data
-from datetime import datetime
 
 
 def parse_json(input_url_path, output_file_name, logger):

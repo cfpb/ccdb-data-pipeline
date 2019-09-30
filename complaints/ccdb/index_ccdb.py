@@ -1,10 +1,11 @@
-import configargparse
+import json
 import sys
 import time
-import json
+from datetime import datetime
+
+import configargparse
 from common.es_proxy import add_basic_es_arguments, get_es_connection
 from common.log import setup_logging
-from datetime import datetime
 from elasticsearch import TransportError
 from elasticsearch.helpers import bulk
 

@@ -1,7 +1,8 @@
 from __future__ import unicode_literals
-import complaints.taxonomy.index_taxonomy as sut
-import sys
+
 import unittest
+
+import complaints.taxonomy.index_taxonomy as sut
 from common.tests import build_argv, captured_output
 
 try:

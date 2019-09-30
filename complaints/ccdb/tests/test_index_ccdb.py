@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
-import complaints.ccdb.index_ccdb as sut
+
 import sys
 import unittest
+
+import complaints.ccdb.index_ccdb as sut
 from common.tests import build_argv, captured_output
 from freezegun import freeze_time
 

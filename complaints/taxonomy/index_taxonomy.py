@@ -1,12 +1,13 @@
-import configargparse
 import sys
+
+import configargparse
 from common.es_proxy import add_basic_es_arguments, get_es_connection
 from common.log import setup_logging
-
 
 # -----------------------------------------------------------------------------
 # Original Functions
 # -----------------------------------------------------------------------------
+
 
 def alias_to_index_name(es, logger, alias, suffix=''):
     ''' figure out the correct index name -- should be alias-v1 or alias-v2

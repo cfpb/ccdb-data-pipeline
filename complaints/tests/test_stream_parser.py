@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
-import complaints.streamParser as sut
+
 import os
 import unittest
+
+import complaints.streamParser as sut
 from common.tests import validate_json
 from freezegun import freeze_time
 

@@ -6,10 +6,10 @@ import sys
 import boto3
 import configargparse
 
-
 # -----------------------------------------------------------------------------
 # Process
 # -----------------------------------------------------------------------------
+
 
 class ProgressPercentage(object):
     def __init__(self, options):

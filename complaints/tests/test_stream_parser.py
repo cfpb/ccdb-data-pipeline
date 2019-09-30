@@ -41,7 +41,7 @@ class TestMain(unittest.TestCase):
             logger
         )
 
-        validate_json(self.actual_file, fixtureToAbsolute('ccdb.json'))
+        validate_json(self.actual_file, fixtureToAbsolute('ccdb.ndjson'))
 
         logger.info.assert_any_call('Completed parsing input file')
         logger.info.assert_any_call('Processed 2972 lines, 2972 total')

@@ -8,7 +8,7 @@ from datetime import datetime
 from elasticsearch import TransportError
 from elasticsearch.helpers import bulk
 
-FEATURE_MERGE_NEW_META = False
+FEATURE_MERGE_NEW_META = True
 
 
 # -----------------------------------------------------------------------------
@@ -215,7 +215,7 @@ def index_json_data(
 
 
 def build_arg_parser():
-    p = configargparse.getArgumentParser(
+    p = configargparse.ArgParser(
         prog='index_ccdb',
         description='fill Elasticsearch with public complaint data',
         ignore_unknown_config_file_keys=True,
@@ -238,7 +238,7 @@ def build_arg_parser():
     return p
 
 
-if __name__ == '__main__':
+def main():
     p = build_arg_parser()
     cfg = p.parse_args()
 
@@ -263,3 +263,7 @@ if __name__ == '__main__':
         cfg.dataset,
         index_name, backup_index_name, index_alias
     )
+
+
+if __name__ == '__main__':
+    main()

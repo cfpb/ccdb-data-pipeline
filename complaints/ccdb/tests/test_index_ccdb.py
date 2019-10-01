@@ -233,6 +233,8 @@ class TestMain(unittest.TestCase):
         bulk.side_effect = self.capture_actions
 
         self.optional[-1] = toAbsolute('__fixtures__/from_s3.ndjson')
+        self.optional.append('--metadata')
+        self.optional.append(toAbsolute('__fixtures__/metadata.json'))
 
         argv = build_argv(self.optional)
         with captured_output(argv) as (out, err):

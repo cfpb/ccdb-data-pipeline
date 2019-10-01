@@ -1,25 +1,21 @@
 import json
 import sys
-import time
+from functools import partial
 
 import configargparse
-from common.date import (
-    format_date_as_mdy, format_date_est, now_as_string, parse_date
-)
+from common.date import (format_date_as_mdy, format_date_est,
+                         format_timestamp_local, now_as_string)
 from common.es_proxy import add_basic_es_arguments, get_es_connection
 from common.log import setup_logging
 from elasticsearch import TransportError
 from elasticsearch.helpers import bulk
-
-FEATURE_MERGE_NEW_META = True
-
 
 # -----------------------------------------------------------------------------
 # Enhancing Functions
 # -----------------------------------------------------------------------------
 
 
-def enhance_complaint(complaint):
+def enhance_complaint(complaint, qas_timestamp=0):
     if 'complaint_id' not in complaint:
         complaint['complaint_id'] = complaint['public_id']
 
@@ -27,11 +23,10 @@ def enhance_complaint(complaint):
     if ':updated_at' in complaint:
         return complaint
 
-    # "Feature Flag" - Merge in the new metadata
-    if FEATURE_MERGE_NEW_META:
+    # Merge in the new metadata
+    if qas_timestamp:
         # Simulate the Socrata field
-        dt = parse_date(complaint.get("date_received"))
-        complaint[":updated_at"] = time.mktime(dt.timetuple()) if dt else 0.0
+        complaint[":updated_at"] = qas_timestamp
 
         # Add this field
         s = complaint.get('complaint_what_happened')
@@ -109,10 +104,10 @@ def load_json(logger, file):
     return jo
 
 
-def data_load_strategy_complaint(data):
+def data_load_strategy_complaint(data, transform_fn):
     with open(data) as f:
         for line in f.readlines():
-            doc = enhance_complaint(json.loads(line))
+            doc = transform_fn(json.loads(line))
             yield {'_op_type': 'create',
                    '_id': doc['complaint_id'],
                    '_source': doc}
@@ -133,7 +128,7 @@ def yield_chunked_docs(get_data_function, data, chunk_size):
 
 def index_json_data(
     es, logger, doc_type_name, settings_json, mapping_json, data, index_name,
-    backup_index_name, alias, chunk_size=20000
+    backup_index_name, alias, chunk_size=20000, qas_timestamp=0
 ):
     settings = load_json(logger, settings_json)
     mapping = load_json(logger, mapping_json)
@@ -157,11 +152,20 @@ def index_json_data(
         "Loading data into %s with doc_type %s"
         % (index_name, doc_type_name)
     )
+
+    # https://en.wikipedia.org/wiki/Partial_application
+    # These steps bind a fixed value to a function argument
+    # so that the function can be called with one variable argument
+    # but can have several other arguments pre-set.
+    #
+    # It works well for our case where the enhance_complaint function needs
+    # some configuration but it is several levels down in the call chain
+    xform_fn = partial(enhance_complaint, qas_timestamp=qas_timestamp)
+    get_data_fn = partial(data_load_strategy_complaint, transform_fn=xform_fn)
+
     try:
         total_rows_of_data = 0
-        for doc_ary in yield_chunked_docs(
-            data_load_strategy_complaint, data, chunk_size
-        ):
+        for doc_ary in yield_chunked_docs(get_data_fn, data, chunk_size):
             logger.info("chunk retrieved, now bulk load")
             success, _ = bulk(
                 es, actions=doc_ary, index=index_name,
@@ -184,6 +188,18 @@ def index_json_data(
         es.indices.put_alias(name=alias, index=backup_index_name)
         sys.exit(e.error)
 
+# -----------------------------------------------------------------------------
+# Metadata functions
+# -----------------------------------------------------------------------------
+
+
+def get_qa_timestamp(opts, logger):
+    if opts.metadata is None:
+        return 0
+
+    o = load_json(logger, opts.metadata)
+
+    return format_timestamp_local(o.get('qas_timestamp', None))
 
 # -----------------------------------------------------------------------------
 # Main
@@ -211,6 +227,8 @@ def build_arg_parser():
     group = p.add_argument_group('Files')
     group.add('--dataset', dest='dataset', required=True,
               help="Complaint data in NDJSON format")
+    group.add('--metadata', dest='metadata',
+              help="Metadata in JSON format")
     return p
 
 
@@ -231,13 +249,16 @@ def main():
     logger.info("Creating Elasticsearch Connection")
     es = get_es_connection(cfg)
 
+    qas_timestamp = get_qa_timestamp(cfg, logger)
+
     logger.info("Begin indexing data in Elasticsearch")
     index_json_data(
         es, logger, cfg.doc_type,
         cfg.settings,
         cfg.mapping,
         cfg.dataset,
-        index_name, backup_index_name, index_alias
+        index_name, backup_index_name, index_alias,
+        qas_timestamp=qas_timestamp
     )
 
 

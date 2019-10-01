@@ -1,13 +1,15 @@
 from __future__ import print_function
-import boto3
-import configargparse
+
 import os
 import sys
 
+import boto3
+import configargparse
 
 # -----------------------------------------------------------------------------
 # Process
 # -----------------------------------------------------------------------------
+
 
 class ProgressPercentage(object):
     def __init__(self, options):
@@ -54,12 +56,6 @@ def build_arg_parser():
     )
     p.add('--dump-config', action='store_true', dest='dump_config',
           help='dump config vars and their source')
-    p.add('--check-latest', '-t', action='store_true',
-          dest='get_latest',
-          help='check the timestamp of the most recent dataset')
-    p.add('--timezone', dest='timezone',
-          default='US/Eastern',
-          help='The local timezone specified in Olsen format')
     group = p.add_argument_group('S3')
     group.add('--s3-bucket', '-b', dest='bucket',
               required=True, env_var='OUTPUT_S3_BUCKET',
@@ -73,14 +69,15 @@ def build_arg_parser():
     return p
 
 
-if __name__ == '__main__':
+def main():
     p = build_arg_parser()
     cfg = p.parse_args()
 
     if cfg.dump_config:
         print(p.format_values())
 
-    if cfg.get_latest:
-        check_latest(cfg)
-    else:
-        upload(cfg)
+    upload(cfg)
+
+
+if __name__ == '__main__':
+    main()

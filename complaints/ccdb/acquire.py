@@ -1,12 +1,14 @@
 from __future__ import print_function
-import boto3
-import configargparse
+
 import sys
 
+import boto3
+import configargparse
 
 # -----------------------------------------------------------------------------
 # Process
 # -----------------------------------------------------------------------------
+
 
 class ProgressPercentage(object):
     def __init__(self, options):
@@ -96,7 +98,7 @@ def build_arg_parser():
     return p
 
 
-if __name__ == '__main__':
+def main():
     p = build_arg_parser()
     cfg = p.parse_args()
 
@@ -107,3 +109,7 @@ if __name__ == '__main__':
         check_latest(cfg)
     else:
         download(cfg)
+
+
+if __name__ == '__main__':
+    main()

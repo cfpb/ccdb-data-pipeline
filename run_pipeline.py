@@ -1,10 +1,10 @@
-import os
-import configargparse
 import logging
-from elasticsearch import Elasticsearch
+
 import complaints.ccdb.index_ccdb as ccdb_index
 import complaints.taxonomy.index_taxonomy as taxonomy_index
+import configargparse
 from complaints.streamParser import parse_json
+from elasticsearch import Elasticsearch
 
 DOC_TYPE_NAME = 'complaint'
 

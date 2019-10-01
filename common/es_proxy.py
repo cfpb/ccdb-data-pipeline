@@ -1,4 +1,3 @@
-import configargparse
 from elasticsearch import Elasticsearch
 
 

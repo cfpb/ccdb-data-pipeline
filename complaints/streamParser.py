@@ -1,9 +1,9 @@
 import json
 import os
-from datetime import datetime
 
 import ijson
 import requests
+from common.date import format_date_as_mdy, format_date_est, now_as_string
 
 
 def parse_json(input_url_path, output_file_name, logger):
@@ -30,21 +30,6 @@ def parse_json(input_url_path, output_file_name, logger):
     except OSError:
         print("Failed temp file removal in fake_crdb_data.py")
         pass
-
-
-def format_date_est(date_str):
-    """format the date at noon Eastern Standard Time"""
-    if not date_str:
-        return None
-    d = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%S')
-    return d.strftime("%Y-%m-%d") + 'T12:00:00-05:00'
-
-
-def format_date_as_mdy(date_str):
-    if not date_str:
-        return None
-    d = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%S')
-    return d.strftime("%m/%d/%y")
 
 
 def parse_json_file(input_file_name, output_file_name, logger):
@@ -88,7 +73,7 @@ def parse_json_file(input_file_name, output_file_name, logger):
                     new_complaint["date_sent_to_company_formatted"] = \
                         format_date_as_mdy(d)
 
-                    d = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+                    d = now_as_string()
                     new_complaint["date_indexed"] = format_date_est(d)
                     new_complaint["date_indexed_formatted"] = \
                         format_date_as_mdy(d)

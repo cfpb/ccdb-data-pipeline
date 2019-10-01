@@ -1,9 +1,11 @@
 import json
 import sys
 import time
-from datetime import datetime
 
 import configargparse
+from common.date import (
+    format_date_as_mdy, format_date_est, now_as_string, parse_date
+)
 from common.es_proxy import add_basic_es_arguments, get_es_connection
 from common.log import setup_logging
 from elasticsearch import TransportError
@@ -15,33 +17,6 @@ FEATURE_MERGE_NEW_META = True
 # -----------------------------------------------------------------------------
 # Enhancing Functions
 # -----------------------------------------------------------------------------
-
-def parse_date(date_str):
-    if not date_str:
-        return None
-
-    for fmt in ['%Y-%m-%dT%H:%M:%S', '%Y-%m-%d']:
-        try:
-            return datetime.strptime(date_str, fmt)
-        except ValueError:
-            pass
-
-    return None
-
-
-def format_date_est(date_str):
-    """format the date at noon Eastern Standard Time"""
-    d = parse_date(date_str)
-    if not d:
-        return None
-    return d.strftime("%Y-%m-%d") + 'T12:00:00-05:00'
-
-
-def format_date_as_mdy(date_str):
-    d = parse_date(date_str)
-    if not d:
-        return None
-    return d.strftime("%m/%d/%y")
 
 
 def enhance_complaint(complaint):
@@ -71,7 +46,7 @@ def enhance_complaint(complaint):
         complaint["date_sent_to_company"] = format_date_est(d)
         complaint["date_sent_to_company_formatted"] = format_date_as_mdy(d)
 
-        d = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+        d = now_as_string()
         complaint["date_indexed"] = format_date_est(d)
         complaint["date_indexed_formatted"] = format_date_as_mdy(d)
 

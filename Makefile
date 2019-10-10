@@ -1,3 +1,5 @@
+OS_NAME := $(shell uname -s | tr A-Z a-z)
+
 # JSON = [{}, {}, {}]
 # "SOCRATA_JSON" = {metadata: {}, data: [[], [], []]}
 # ND-JSON = {}\n{}\n{}\n
@@ -109,7 +111,14 @@ $(DATASET_PUBLIC_CSV): $(DATASET_CSV) $(FIELDS_S3_CSV)
 	$(eval FIELDS=$(shell cat $(FIELDS_S3_CSV) | tr '\n' ','))
 	@# Replace first line of CSV with expected column names
 	@# https://stackoverflow.com/a/13438118
-	sed -i '' "1s/.*/$(FIELDS)/" $@
+	@#
+	@# But MacOS and GNU have slightly different syntax
+	@# https://stackoverflow.com/a/57766728
+ifeq ($(OS_NAME),darwin)
+	sed -i '' -e '1s/.*/$(FIELDS)/' $@
+else
+	sed -i -e '1s/.*/$(FIELDS)/' $@
+endif
 
 $(DATASET_PUBLIC_JSON): $(DATASET_CSV) $(FIELDS_S3_JSON)
 	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format JSON \

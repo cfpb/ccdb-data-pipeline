@@ -42,7 +42,7 @@ ifeq ($(ENV), dev)
 	PY := python
 	MAX_RECORDS := 80001
 else ifeq ($(ENV), staging)
-	PY := .py/bin/python
+	PY := python
 else ifeq ($(ENV), prod)
 	PY := .py/bin/python
 	ALIAS := complaint-public

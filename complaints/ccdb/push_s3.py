@@ -52,6 +52,9 @@ def upload(options):
     sys.stdout.write("\n")
     sys.stdout.flush()
 
+    # Delete the local zip file
+    os.remove(zip_file_name)
+
 
 # -----------------------------------------------------------------------------
 # Main

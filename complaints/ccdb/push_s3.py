@@ -1,4 +1,5 @@
 from __future__ import print_function
+from zipfile import ZipFile, ZIP_DEFLATED
 
 import os
 import sys
@@ -28,11 +29,23 @@ def upload(options):
     s3 = boto3.resource('s3')
     bucket = s3.Bucket(options.bucket)
 
-    _, filename = os.path.split(options.infile)
-    key = options.folder + '/' + filename
+    path, filename = os.path.split(options.infile)
+    key = options.folder + '/' + filename + '.zip'
+    zip_file_name = '{}.zip'.format(filename)
+
+    with ZipFile(zip_file_name, 'w', ZIP_DEFLATED) as zip:
+        # AZ - The following is necessary to ensure the file ends up in the
+        # root of the zip directory
+        if '.json' in filename:
+            pwd = os.getcwd()
+            os.chdir(path)
+            zip.write(filename)
+            os.chdir(pwd)
+        else:
+            zip.write(options.infile, filename)
 
     bucket.upload_file(
-        options.infile, key, Callback=ProgressPercentage(options)
+        zip_file_name, key, Callback=ProgressPercentage(options)
     )
 
     # Clear the buffer

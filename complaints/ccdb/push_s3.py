@@ -1,8 +1,8 @@
 from __future__ import print_function
-from zipfile import ZipFile, ZIP_DEFLATED
 
 import os
 import sys
+from zipfile import ZIP_DEFLATED, ZipFile
 
 import boto3
 import configargparse

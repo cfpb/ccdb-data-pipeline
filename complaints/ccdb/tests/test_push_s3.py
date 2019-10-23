@@ -47,7 +47,7 @@ class TestMain(unittest.TestCase):
         boto3.resource.assert_called_once_with('s3')
         s3.Bucket.assert_called_once_with('foo')
         bucket.upload_file.assert_called_once_with(
-            self.positional[0], 'bar/from_s3.ndjson', Callback=ANY
+            'from_s3.ndjson.zip', 'bar/from_s3.ndjson.zip', Callback=ANY
         )
 
 

@@ -38,16 +38,18 @@ ALL_LIST=$(PUSH_S3) $(INDEX_CCDB)
 # -----------------------------------------------------------------------------
 # Environment specific configuration
 
-ifeq ($(ENV), dev)
+ifeq ($(ENV), local)
 	PY := python
 	MAX_RECORDS := 80001
+else ifeq ($(ENV), dev)
+	PY := python
 else ifeq ($(ENV), staging)
 	PY := python
 else ifeq ($(ENV), prod)
 	PY := .py/bin/python
 	ALIAS := complaint-public
 else
-	$(error "must specify ENV={dev, staging, prod}")
+	$(error "must specify ENV={local, dev, staging, prod}")
 	exit 1;
 endif
 

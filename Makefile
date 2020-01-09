@@ -20,6 +20,8 @@ DATASET_ND_JSON := complaints/ccdb/ready_es/complaints.json
 DATASET_PUBLIC_CSV := complaints/ccdb/ready_s3/complaints.csv
 DATASET_PUBLIC_JSON := complaints/ccdb/ready_s3/complaints.json
 
+METADATA_JSON := complaints/ccdb/intake/complaints_metadata.json
+
 # Field Names
 
 FIELDS_S3_CSV := complaints/ccdb/fields-s3-csv.txt
@@ -86,9 +88,11 @@ s3: dirs check_latest $(PUSH_S3)
 
 .DELETE_ON_ERROR :
 
-$(INDEX_CCDB): complaints/ccdb/ccdb_mapping.json $(DATASET_ND_JSON) $(CONFIG_CCDB)
+$(INDEX_CCDB): complaints/ccdb/ccdb_mapping.json $(DATASET_ND_JSON) $(METADATA_JSON) $(CONFIG_CCDB)
 	$(PY) -m complaints.ccdb.index_ccdb -c $(CONFIG_CCDB) \
-	   --dataset $(DATASET_ND_JSON) --index-name $(ALIAS)
+	   --dataset $(DATASET_ND_JSON) \
+	   --metadata $(METADATA_JSON) \
+	   --index-name $(ALIAS)
 	$(PY) -m complaints.taxonomy.index_taxonomy -c $(CONFIG_CCDB) \
 	   --taxonomy complaints/taxonomy/taxonomy.txt --index-name $(ALIAS)
 	touch $@
@@ -125,3 +129,8 @@ endif
 $(DATASET_PUBLIC_JSON): $(DATASET_CSV) $(FIELDS_S3_JSON)
 	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format JSON \
 	                         --fields $(FIELDS_S3_JSON) $< $@
+
+$(METADATA_JSON): $(INPUT_S3_TIMESTAMP)
+	$(PY) -m complaints.ccdb.acquire -c $(CONFIG_CCDB) \
+	      -k $(INPUT_S3_KEY_METADATA) \
+	      -o $@

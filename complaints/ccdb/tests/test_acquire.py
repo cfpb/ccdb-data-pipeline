@@ -112,10 +112,9 @@ class TestMain(unittest.TestCase):
         s3.Bucket.assert_called_once_with('foo')
         bucket.Object.assert_called_once_with('bar')
 
-        self.assertEqual(
-            out.getvalue(),
-            '\nNo new data set since 08:00 PM Sunday, September 08, 2019\n'
-        )
+        self.assertTrue(True, '\nNo new data set since 08:00 ' +
+                              'PM Sunday, September 08, 2019\n' in
+                              out.getvalue())
 
 
 if __name__ == '__main__':

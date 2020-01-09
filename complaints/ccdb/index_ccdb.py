@@ -23,13 +23,14 @@ def enhance_complaint(complaint, qas_timestamp=0):
     if ':updated_at' in complaint:
         return complaint
 
+    s = complaint.get('complaint_what_happened')
+
     # Merge in the new metadata
     if qas_timestamp:
         # Simulate the Socrata field
         complaint[":updated_at"] = qas_timestamp
 
         # Add this field
-        s = complaint.get('complaint_what_happened')
         complaint['has_narrative'] = s != '' and s is not None
 
         # Provide different versions of these fields
@@ -45,15 +46,13 @@ def enhance_complaint(complaint, qas_timestamp=0):
         complaint["date_indexed"] = format_date_est(d)
         complaint["date_indexed_formatted"] = format_date_as_mdy(d)
 
-        # Set all values with empty strings to None to comply with V1
-        # logic
-        normalized_complaint = {k: v if v != '' else None for k, v in
-                                complaint.items()}
-        # Restore complaint_what_happened to prevent ES queries from breaking
-        normalized_complaint['complaint_what_happened'] = s
-        return normalized_complaint
-
-    return complaint
+    # Set all values with empty strings to None to comply with V1
+    # logic
+    normalized_complaint = {k: v if v != '' else None for k, v in
+                            complaint.items()}
+    # Restore complaint_what_happened to prevent ES queries from breaking
+    normalized_complaint['complaint_what_happened'] = s
+    return normalized_complaint
 
 
 # -----------------------------------------------------------------------------

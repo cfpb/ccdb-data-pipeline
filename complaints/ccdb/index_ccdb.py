@@ -51,8 +51,9 @@ def enhance_complaint(complaint, qas_timestamp=0):
                                 complaint.items()}
         # Restore complaint_what_happened to prevent ES queries from breaking
         normalized_complaint['complaint_what_happened'] = s
+        return normalized_complaint
 
-    return normalized_complaint
+    return complaint
 
 
 # -----------------------------------------------------------------------------

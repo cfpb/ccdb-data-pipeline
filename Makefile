@@ -48,7 +48,7 @@ else ifeq ($(ENV), dev)
 else ifeq ($(ENV), staging)
 	PY := python
 else ifeq ($(ENV), prod)
-	PY := .py/bin/python
+	PY := python
 	ALIAS := complaint-public
 else
 	$(error "must specify ENV={local, dev, staging, prod}")

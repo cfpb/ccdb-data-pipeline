@@ -1,15 +1,9 @@
-from __future__ import unicode_literals
-
 import os
 import unittest
+from unittest.mock import ANY, Mock, patch
 
 import complaints.ccdb.push_s3 as sut
 from common.tests import build_argv, captured_output
-
-try:
-    from unittest.mock import patch, Mock, ANY
-except ImportError:
-    from mock import patch, Mock, ANY
 
 
 def toAbsolute(relative):

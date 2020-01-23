@@ -1,21 +1,9 @@
-from __future__ import unicode_literals
-
-import sys
 import unittest
+from unittest.mock import ANY, Mock, patch
 
 import complaints.ccdb.index_ccdb as sut
 from common.tests import build_argv, captured_output
 from freezegun import freeze_time
-
-try:
-    from unittest.mock import patch, Mock, ANY
-except ImportError:
-    from mock import patch, Mock, ANY
-
-if sys.version < '3':  # pragma: no cover
-    _unicode = unicode
-else:  # pragma: no cover
-    def _unicode(x): return x
 
 
 def toAbsolute(relative):
@@ -144,7 +132,7 @@ class TestMain(unittest.TestCase):
 
         with io.open(self.actual_file, mode='w', encoding='utf-8') as f:
             for action in kwargs['actions']:
-                f.write(_unicode(json.dumps(action, ensure_ascii=False)))
+                f.write(json.dumps(action, ensure_ascii=False))
                 f.write('\n')
 
         return (1001, 99)

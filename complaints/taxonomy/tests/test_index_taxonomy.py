@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import unittest
 
 import complaints.taxonomy.index_taxonomy as sut

@@ -1,17 +1,11 @@
-from __future__ import unicode_literals
-
 import os
 import unittest
 from datetime import datetime
+from unittest.mock import ANY, Mock, patch
 
 import complaints.ccdb.acquire as sut
 import pytz
 from common.tests import build_argv, captured_output, make_configargs
-
-try:
-    from unittest.mock import patch, Mock, ANY
-except ImportError:
-    from mock import patch, Mock, ANY
 
 
 def toAbsolute(relative):

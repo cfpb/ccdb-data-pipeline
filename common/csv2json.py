@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import csv
 import io
 import json
@@ -8,34 +6,15 @@ from itertools import count
 
 import configargparse
 
-if sys.version < '3':  # pragma: no cover
-    _unicode = unicode
-else:  # pragma: no cover
-    def _unicode(x): return x
-
-
 # -----------------------------------------------------------------------------
-# Unicode is hard
-# source https://docs.python.org/2.7/library/csv.html#examples
-#   csv.py doesn't do Unicode; encode temporarily as UTF-8:
+# Unicode CSV Iterator
 # -----------------------------------------------------------------------------
+
 
 def unicode_csv_reader(unicode_csv_data, dialect=csv.excel, **kwargs):
-    if sys.version >= '3':
-        csv_reader = csv.reader(unicode_csv_data, dialect=dialect, **kwargs)
-        for row in csv_reader:
-            yield row
-    else:
-        csv_reader = csv.reader(utf_8_encoder(unicode_csv_data),
-                                dialect=dialect, **kwargs)
-        for row in csv_reader:
-            # decode UTF-8 back to Unicode, cell by cell:
-            yield [_unicode(cell, 'utf-8') for cell in row]
-
-
-def utf_8_encoder(unicode_csv_data):
-    for line in unicode_csv_data:
-        yield line.encode('utf-8')
+    csv_reader = csv.reader(unicode_csv_data, dialect=dialect, **kwargs)
+    for row in csv_reader:  # pragma: no branch
+        yield row
 
 
 # -----------------------------------------------------------------------------
@@ -48,8 +27,8 @@ def saveNewlineDelimitedJson(options):
         try:
             for i in count():  # pragma: no branch
                 row = yield i
-                f.write(_unicode(json.dumps(row)))
-                f.write(u'\n')
+                f.write(json.dumps(row))
+                f.write('\n')
         finally:
             pass
 
@@ -57,17 +36,17 @@ def saveNewlineDelimitedJson(options):
 def saveStandardJson(options):
     fileName = options.outfile
 
-    sep = u'\n'
+    sep = '\n'
     with io.open(fileName, 'w', encoding='utf-8', newline='') as f:
-        f.write(u'[')
+        f.write('[')
         try:
             for i in count():  # pragma: no branch
                 row = yield i
                 f.write(sep)
-                f.write(_unicode(json.dumps(row)))
-                sep = u',\n'
+                f.write(json.dumps(row))
+                sep = ',\n'
         finally:
-            f.write(u'\n]')
+            f.write('\n]')
 
 
 # -----------------------------------------------------------------------------

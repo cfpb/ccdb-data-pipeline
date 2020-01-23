@@ -3,7 +3,6 @@ branch = True
 omit =
     */__init__.py
     */__main__.py
-    */test_*.py
     .tox/*
 
 [report]

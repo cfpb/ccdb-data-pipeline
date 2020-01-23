@@ -19,6 +19,17 @@ def toAbsolute(relative):
 # Classes
 # ------------------------------------------------------------------------------
 
+class TestProgress(unittest.TestCase):
+    def test_callback(self):
+        options = make_configargs({
+            'outfile': 'foo.bar'
+        })
+        instance = sut.ProgressPercentage(options)
+        with captured_output([]) as (out, err):
+            instance(100)
+
+        self.assertEqual(out.getvalue(), '\rfoo.bar  100 bytes')
+
 
 class TestMain(unittest.TestCase):
     def setUp(self):
@@ -43,6 +54,8 @@ class TestMain(unittest.TestCase):
         s3.Bucket.return_value = bucket
         boto3.resource.return_value = s3
 
+        self.optional.insert(0, '--dump-config')
+
         argv = build_argv(self.optional)
         with captured_output(argv) as (out, err):
             sut.main()
@@ -52,6 +65,11 @@ class TestMain(unittest.TestCase):
         bucket.download_file.assert_called_once_with(
             'bar', self.actual_file, Callback=ANY
         )
+
+        console_output = out.getvalue()
+        self.assertIn('Command Line Args:', console_output)
+        self.assertIn('Defaults:', console_output)
+        self.assertIn('--timezone:', console_output)
 
     @patch('complaints.ccdb.acquire.boto3')
     def test_main_happy_path_check_latest(self, boto3):

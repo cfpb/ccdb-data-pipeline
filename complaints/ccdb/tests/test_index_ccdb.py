@@ -172,6 +172,7 @@ class TestMain(unittest.TestCase):
 
         bulk.side_effect = self.capture_actions
 
+        self.optional.insert(0, '--dump-config')
         self.optional[-1] = toAbsolute('../../tests/__fixtures__/ccdb.ndjson')
 
         argv = build_argv(self.optional)
@@ -198,6 +199,7 @@ class TestMain(unittest.TestCase):
 
         self.validate_actions(toAbsolute('__fixtures__/exp_socrata.ndjson'))
 
+        logger.info.assert_any_call('Running index_ccdb with')
         logger.info.assert_any_call('Deleting and recreating onion-v1')
         logger.info.assert_any_call(
             'Loading data into onion-v1 with doc_type complaint'

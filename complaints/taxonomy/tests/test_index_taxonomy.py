@@ -67,6 +67,24 @@ class TestMain(unittest.TestCase):
         logger.info.assert_any_call('Indexing taxonomy...')
         logger.info.assert_any_call('Completed indexing taxonomy')
 
+    @patch('complaints.taxonomy.index_taxonomy.get_es_connection')
+    @patch('complaints.taxonomy.index_taxonomy.setup_logging')
+    def test_main_dump_config(self, logger_setup, es_conn):
+        logger = Mock()
+        logger_setup.return_value = logger
+
+        es = Mock()
+        es.indices.exists_alias.side_effect = [True, True]
+        es_conn.return_value = es
+
+        self.optional.insert(0, '--dump-config')
+
+        argv = build_argv(self.optional)
+        with captured_output(argv) as (out, err):
+            sut.main()
+
+        logger.info.assert_any_call('Running index_taxonomy with')
+
     # -------------------------------------------------------------------------
     # Index taxonomy assumes it is always called after complaint indexing
     # So there is no need to create the alias

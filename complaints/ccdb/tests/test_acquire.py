@@ -127,7 +127,3 @@ class TestMain(unittest.TestCase):
         self.assertTrue(True, '\nNo new data set since 08:00 ' +
                               'PM Sunday, September 08, 2019\n' in
                               out.getvalue())
-
-
-if __name__ == '__main__':
-    unittest.main()

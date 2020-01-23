@@ -82,7 +82,3 @@ class TestMain(unittest.TestCase):
         self.assertIn('Command Line Args:', console_output)
         self.assertNotIn('Defaults:', console_output)
         self.assertNotIn('Environment Variables:', console_output)
-
-
-if __name__ == '__main__':
-    unittest.main()

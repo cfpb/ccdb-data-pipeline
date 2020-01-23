@@ -1,12 +1,8 @@
 import unittest
+from unittest.mock import ANY, Mock, patch
 
 import complaints.taxonomy.index_taxonomy as sut
 from common.tests import build_argv, captured_output
-
-try:
-    from unittest.mock import patch, Mock, ANY
-except ImportError:
-    from mock import patch, Mock, ANY
 
 
 def toAbsolute(relative):
@@ -109,7 +105,3 @@ class TestMain(unittest.TestCase):
         es.indices.exists_alias.side_effect = [False, False]
         with self.assertRaises(SystemExit):
             sut.alias_to_index_name(es, logger, 'peach')
-
-
-if __name__ == '__main__':
-    unittest.main()

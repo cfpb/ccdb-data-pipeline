@@ -283,7 +283,3 @@ class TestMain(unittest.TestCase):
                                                      index='onion-v2')
 
         self.assertEqual(logger.error.call_count, 1)
-
-
-if __name__ == '__main__':
-    unittest.main()

@@ -28,10 +28,7 @@ class TestMain(unittest.TestCase):
         ]
 
     def tearDown(self):
-        try:
-            os.remove(self.actual_file)
-        except Exception:
-            pass
+        os.remove(self.actual_file)
 
     def test_json(self):
         argv = build_argv(self.optional, self.positional)

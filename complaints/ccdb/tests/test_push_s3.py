@@ -1,15 +1,9 @@
-from __future__ import unicode_literals
-
 import os
 import unittest
+from unittest.mock import ANY, Mock, patch
 
 import complaints.ccdb.push_s3 as sut
-from common.tests import build_argv, captured_output
-
-try:
-    from unittest.mock import patch, Mock, ANY
-except ImportError:
-    from mock import patch, Mock, ANY
+from common.tests import build_argv, captured_output, make_configargs
 
 
 def toAbsolute(relative):
@@ -23,6 +17,18 @@ def toAbsolute(relative):
 # Classes
 # ------------------------------------------------------------------------------
 
+class TestProgress(unittest.TestCase):
+    def test_callback(self):
+        options = make_configargs({
+            'infile': 'foo.bar'
+        })
+        instance = sut.ProgressPercentage(options)
+        with captured_output([]) as (out, err):
+            instance(100)
+
+        self.assertEqual(out.getvalue(), '\rfoo.bar  100 bytes')
+
+
 class TestMain(unittest.TestCase):
     def setUp(self):
         self.optional = [
@@ -34,7 +40,7 @@ class TestMain(unittest.TestCase):
         ]
 
     @patch('complaints.ccdb.push_s3.boto3')
-    def test_main_happy_path(self, boto3):
+    def test_main_happy_path_ndjson(self, boto3):
         bucket = Mock()
         s3 = Mock()
         s3.Bucket.return_value = bucket
@@ -50,6 +56,29 @@ class TestMain(unittest.TestCase):
             'from_s3.ndjson.zip', 'bar/from_s3.ndjson.zip', Callback=ANY
         )
 
+    @patch('complaints.ccdb.push_s3.boto3')
+    def test_main_happy_path_json(self, boto3):
+        bucket = Mock()
+        s3 = Mock()
+        s3.Bucket.return_value = bucket
+        boto3.resource.return_value = s3
 
-if __name__ == '__main__':
-    unittest.main()
+        self.optional.insert(0, '--dump-config')
+        self.positional = [
+            toAbsolute('__fixtures__/from_s3.json')
+        ]
+
+        argv = build_argv(self.optional, self.positional)
+        with captured_output(argv) as (out, err):
+            sut.main()
+
+        boto3.resource.assert_called_once_with('s3')
+        s3.Bucket.assert_called_once_with('foo')
+        bucket.upload_file.assert_called_once_with(
+            'from_s3.json.zip', 'bar/from_s3.json.zip', Callback=ANY
+        )
+
+        console_output = out.getvalue()
+        self.assertIn('Command Line Args:', console_output)
+        self.assertNotIn('Defaults:', console_output)
+        self.assertNotIn('Environment Variables:', console_output)

@@ -1,17 +1,11 @@
-from __future__ import unicode_literals
-
 import os
 import unittest
 from datetime import datetime
+from unittest.mock import ANY, Mock, patch
 
 import complaints.ccdb.acquire as sut
 import pytz
 from common.tests import build_argv, captured_output, make_configargs
-
-try:
-    from unittest.mock import patch, Mock, ANY
-except ImportError:
-    from mock import patch, Mock, ANY
 
 
 def toAbsolute(relative):
@@ -24,6 +18,17 @@ def toAbsolute(relative):
 # ------------------------------------------------------------------------------
 # Classes
 # ------------------------------------------------------------------------------
+
+class TestProgress(unittest.TestCase):
+    def test_callback(self):
+        options = make_configargs({
+            'outfile': 'foo.bar'
+        })
+        instance = sut.ProgressPercentage(options)
+        with captured_output([]) as (out, err):
+            instance(100)
+
+        self.assertEqual(out.getvalue(), '\rfoo.bar  100 bytes')
 
 
 class TestMain(unittest.TestCase):
@@ -49,6 +54,8 @@ class TestMain(unittest.TestCase):
         s3.Bucket.return_value = bucket
         boto3.resource.return_value = s3
 
+        self.optional.insert(0, '--dump-config')
+
         argv = build_argv(self.optional)
         with captured_output(argv) as (out, err):
             sut.main()
@@ -58,6 +65,11 @@ class TestMain(unittest.TestCase):
         bucket.download_file.assert_called_once_with(
             'bar', self.actual_file, Callback=ANY
         )
+
+        console_output = out.getvalue()
+        self.assertIn('Command Line Args:', console_output)
+        self.assertIn('Defaults:', console_output)
+        self.assertIn('--timezone:', console_output)
 
     @patch('complaints.ccdb.acquire.boto3')
     def test_main_happy_path_check_latest(self, boto3):
@@ -115,7 +127,3 @@ class TestMain(unittest.TestCase):
         self.assertTrue(True, '\nNo new data set since 08:00 ' +
                               'PM Sunday, September 08, 2019\n' in
                               out.getvalue())
-
-
-if __name__ == '__main__':
-    unittest.main()

@@ -33,6 +33,10 @@ INDEX_CCDB := complaints/ccdb/ready_es/.last_indexed
 INPUT_S3_TIMESTAMP := complaints/ccdb/intake/.latest_dataset
 PUSH_S3 := complaints/ccdb/ready_s3/.last_pushed
 
+# Verification
+
+S3_JSON_COUNT := complaints/ccdb/ready_s3/last_json_count.txt
+
 # Defaults
 
 ALL_LIST=$(PUSH_S3) $(INDEX_CCDB)
@@ -82,6 +86,8 @@ ls_out:
 
 s3: dirs check_latest $(PUSH_S3)
 
+verify_s3: verify_s3
+
 
 # -----------------------------------------------------------------------------
 # Asset Targets
@@ -101,6 +107,9 @@ $(PUSH_S3): $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_JSON)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_CSV)
 	touch $@
+
+verify_s3:
+	$(PY) -m complaints.ccdb.verify_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_JSON) $(S3_JSON_COUNT)
 
 $(CONFIG_CCDB):
 	cp config_sample.ini $(CONFIG_CCDB)

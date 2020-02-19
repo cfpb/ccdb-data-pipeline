@@ -13,62 +13,7 @@ import requests
 # -----------------------------------------------------------------------------
 
 
-class ProgressPercentage(object):
-    def __init__(self, options):
-        self.options = options
-        self.seen_so_far = 0
-
-    def __call__(self, bytes_amount):
-        self.seen_so_far += bytes_amount
-        sys.stdout.write(
-            "\r{}  {:,d} bytes".format(self.options.infile, self.seen_so_far)
-        )
-        sys.stdout.flush()
-
-
-def verify_download(options):
-    # Setup
-    temp_json_file_name = "todays_json_export.json"
-    size_file_path = "complaints/ccdb/json_prev_size.txt"
-
-    path, base_filename = os.path.split(options.json_file)
-    key = options.folder + '/' + base_filename + '.zip'
-
-    # Execute
-    s3 = boto3.resource('s3')
-    bucket = s3.Bucket(options.bucket)
-    bucket.download_file(key,
-                         "{}.zip".format(temp_json_file_name),
-                         Callback=ProgressPercentage(options))
-
-    # AZ - Use the following to unzip the files if desired
-    # with ZipFile("{}.zip".format(temp_json_file_name), 'r') as zip_ref:
-    #     zip_ref.extractall("")
-    # new_size = os.path.getsize(base_filename)
-
-    try:
-        with open(size_file_path, 'r') as f:
-            prev_size = int(f.read())
-    except Exception:
-        prev_size = 0
-
-    new_size = os.path.getsize("{}.zip".format(temp_json_file_name))
-
-    if new_size < prev_size:
-        print("\n\nPROBLEM!!!\nNew Size: {}\nPrev Size: {}\n\n".format(
-              new_size, prev_size))
-    else:
-        print("\n\nNO PROBLEM!\nNew Size: {}\nPrev Size: {}\n\n".format(
-              new_size, prev_size))
-        with open(size_file_path, 'w+') as f:
-            f.write(str(new_size))
-
-    # Clean up
-    os.remove("{}.zip".format(temp_json_file_name))
-    # os.remove(base_filename)
-
-
-def verify_touch(options):
+def verify_file(options):
     path, base_filename = os.path.split(options.json_file)
     key = options.folder + '/' + base_filename + '.zip'
 
@@ -87,10 +32,10 @@ def verify_touch(options):
     if new_size < prev_size:
         print("\n\nThere was a problem during file verification!" +
               "\nPrevious file size: {}\nNew file size: {}\n\n".format(
-                prev_size, new_size))
+                prev_size, new_size), file=sys.stderr)
         exit(2)
     else:
-        print("\n\nVerification Successful.\n\n")
+        print("\nFile verification successful.\n")
         with open(options.json_size, 'w+') as f:
             f.write(str(new_size))
 
@@ -112,10 +57,10 @@ def verify_cache(options):
     if new_size < prev_size:
         print("\n\nThere was a problem during cache verification!" +
               "\nPrevious cached file size: {}\nNew cached file size: {}\n\n"
-              .format(prev_size, new_size))
+              .format(prev_size, new_size), file=sys.stderr)
         exit(2)
     else:
-        print("\n\nVerification Successful.\n\n")
+        print("\nCache verification successful.\n")
         with open(options.cache_size, 'w+') as f:
             f.write(str(new_size))
 
@@ -160,7 +105,7 @@ def main():
     if cfg.dump_config:
         print(p.format_values())
 
-    verify_touch(cfg)
+    verify_file(cfg)
     verify_cache(cfg)
 
 

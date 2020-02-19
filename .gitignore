@@ -70,7 +70,7 @@ todaysData.json
 intake/
 ready_es/
 ready_s3/
-complaints/ccdb/json_prev_size.txt
+verification/
 
 # Sensitive Configuration
 config.ini

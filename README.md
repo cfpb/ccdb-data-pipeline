@@ -27,7 +27,7 @@ Detailed instructions on how to install, configure, and get the project running 
     1. `export INPUT_S3_BUCKET=<bucket-name>`
     1. `export INPUT_S3_KEY=<path-to-csv>`
     1. `export OUTPUT_S3_BUCKET=<bucket-name>`
-    1. `export OUTPUT_S3_FOLDER=<path-to-csv-and-json>`
+    1. `export OUTPUT_S3_FOLDER=ccdb/test/<your initials>`
 1. `make`
 
 ## Getting help

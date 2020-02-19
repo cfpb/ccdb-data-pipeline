@@ -5,7 +5,7 @@ OS_NAME := $(shell uname -s | tr A-Z a-z)
 # ND-JSON = {}\n{}\n{}\n
 
 DIRS := complaints/ccdb/intake complaints/ccdb/ready_es complaints/ccdb/ready_s3
-MAX_RECORDS := 0
+MAX_RECORDS ?= 0
 
 # Aliases
 

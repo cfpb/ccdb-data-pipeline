@@ -70,7 +70,7 @@ todaysData.json
 intake/
 ready_es/
 ready_s3/
-verification/
+verification/*
 
 # Sensitive Configuration
 config.ini

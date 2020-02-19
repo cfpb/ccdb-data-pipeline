@@ -6,6 +6,7 @@ from zipfile import ZipFile
 
 import boto3
 import configargparse
+import requests
 
 # -----------------------------------------------------------------------------
 # Process
@@ -25,7 +26,7 @@ class ProgressPercentage(object):
         sys.stdout.flush()
 
 
-def verify(options):
+def verify_download(options):
     # Setup
     temp_json_file_name = "todays_json_export.json"
     size_file_path = "complaints/ccdb/json_prev_size.txt"
@@ -66,6 +67,57 @@ def verify(options):
     os.remove("{}.zip".format(temp_json_file_name))
     # os.remove(base_filename)
 
+
+def verify_touch(options):
+    path, base_filename = os.path.split(options.json_file)
+    key = options.folder + '/' + base_filename + '.zip'
+
+    s3 = boto3.resource('s3')
+    bucket = s3.Bucket(options.bucket)
+    dataset = bucket.Object(key)
+
+    new_size = dataset.content_length
+
+    try:
+        with open(options.json_size, 'r') as f:
+            prev_size = int(f.read())
+    except Exception:
+        prev_size = 0
+
+    if new_size < prev_size:
+        print("\n\nPROBLEM!!!\nNew Size: {}\nPrev Size: {}\n\n".format(
+              new_size, prev_size))
+    else:
+        print("\n\nNO PROBLEM!\nNew Size: {}\nPrev Size: {}\n\n".format(
+              new_size, prev_size))
+        with open(options.json_size, 'w+') as f:
+            f.write(str(new_size))
+
+
+def verify_cache(options):
+    path, base_filename = os.path.split(options.json_file)
+    url = 'http://files.consumerfinance.gov/{}/{}.zip'.format(
+      options.folder, base_filename)
+
+    response = requests.head(url)
+    new_size = int(response.headers['content-length'])
+
+    try:
+        with open(options.cache_size, 'r') as f:
+            prev_size = int(f.read())
+    except Exception:
+        prev_size = 0
+
+    if new_size < prev_size:
+        print("\n\nPROBLEM!!!\nNew Size: {}\nPrev Size: {}\n\n".format(
+              new_size, prev_size))
+    else:
+        print("\n\nNO PROBLEM!\nNew Size: {}\nPrev Size: {}\n\n".format(
+              new_size, prev_size))
+        with open(options.cache_size, 'w+') as f:
+            f.write(str(new_size))
+
+
 # -----------------------------------------------------------------------------
 # Main
 # -----------------------------------------------------------------------------
@@ -92,8 +144,10 @@ def build_arg_parser():
     group = p.add_argument_group('Files')
     group.add(dest='json_file',
               help="Name of the json data file")
-    group.add(dest='infile',
-              help="The local name of the file to write")
+    group.add(dest='json_size',
+              help="Location of the file tracking JSON file size")
+    group.add(dest='cache_size',
+              help="Location of the file tracking Akami file size")
     return p
 
 
@@ -104,7 +158,8 @@ def main():
     if cfg.dump_config:
         print(p.format_values())
 
-    verify(cfg)
+    verify_touch(cfg)
+    verify_cache(cfg)
 
 
 if __name__ == '__main__':

@@ -85,11 +85,12 @@ def verify_touch(options):
         prev_size = 0
 
     if new_size < prev_size:
-        print("\n\nPROBLEM!!!\nNew Size: {}\nPrev Size: {}\n\n".format(
-              new_size, prev_size))
+        print("\n\nThere was a problem during file verification!" +
+              "\nPrevious file size: {}\nNew file size: {}\n\n".format(
+                prev_size, new_size))
+        exit(2)
     else:
-        print("\n\nNO PROBLEM!\nNew Size: {}\nPrev Size: {}\n\n".format(
-              new_size, prev_size))
+        print("\n\nVerification Successful.\n\n")
         with open(options.json_size, 'w+') as f:
             f.write(str(new_size))
 
@@ -109,11 +110,12 @@ def verify_cache(options):
         prev_size = 0
 
     if new_size < prev_size:
-        print("\n\nPROBLEM!!!\nNew Size: {}\nPrev Size: {}\n\n".format(
-              new_size, prev_size))
+        print("\n\nThere was a problem during cache verification!" +
+              "\nPrevious cached file size: {}\nNew cached file size: {}\n\n"
+              .format(prev_size, new_size))
+        exit(2)
     else:
-        print("\n\nNO PROBLEM!\nNew Size: {}\nPrev Size: {}\n\n".format(
-              new_size, prev_size))
+        print("\n\nVerification Successful.\n\n")
         with open(options.cache_size, 'w+') as f:
             f.write(str(new_size))
 

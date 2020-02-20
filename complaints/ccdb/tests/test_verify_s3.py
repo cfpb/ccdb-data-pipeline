@@ -109,6 +109,47 @@ class TestMain(unittest.TestCase):
         self.assertEqual(ex.exception.code, 2)
 
     @patch('complaints.ccdb.verify_s3.boto3')
+    def test_verify_json_file_invalid(self, boto3):
+        invalid_count_file = \
+            toAbsolute('__fixtures__/prev_json_size_invalid.txt')
+
+        test_positional = [
+            'json_data.json',
+            invalid_count_file,
+            self.cache_size_file
+        ]
+
+        dataset = make_configargs({
+            'content_length': 1
+        })
+        bucket = Mock()
+        bucket.Object.return_value = dataset
+
+        s3 = Mock()
+        s3.Bucket.return_value = bucket
+        boto3.resource.return_value = s3
+
+        argv = build_argv(self.optional, test_positional)
+        with captured_output(argv) as (out, err):
+            sut.main()
+
+        # assert json size update
+        try:
+            with open(invalid_count_file, 'r') as f:
+                prev_json_size = int(f.read())
+        except Exception:
+            prev_json_size = 0
+
+        self.assertTrue(prev_json_size != 0)
+
+        # Clean up
+        try:
+            with open(invalid_count_file, 'w+') as f:
+                f.write(str('Invalid'))
+        except Exception:
+            pass
+
+    @patch('complaints.ccdb.verify_s3.boto3')
     def test_verify_cache_verify_failure(self, boto3):
         dataset = make_configargs({
             'content_length': 1
@@ -135,3 +176,44 @@ class TestMain(unittest.TestCase):
 
         # assert exit code
         self.assertEqual(ex.exception.code, 2)
+
+    @patch('complaints.ccdb.verify_s3.boto3')
+    def test_verify_cache_file_invalid(self, boto3):
+        invalid_count_file = \
+            toAbsolute('__fixtures__/prev_cache_size_invalid.txt')
+
+        test_positional = [
+            'json_data.json',
+            self.json_size_file,
+            invalid_count_file
+        ]
+
+        dataset = make_configargs({
+            'content_length': 1
+        })
+        bucket = Mock()
+        bucket.Object.return_value = dataset
+
+        s3 = Mock()
+        s3.Bucket.return_value = bucket
+        boto3.resource.return_value = s3
+
+        argv = build_argv(self.optional, test_positional)
+        with captured_output(argv) as (out, err):
+            sut.main()
+
+        # assert json size update
+        try:
+            with open(invalid_count_file, 'r') as f:
+                prev_cache_size = int(f.read())
+        except Exception:
+            prev_cache_size = 0
+
+        self.assertTrue(prev_cache_size != 0)
+
+        # Clean up
+        try:
+            with open(invalid_count_file, 'w+') as f:
+                f.write(str('Invalid'))
+        except Exception:
+            pass

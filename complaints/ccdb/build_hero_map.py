@@ -19,7 +19,8 @@ def most_common_value(c):
     # most_common returns [(value1, count)]
     # [0]                 (value1, count1)
     # [0]                 value1
-    return c.most_common(1)[0][0]
+    arr = c.most_common(1)
+    return arr[0][0] if len(arr) else ''
 
 
 # -----------------------------------------------------------------------------

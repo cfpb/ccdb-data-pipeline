@@ -1,0 +1,281 @@
+date_received,product,issue,state,date_sent_to_company
+2016-10-03,Debt collection,Improper contact or sharing of info,AZ,2016-10-03
+2016-10-03,Debt collection,Cont'd attempts collect debt not owed,NC,2016-10-06
+2016-10-07,Debt collection,Cont'd attempts collect debt not owed,CA,2016-10-07
+2016-10-12,Debt collection,Disclosure verification of debt,CA,2016-11-23
+2016-10-12,Credit card,Identity theft / Fraud / Embezzlement,NH,2016-10-12
+2016-10-13,Bank account or service,"Account opening, closing, or management",FL,2016-10-13
+2016-10-15,Debt collection,Cont'd attempts collect debt not owed,CA,2016-10-19
+2016-10-17,Debt collection,Cont'd attempts collect debt not owed,CA,2016-10-17
+2016-10-24,Bank account or service,"Account opening, closing, or management",PR,2016-12-28
+2016-10-25,Credit card,Billing disputes,CA,2016-10-25
+2016-10-27,Mortgage,"Loan servicing, payments, escrow account",GA,2016-10-27
+2016-10-31,Consumer Loan,Managing the loan or lease,PA,2016-10-31
+2016-11-10,Debt collection,Communication tactics,WI,2016-11-14
+2016-11-14,Consumer Loan,Managing the loan or lease,CA,2016-11-15
+2016-11-17,Debt collection,Communication tactics,NJ,2016-11-25
+2016-12-22,Credit card,Billing disputes,CA,2016-12-22
+2016-12-29,Debt collection,Disclosure verification of debt,IL,2016-12-29
+2016-12-29,Debt collection,Cont'd attempts collect debt not owed,PA,2017-02-03
+2017-01-09,Debt collection,Disclosure verification of debt,IN,2017-01-09
+2017-01-12,Credit reporting,Incorrect information on credit report,SC,2017-01-17
+2017-01-13,Credit reporting,Incorrect information on credit report,TX,2017-01-13
+2017-01-14,Bank account or service,"Account opening, closing, or management",SC,2017-01-14
+2017-01-17,Credit card,Identity theft / Fraud / Embezzlement,AZ,2017-01-17
+2017-01-19,Student loan,Can't repay my loan,CT,2017-01-19
+2017-03-03,Mortgage,"Loan modification,collection,foreclosure",NY,2017-03-03
+2017-03-07,Credit reporting,Incorrect information on credit report,FL,2017-03-07
+2017-05-03,Debt collection,Took or threatened to take negative or legal action,AZ,2017-05-04
+2017-06-09,Debt collection,Communication tactics,FOO,2017-06-09
+2017-10-31,Mortgage,Applying for a mortgage or refinancing an existing mortgage,NH,2017-10-31
+2017-11-09,Debt collection,Took or threatened to take negative or legal action,NJ,2017-11-09
+2017-12-23,Mortgage,Applying for a mortgage or refinancing an existing mortgage,CA,2017-12-23
+2018-01-03,Student loan,Struggling to repay your loan,AL,2018-01-11
+2018-07-05,"Payday loan, title loan, or personal loan",Getting the loan,NY,2018-07-17
+2018-08-20,Debt collection,Attempts to collect debt not owed,VA,2018-08-20
+2018-08-26,Credit card or prepaid card,Incorrect information on your report,FL,2018-08-26
+2018-09-21,Debt collection,Communication tactics,AZ,2018-09-21
+2018-10-29,Credit card or prepaid card,"Advertising and marketing, including promotional offers",NC,2018-10-29
+2018-10-31,"Credit reporting, credit repair services, or other personal consumer reports",Improper use of your report,VA,2018-10-31
+2018-11-01,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,KS,2018-11-01
+2018-11-03,Credit card or prepaid card,Problem when making payments,FL,2018-11-05
+2018-11-05,Debt collection,False statements or representation,CA,2018-11-19
+2018-11-08,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,AR,2018-11-08
+2018-11-08,"Credit reporting, credit repair services, or other personal consumer reports",Improper use of your report,IL,2018-11-08
+2018-11-09,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,CA,2018-11-09
+2018-11-10,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,CA,2018-11-10
+2018-11-10,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,VT,2018-11-10
+2018-11-12,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,IL,2018-11-12
+2018-11-12,Debt collection,Attempts to collect debt not owed,MI,2018-11-12
+2018-11-15,"Credit reporting, credit repair services, or other personal consumer reports",Credit monitoring or identity theft protection services,FL,2018-11-15
+2018-11-16,Vehicle loan or lease,Improper use of your report,FL,2018-11-16
+2018-11-16,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,NC,2018-11-16
+2018-11-16,Debt collection,Took or threatened to take negative or legal action,TX,2018-11-16
+2018-11-16,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,VA,2018-11-16
+2018-11-17,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,TX,2018-11-17
+2018-11-17,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,WI,2018-11-17
+2018-11-18,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,NY,2018-11-18
+2018-11-20,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,MD,2018-11-20
+2018-11-21,"Credit reporting, credit repair services, or other personal consumer reports",Problem with customer service,NY,2018-11-21
+2018-11-22,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,CA,2018-11-22
+2018-11-23,"Credit reporting, credit repair services, or other personal consumer reports",Improper use of your report,VA,2018-12-01
+2018-11-24,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,CA,2018-12-04
+2018-11-26,"Credit reporting, credit repair services, or other personal consumer reports",Improper use of your report,IN,2018-11-26
+2018-11-27,Student loan,Incorrect information on your report,NY,2018-11-27
+2018-11-30,Mortgage,Trouble during payment process,PA,2018-11-30
+2018-11-30,Mortgage,Closing on a mortgage,PA,2018-11-30
+2018-12-01,Credit card or prepaid card,Getting a credit card,MN,2018-12-19
+2018-12-01,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,PA,2018-12-01
+2018-12-03,Mortgage,Struggling to pay mortgage,MD,2018-12-03
+2018-12-03,"Credit reporting, credit repair services, or other personal consumer reports",Unable to get your credit report or credit score,SC,2018-12-03
+2018-12-05,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,WI,2018-12-05
+2018-12-06,Checking or savings account,Managing an account,VT,2018-12-11
+2018-12-07,Debt collection,Attempts to collect debt not owed,WI,2018-12-07
+2018-12-09,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,MI,2018-12-09
+2018-12-12,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,FL,2018-12-12
+2018-12-13,Checking or savings account,Managing an account,IL,2018-12-19
+2018-12-17,Debt collection,Attempts to collect debt not owed,NY,2018-12-17
+2018-12-19,Credit card or prepaid card,Problem with a purchase shown on your statement,VA,2018-12-19
+2018-12-20,Debt collection,Communication tactics,PA,2018-12-20
+2018-12-21,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,FL,2018-12-21
+2018-12-21,Mortgage,Struggling to pay mortgage,MD,2018-12-21
+2018-12-21,Checking or savings account,Managing an account,,2018-12-21
+2018-12-26,Mortgage,Trouble during payment process,MD,2018-12-26
+2018-12-27,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,NY,2018-12-27
+2018-12-28,Credit card or prepaid card,Getting a credit card,PA,2018-12-28
+2018-12-30,Debt collection,Took or threatened to take negative or legal action,MO,2018-12-30
+2019-01-01,"Credit reporting, credit repair services, or other personal consumer reports",Unable to get your credit report or credit score,AR,2019-01-01
+2019-01-02,Checking or savings account,Managing an account,CA,2019-01-02
+2019-01-03,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,FL,2019-01-03
+2019-01-04,Mortgage,Trouble during payment process,CA,2019-01-04
+2019-01-04,Credit card or prepaid card,Problem when making payments,NY,2019-01-04
+2019-01-12,Checking or savings account,Problem caused by your funds being low,WI,2019-01-12
+2019-01-14,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,GA,2019-01-14
+2019-01-21,Credit card or prepaid card,Trouble using your card,IL,2019-01-21
+2019-01-23,Mortgage,Trouble during payment process,GA,2019-01-23
+2019-01-30,Debt collection,Written notification about debt,DC,2019-02-26
+2019-01-30,Debt collection,False statements or representation,TX,2019-01-30
+2019-01-31,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,IA,2019-02-04
+2019-01-31,Mortgage,Trouble during payment process,MI,2019-02-01
+2019-02-01,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,GA,2019-02-01
+2019-02-05,Checking or savings account,Managing an account,,2019-02-19
+2019-02-06,Mortgage,Struggling to pay mortgage,CA,2019-02-15
+2019-02-07,Credit card or prepaid card,Problem when making payments,MI,2019-02-07
+2019-02-08,Mortgage,Trouble during payment process,NV,2019-02-08
+2019-02-08,Checking or savings account,Managing an account,OR,2019-02-21
+2019-02-09,Mortgage,Trouble during payment process,GA,2019-02-14
+2019-02-09,Mortgage,Struggling to pay mortgage,IN,2019-02-09
+2019-02-10,Debt collection,Attempts to collect debt not owed,OH,2019-02-10
+2019-02-11,Mortgage,Trouble during payment process,NJ,2019-02-11
+2019-02-11,Credit card or prepaid card,Closing your account,OH,2019-02-11
+2019-02-12,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,FL,2019-02-12
+2019-02-12,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,NC,2019-02-12
+2019-02-12,Mortgage,Struggling to pay mortgage,TX,2019-02-12
+2019-02-12,Debt collection,Attempts to collect debt not owed,TX,2019-02-12
+2019-02-13,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,IL,2019-02-13
+2019-02-13,Debt collection,Written notification about debt,IL,2019-02-13
+2019-02-13,Mortgage,Struggling to pay mortgage,TX,2019-02-13
+2019-02-13,Mortgage,Struggling to pay mortgage,WA,2019-02-20
+2019-02-13,Mortgage,Trouble during payment process,,2019-04-26
+2019-02-14,Checking or savings account,Problem with a lender or other company charging your account,CA,2019-02-14
+2019-02-14,Debt collection,Took or threatened to take negative or legal action,FL,2019-02-14
+2019-02-14,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,TN,2019-02-27
+2019-02-15,Student loan,Dealing with your lender or servicer,GA,2019-02-15
+2019-02-16,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,VA,2019-02-16
+2019-02-17,"Credit reporting, credit repair services, or other personal consumer reports",Improper use of your report,FL,2019-02-17
+2019-02-18,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,NJ,2019-02-18
+2019-02-18,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,PA,2019-02-26
+2019-02-19,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,CA,2019-02-19
+2019-02-19,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,FL,2019-02-19
+2019-02-19,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,NC,2019-02-19
+2019-02-19,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,SC,2019-02-19
+2019-02-19,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,TX,2019-02-19
+2019-02-20,Mortgage,Trouble during payment process,CO,2019-02-20
+2019-02-20,"Credit reporting, credit repair services, or other personal consumer reports",Improper use of your report,GA,2019-02-20
+2019-02-20,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,NC,2019-02-27
+2019-02-20,"Credit reporting, credit repair services, or other personal consumer reports",Improper use of your report,NM,2019-02-20
+2019-02-20,Debt collection,Attempts to collect debt not owed,SC,2019-02-20
+2019-02-20,Debt collection,Attempts to collect debt not owed,TX,2019-02-20
+2019-02-21,Credit card or prepaid card,Fees or interest,CA,2019-02-21
+2019-02-21,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,FL,2019-02-21
+2019-02-21,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,GA,2019-02-21
+2019-02-21,Debt collection,False statements or representation,MN,2019-02-21
+2019-02-21,Debt collection,Communication tactics,OH,2019-02-21
+2019-02-21,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,OR,2019-02-21
+2019-02-21,Debt collection,False statements or representation,TN,2019-02-21
+2019-02-21,Checking or savings account,Problem with a lender or other company charging your account,TX,2019-02-21
+2019-02-21,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,,2019-02-21
+2019-02-22,Mortgage,Struggling to pay mortgage,AR,2019-03-01
+2019-02-22,"Credit reporting, credit repair services, or other personal consumer reports",Problem with fraud alerts or security freezes,CA,2019-02-22
+2019-02-22,Debt collection,Communication tactics,TX,2019-03-01
+2019-02-22,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,TX,2019-02-22
+2019-02-23,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,AZ,2019-03-01
+2019-02-23,Credit card or prepaid card,Fees or interest,GU,2019-02-23
+2019-02-23,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,NC,2019-02-23
+2019-02-24,Debt collection,Communication tactics,SC,2019-02-24
+2019-02-25,Mortgage,Struggling to pay mortgage,GA,2019-02-25
+2019-02-25,Checking or savings account,Managing an account,ME,2019-03-04
+2019-02-26,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,AR,2019-02-26
+2019-02-26,Student loan,Credit monitoring or identity theft protection services,CA,2019-02-26
+2019-02-27,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,AZ,2019-02-27
+2019-02-27,Debt collection,Communication tactics,NC,2019-02-27
+2019-02-28,Credit card or prepaid card,Struggling to pay your bill,IL,2019-02-28
+2019-02-28,Debt collection,Attempts to collect debt not owed,IL,2019-02-28
+2019-02-28,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,UT,2019-02-28
+2019-02-28,Debt collection,False statements or representation,WA,2019-02-28
+2019-03-01,Debt collection,Attempts to collect debt not owed,FL,2019-03-01
+2019-03-01,Debt collection,Written notification about debt,TX,2019-03-06
+2019-03-04,"Payday loan, title loan, or personal loan",Problem with the payoff process at the end of the loan,CA,2019-03-05
+2019-03-05,Debt collection,Attempts to collect debt not owed,MD,2019-03-05
+2019-03-05,Debt collection,Attempts to collect debt not owed,OK,2019-03-05
+2019-03-05,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,RI,2019-03-05
+2019-03-05,"Credit reporting, credit repair services, or other personal consumer reports",Improper use of your report,TN,2019-03-05
+2019-03-05,Debt collection,Threatened to contact someone or share information improperly,TX,2019-03-05
+2019-03-06,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,FL,2019-03-06
+2019-03-07,"Credit reporting, credit repair services, or other personal consumer reports",Improper use of your report,FL,2019-03-07
+2019-03-08,Debt collection,Written notification about debt,TN,2019-03-08
+2019-03-12,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,FL,2019-03-12
+2019-03-12,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,OH,2019-03-12
+2019-03-13,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,GA,2019-03-13
+2019-03-19,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,TX,2019-03-19
+2019-03-21,Debt collection,Took or threatened to take negative or legal action,MA,2019-03-21
+2019-03-22,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,CA,2019-03-22
+2019-03-22,Debt collection,Attempts to collect debt not owed,FL,2019-03-22
+2019-03-22,Mortgage,Struggling to pay mortgage,FL,2019-03-27
+2019-03-22,Credit card or prepaid card,Problem when making payments,TX,2019-03-26
+2019-03-25,Mortgage,Trouble during payment process,FL,2019-03-25
+2019-03-25,"Payday loan, title loan, or personal loan",Getting a line of credit,MD,2019-03-27
+2019-03-25,Debt collection,Written notification about debt,NY,2019-03-29
+2019-03-26,Mortgage,Trouble during payment process,IL,2019-03-27
+2019-03-26,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,MN,2019-03-26
+2019-03-28,Credit card or prepaid card,Closing your account,CA,2019-03-28
+2019-03-28,Vehicle loan or lease,Managing the loan or lease,CA,2019-03-28
+2019-03-28,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,PA,2019-04-02
+2019-03-28,Mortgage,Closing on a mortgage,,2019-04-02
+2019-03-29,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,AL,2019-03-29
+2019-03-29,Debt collection,Written notification about debt,AZ,2019-03-29
+2019-03-29,Mortgage,Closing on a mortgage,CO,2019-03-29
+2019-03-29,"Credit reporting, credit repair services, or other personal consumer reports",Improper use of your report,GA,2019-03-29
+2019-03-29,Debt collection,Took or threatened to take negative or legal action,OH,2019-03-29
+2019-03-29,Credit card or prepaid card,Incorrect information on your report,,2019-04-02
+2019-03-31,Debt collection,Attempts to collect debt not owed,FL,2019-03-31
+2019-04-01,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,CA,2019-04-01
+2019-04-01,"Credit reporting, credit repair services, or other personal consumer reports",Credit monitoring or identity theft protection services,CT,2019-04-01
+2019-04-01,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,GA,2019-04-01
+2019-04-01,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,TX,2019-04-01
+2019-04-02,"Credit reporting, credit repair services, or other personal consumer reports",Unable to get your credit report or credit score,GA,2019-04-03
+2019-04-02,"Credit reporting, credit repair services, or other personal consumer reports",Improper use of your report,MI,2019-04-02
+2019-04-04,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,GA,2019-04-04
+2019-04-05,Debt collection,Attempts to collect debt not owed,AZ,2019-04-05
+2019-04-05,Credit card or prepaid card,"Other features, terms, or problems",FL,2019-04-05
+2019-04-05,Mortgage,Trouble during payment process,GA,2019-04-12
+2019-04-05,"Credit reporting, credit repair services, or other personal consumer reports",Unable to get your credit report or credit score,IL,2019-04-05
+2019-04-05,"Credit reporting, credit repair services, or other personal consumer reports",Improper use of your report,MD,2019-04-05
+2019-04-05,"Credit reporting, credit repair services, or other personal consumer reports",Improper use of your report,NY,2019-04-05
+2019-04-06,Debt collection,Attempts to collect debt not owed,NC,2019-04-06
+2019-04-07,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,CA,2019-04-07
+2019-04-08,Debt collection,Attempts to collect debt not owed,NJ,2019-04-08
+2019-04-08,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,NY,2019-04-08
+2019-04-08,Debt collection,Attempts to collect debt not owed,PA,2019-04-08
+2019-04-08,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,SC,2019-04-08
+2019-04-09,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,CA,2019-04-09
+2019-04-09,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,NJ,2019-04-09
+2019-04-10,Debt collection,Written notification about debt,CA,2019-04-10
+2019-04-10,Debt collection,Written notification about debt,TN,2019-04-10
+2019-04-11,Credit card or prepaid card,Problem with a purchase shown on your statement,CT,2019-04-11
+2019-04-11,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,FL,2019-04-11
+2019-04-12,Debt collection,Took or threatened to take negative or legal action,CA,2019-04-12
+2019-04-13,Debt collection,Written notification about debt,CA,2019-04-13
+2019-04-16,Student loan,Dealing with your lender or servicer,PA,2019-04-16
+2019-04-17,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,AL,2019-04-17
+2019-04-18,Debt collection,Attempts to collect debt not owed,CA,2019-04-19
+2019-04-19,Credit card or prepaid card,Unexpected or other fees,IL,2019-04-19
+2019-04-19,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,NY,2019-04-19
+2019-04-23,Checking or savings account,Problem caused by your funds being low,CA,2019-04-23
+2019-04-23,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,,2019-04-23
+2019-04-24,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,AS,2019-04-24
+2019-04-24,Checking or savings account,Problem with a lender or other company charging your account,CA,2019-04-24
+2019-04-24,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,GA,2019-04-24
+2019-04-25,"Money transfer, virtual currency, or money service",Fraud or scam,CT,2019-04-25
+2019-04-25,Debt collection,Attempts to collect debt not owed,FL,2019-04-25
+2019-04-25,Debt collection,Attempts to collect debt not owed,NC,2019-04-25
+2019-04-26,Checking or savings account,Managing an account,NY,2019-04-26
+2019-04-29,Debt collection,Communication tactics,AZ,2019-05-31
+2019-05-01,Debt collection,Communication tactics,VA,2019-05-10
+2019-05-02,Debt collection,Attempts to collect debt not owed,CA,2019-05-02
+2019-05-02,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,GA,2019-05-02
+2019-05-02,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,NY,2019-05-02
+2019-05-20,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,VA,2019-05-20
+2019-05-29,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,NV,2019-05-29
+2019-06-14,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,NY,2019-06-14
+2019-06-17,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,FL,2019-06-17
+2019-06-17,Credit card or prepaid card,Problem with a purchase shown on your statement,MH,2019-06-18
+2019-06-18,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,LA,2019-06-18
+2019-06-20,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,NY,2019-06-20
+2019-06-25,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,FL,2019-06-25
+2019-06-25,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,GA,2019-06-25
+2019-06-25,Debt collection,Attempts to collect debt not owed,SC,2019-06-25
+2019-06-25,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,TN,2019-06-25
+2019-06-27,"Payday loan, title loan, or personal loan",Improper use of your report,CA,2019-06-27
+2019-06-28,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,GA,2019-06-28
+2019-07-03,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,TX,2019-07-03
+2019-07-05,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,NY,2019-07-09
+2019-07-11,Debt collection,Attempts to collect debt not owed,GA,2019-07-11
+2019-07-14,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,NY,2019-07-14
+2019-07-27,Debt collection,Written notification about debt,MD,2019-07-31
+2019-08-09,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,NY,2019-08-09
+2019-09-19,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,FL,2019-09-19
+2019-09-19,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,PA,2019-09-19
+2019-11-15,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,TX,2019-11-15
+2019-11-24,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,FL,2019-11-24
+2019-12-28,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,GA,2019-12-28
+2019-12-29,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,CA,2019-12-29
+2019-12-29,"Credit reporting, credit repair services, or other personal consumer reports",Improper use of your report,GA,2019-12-29
+2019-12-29,"Credit reporting, credit repair services, or other personal consumer reports",Problem with a credit reporting company's investigation into an existing problem,TX,2019-12-29
+2019-12-30,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,LA,2019-12-30
+2020-01-01,Debt collection,Attempts to collect debt not owed,AK,2020-01-01
+2020-01-01,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,FL,2020-01-01
+2020-01-01,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,FL,2020-01-01
+2020-01-03,Mortgage,Struggling to pay mortgage,FL,2020-01-03
+2020-01-04,"Credit reporting, credit repair services, or other personal consumer reports",Incorrect information on your report,OH,2020-01-04
+2020-01-04,Debt collection,Written notification about debt,TX,2020-01-04

@@ -2,9 +2,7 @@ import os
 import unittest
 
 import complaints.ccdb.build_hero_map as sut
-from common.tests import (
-    build_argv, captured_output, make_configargs
-)
+from common.tests import build_argv, captured_output, make_configargs
 from freezegun import freeze_time
 
 
@@ -27,14 +25,44 @@ def assert_output_equal(actual_file, expected_file):
 
     assert len(actual) == len(expected)
     for i in range(len(expected)):
-        assert actual[i] == expected[i]
+        assert actual[i] == expected[i], expected[i]['name']
 
 
 # ------------------------------------------------------------------------------
 # Classes
 # ------------------------------------------------------------------------------
 
-@freeze_time("2020-01-01")
+class TestGetInterval(unittest.TestCase):
+    def setUp(self):
+        self.options = make_configargs({
+            'interval': '3y'
+        })
+
+    @freeze_time("2020-01-01")
+    def test_happy_path(self):
+        (actual_min, actual_max) = sut.get_interval(self.options)
+        self.assertEqual(actual_min, '2017-01-01')
+        self.assertEqual(actual_max, '2020-01-01')
+
+    @freeze_time("2020-02-29")
+    def test_leap_day(self):
+        (actual_min, actual_max) = sut.get_interval(self.options)
+        self.assertEqual(actual_min, '2017-02-28')
+        self.assertEqual(actual_max, '2020-02-29')
+
+    @freeze_time("2020-02-20")
+    def test_regular_february(self):
+        (actual_min, actual_max) = sut.get_interval(self.options)
+        self.assertEqual(actual_min, '2017-02-20')
+        self.assertEqual(actual_max, '2020-02-20')
+
+    @freeze_time("2020-03-29")
+    def test_regular_29(self):
+        (actual_min, actual_max) = sut.get_interval(self.options)
+        self.assertEqual(actual_min, '2017-03-29')
+        self.assertEqual(actual_max, '2020-03-29')
+
+
 class TestMain(unittest.TestCase):
     def setUp(self):
         self.actual_file = fixtureToAbsolute('actual.')
@@ -50,6 +78,7 @@ class TestMain(unittest.TestCase):
     def tearDown(self):
         os.remove(self.actual_file)
 
+    @freeze_time("2020-01-01")
     def test_main_happy_path(self):
         argv = build_argv(self.optional, self.positional)
         with captured_output(argv) as (out, err):

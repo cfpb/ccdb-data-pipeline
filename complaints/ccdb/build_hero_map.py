@@ -2,6 +2,7 @@ import csv
 import io
 import json
 from collections import Counter, defaultdict
+from datetime import date
 
 import configargparse
 from common.constants import THESE_UNITED_STATES
@@ -12,7 +13,19 @@ from common.constants import THESE_UNITED_STATES
 
 
 def get_interval(options):
-    return ('2017-02-19', '2020-02-19')
+    assert options.interval.upper() == '3Y'
+
+    today = date.today()
+
+    # Dates are hard
+    day = 28 if today.day == 29 and today.month == 2 else today.day
+
+    # Compute the interval
+    back_then = date(today.year - 3, today.month, day)
+    return (
+        back_then.strftime('%Y-%m-%d'),
+        today.strftime('%Y-%m-%d')
+    )
 
 
 def most_common_value(c):

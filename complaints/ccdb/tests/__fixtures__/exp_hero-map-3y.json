@@ -27,9 +27,9 @@
     "fullName": "Arizona",
     "issue": "Communication tactics",
     "name": "AZ",
-    "perCapita": 0.0010539108523910526,
+    "perCapita": 0.0012044695455897746,
     "product": "Debt collection",
-    "value": 7
+    "value": 8
   },
   {
     "fullName": "California",
@@ -49,11 +49,11 @@
   },
   {
     "fullName": "Connecticut",
-    "issue": "Credit monitoring or identity theft protection services",
+    "issue": "Can't repay my loan",
     "name": "CT",
-    "perCapita": 0.0008349052744305807,
-    "product": "Credit reporting, credit repair services, or other personal consumer reports",
-    "value": 3
+    "perCapita": 0.0011132070325741076,
+    "product": "Student loan",
+    "value": 4
   },
   {
     "fullName": "District of Columbia",
@@ -75,9 +75,9 @@
     "fullName": "Florida",
     "issue": "Incorrect information on your report",
     "name": "FL",
-    "perCapita": 0.001577947662224727,
+    "perCapita": 0.001527046124733607,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
-    "value": 31
+    "value": 30
   },
   {
     "fullName": "Georgia",
@@ -121,11 +121,11 @@
   },
   {
     "fullName": "Indiana",
-    "issue": "Improper use of your report",
+    "issue": "Disclosure verification of debt",
     "name": "IN",
-    "perCapita": 0.00030447679848735927,
-    "product": "Credit reporting, credit repair services, or other personal consumer reports",
-    "value": 2
+    "perCapita": 0.0004567151977310389,
+    "product": "Debt collection",
+    "value": 3
   },
   {
     "fullName": "Kansas",
@@ -283,9 +283,9 @@
     "fullName": "Ohio",
     "issue": "Attempts to collect debt not owed",
     "name": "OH",
-    "perCapita": 0.0005183147824153417,
+    "perCapita": 0.0004319289853461181,
     "product": "Debt collection",
-    "value": 6
+    "value": 5
   },
   {
     "fullName": "Oklahoma",
@@ -323,9 +323,9 @@
     "fullName": "South Carolina",
     "issue": "Incorrect information on your report",
     "name": "SC",
-    "perCapita": 0.0012558669919641257,
+    "perCapita": 0.0016744893226188344,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
-    "value": 6
+    "value": 8
   },
   {
     "fullName": "South Dakota",
@@ -348,7 +348,7 @@
     "issue": "Problem with a credit reporting company's investigation into an existing problem",
     "name": "TX",
     "perCapita": 0.0007536188589200626,
-    "product": "Debt collection",
+    "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 20
   },
   {

@@ -3,7 +3,7 @@
     "fullName": "Alaska",
     "issue": "Attempts to collect debt not owed",
     "name": "AK",
-    "perCapita": 0.0013635588886995057,
+    "perCapita": 0.00135397696885176,
     "product": "Debt collection",
     "value": 1
   },
@@ -11,7 +11,7 @@
     "fullName": "Alabama",
     "issue": "Incorrect information on your report",
     "name": "AL",
-    "perCapita": 0.00062103829322116,
+    "perCapita": 0.000618458385275248,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 3
   },
@@ -19,7 +19,7 @@
     "fullName": "Arkansas",
     "issue": "Problem with a credit reporting company's investigation into an existing problem",
     "name": "AR",
-    "perCapita": 0.0013521699623555883,
+    "perCapita": 0.0013432086029824604,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 4
   },
@@ -27,7 +27,7 @@
     "fullName": "Arizona",
     "issue": "Communication tactics",
     "name": "AZ",
-    "perCapita": 0.0012044695455897746,
+    "perCapita": 0.0011747523401800836,
     "product": "Debt collection",
     "value": 8
   },
@@ -35,7 +35,7 @@
     "fullName": "California",
     "issue": "Incorrect information on your report",
     "name": "CA",
-    "perCapita": 0.0007808135577551131,
+    "perCapita": 0.0007695692415692471,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 30
   },
@@ -43,7 +43,7 @@
     "fullName": "Colorado",
     "issue": "Trouble during payment process",
     "name": "CO",
-    "perCapita": 0.00037886637875347655,
+    "perCapita": 0.0003678824630245935,
     "product": "Mortgage",
     "value": 2
   },
@@ -51,7 +51,7 @@
     "fullName": "Connecticut",
     "issue": "Can't repay my loan",
     "name": "CT",
-    "perCapita": 0.0011132070325741076,
+    "perCapita": 0.001112818050353904,
     "product": "Student loan",
     "value": 4
   },
@@ -59,7 +59,7 @@
     "fullName": "District of Columbia",
     "issue": "Written notification about debt",
     "name": "DC",
-    "perCapita": 0.0015444397081626727,
+    "perCapita": 0.0014872299004597027,
     "product": "Debt collection",
     "value": 1
   },
@@ -75,7 +75,7 @@
     "fullName": "Florida",
     "issue": "Incorrect information on your report",
     "name": "FL",
-    "perCapita": 0.001527046124733607,
+    "perCapita": 0.0014794032304347566,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 30
   },
@@ -83,7 +83,7 @@
     "fullName": "Georgia",
     "issue": "Incorrect information on your report",
     "name": "GA",
-    "perCapita": 0.0020985954100920254,
+    "perCapita": 0.0020584935650020805,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 21
   },
@@ -99,7 +99,7 @@
     "fullName": "Iowa",
     "issue": "Incorrect information on your report",
     "name": "IA",
-    "perCapita": 0.0003232557282531325,
+    "perCapita": 0.0003207079178295001,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 1
   },
@@ -115,7 +115,7 @@
     "fullName": "Illinois",
     "issue": "Improper use of your report",
     "name": "IL",
-    "perCapita": 0.0008544511584454613,
+    "perCapita": 0.0008557297250789333,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 11
   },
@@ -123,7 +123,7 @@
     "fullName": "Indiana",
     "issue": "Disclosure verification of debt",
     "name": "IN",
-    "perCapita": 0.0004567151977310389,
+    "perCapita": 0.0004535546438099316,
     "product": "Debt collection",
     "value": 3
   },
@@ -131,7 +131,7 @@
     "fullName": "Kansas",
     "issue": "Incorrect information on your report",
     "name": "KS",
-    "perCapita": 0.0003456634958954188,
+    "perCapita": 0.00034437396257343776,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 1
   },
@@ -147,7 +147,7 @@
     "fullName": "Louisiana",
     "issue": "Incorrect information on your report",
     "name": "LA",
-    "perCapita": 0.0004324087785035759,
+    "perCapita": 0.0004288660288999951,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 2
   },
@@ -155,7 +155,7 @@
     "fullName": "Massachusetts",
     "issue": "Took or threatened to take negative or legal action",
     "name": "MA",
-    "perCapita": 0.00014912939749039085,
+    "perCapita": 0.00014729017740954577,
     "product": "Debt collection",
     "value": 1
   },
@@ -163,7 +163,7 @@
     "fullName": "Maryland",
     "issue": "Struggling to pay mortgage",
     "name": "MD",
-    "perCapita": 0.0013489501289764942,
+    "perCapita": 0.001334205236455357,
     "product": "Mortgage",
     "value": 8
   },
@@ -171,7 +171,7 @@
     "fullName": "Maine",
     "issue": "Managing an account",
     "name": "ME",
-    "perCapita": 0.0007523888345496953,
+    "perCapita": 0.0007517903888109533,
     "product": "Checking or savings account",
     "value": 1
   },
@@ -179,7 +179,7 @@
     "fullName": "Michigan",
     "issue": "Attempts to collect debt not owed",
     "name": "MI",
-    "perCapita": 0.0005050213770498691,
+    "perCapita": 0.0005037495083404799,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 5
   },
@@ -187,7 +187,7 @@
     "fullName": "Minnesota",
     "issue": "Getting a credit card",
     "name": "MN",
-    "perCapita": 0.0005535902078011563,
+    "perCapita": 0.0005463758344524932,
     "product": "Credit card or prepaid card",
     "value": 3
   },
@@ -195,7 +195,7 @@
     "fullName": "Missouri",
     "issue": "Took or threatened to take negative or legal action",
     "name": "MO",
-    "perCapita": 0.0001654137129291328,
+    "perCapita": 0.00016460092505719883,
     "product": "Debt collection",
     "value": 1
   },
@@ -219,7 +219,7 @@
     "fullName": "North Carolina",
     "issue": "Problem with a credit reporting company's investigation into an existing problem",
     "name": "NC",
-    "perCapita": 0.0009141387091731686,
+    "perCapita": 0.0008952939767406604,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 9
   },
@@ -243,7 +243,7 @@
     "fullName": "New Hampshire",
     "issue": "Applying for a mortgage or refinancing an existing mortgage",
     "name": "NH",
-    "perCapita": 0.0007551723643162934,
+    "perCapita": 0.0007508364317850085,
     "product": "Mortgage",
     "value": 1
   },
@@ -251,7 +251,7 @@
     "fullName": "New Jersey",
     "issue": "Took or threatened to take negative or legal action",
     "name": "NJ",
-    "perCapita": 0.0005615193275514063,
+    "perCapita": 0.0005580256872616463,
     "product": "Debt collection",
     "value": 5
   },
@@ -259,7 +259,7 @@
     "fullName": "New Mexico",
     "issue": "Improper use of your report",
     "name": "NM",
-    "perCapita": 0.00047981951109270736,
+    "perCapita": 0.000479655875688546,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 1
   },
@@ -267,7 +267,7 @@
     "fullName": "Nevada",
     "issue": "Trouble during payment process",
     "name": "NV",
-    "perCapita": 0.0007146338430578324,
+    "perCapita": 0.0006925867248439516,
     "product": "Mortgage",
     "value": 2
   },
@@ -275,7 +275,7 @@
     "fullName": "New York",
     "issue": "Incorrect information on your report",
     "name": "NY",
-    "perCapita": 0.0009657821356126876,
+    "perCapita": 0.0009596818462743232,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 19
   },
@@ -283,7 +283,7 @@
     "fullName": "Ohio",
     "issue": "Attempts to collect debt not owed",
     "name": "OH",
-    "perCapita": 0.0004319289853461181,
+    "perCapita": 0.00043067227252665776,
     "product": "Debt collection",
     "value": 5
   },
@@ -291,7 +291,7 @@
     "fullName": "Oklahoma",
     "issue": "Attempts to collect debt not owed",
     "name": "OK",
-    "perCapita": 0.0002597582741452459,
+    "perCapita": 0.0002566569761547703,
     "product": "Debt collection",
     "value": 1
   },
@@ -299,7 +299,7 @@
     "fullName": "Oregon",
     "issue": "Managing an account",
     "name": "OR",
-    "perCapita": 0.0005077130497231313,
+    "perCapita": 0.0004968787320251013,
     "product": "Checking or savings account",
     "value": 2
   },
@@ -307,7 +307,7 @@
     "fullName": "Pennsylvania",
     "issue": "Problem with a credit reporting company's investigation into an existing problem",
     "name": "PA",
-    "perCapita": 0.0007824996152058142,
+    "perCapita": 0.0007818299590203827,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 10
   },
@@ -315,7 +315,7 @@
     "fullName": "Rhode Island",
     "issue": "Incorrect information on your report",
     "name": "RI",
-    "perCapita": 0.0009490718551792275,
+    "perCapita": 0.0009468459614179207,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 1
   },
@@ -323,7 +323,7 @@
     "fullName": "South Carolina",
     "issue": "Incorrect information on your report",
     "name": "SC",
-    "perCapita": 0.0016744893226188344,
+    "perCapita": 0.0016348404109661826,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 8
   },
@@ -339,7 +339,7 @@
     "fullName": "Tennessee",
     "issue": "Incorrect information on your report",
     "name": "TN",
-    "perCapita": 0.000923131600871744,
+    "perCapita": 0.0009094517960990884,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 6
   },
@@ -347,7 +347,7 @@
     "fullName": "Texas",
     "issue": "Problem with a credit reporting company's investigation into an existing problem",
     "name": "TX",
-    "perCapita": 0.0007536188589200626,
+    "perCapita": 0.0007294049237458211,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 20
   },
@@ -355,7 +355,7 @@
     "fullName": "Utah",
     "issue": "Incorrect information on your report",
     "name": "UT",
-    "perCapita": 0.0003444262702182526,
+    "perCapita": 0.0003340079179917039,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 1
   },
@@ -363,7 +363,7 @@
     "fullName": "Virginia",
     "issue": "Improper use of your report",
     "name": "VA",
-    "perCapita": 0.0009689183117082878,
+    "perCapita": 0.0009562569806759589,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 8
   },
@@ -371,7 +371,7 @@
     "fullName": "Vermont",
     "issue": "Incorrect information on your report",
     "name": "VT",
-    "perCapita": 0.0031918085425563835,
+    "perCapita": 0.0032018647660397416,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 2
   },
@@ -379,7 +379,7 @@
     "fullName": "Washington",
     "issue": "Struggling to pay mortgage",
     "name": "WA",
-    "perCapita": 0.0002863088264430251,
+    "perCapita": 0.0002789413117243078,
     "product": "Mortgage",
     "value": 2
   },
@@ -387,7 +387,7 @@
     "fullName": "Wisconsin",
     "issue": "Incorrect information on your report",
     "name": "WI",
-    "perCapita": 0.0006966071920861244,
+    "perCapita": 0.0006940568088968366,
     "product": "Credit reporting, credit repair services, or other personal consumer reports",
     "value": 4
   },

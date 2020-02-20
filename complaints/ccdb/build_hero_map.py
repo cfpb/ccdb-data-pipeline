@@ -48,7 +48,7 @@ class Tally(defaultdict):
     def __missing__(self, key):
         if key in THESE_UNITED_STATES:
             info = THESE_UNITED_STATES[key]
-            return StateTally(key, info['full_name'], info['pop_2015'])
+            return StateTally(key, info['full_name'], info['pop_2017'])
         else:
             print('Skipping "{}"'.format(key))
             return self.ignored

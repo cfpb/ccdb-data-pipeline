@@ -12,6 +12,8 @@ from common.constants import THESE_UNITED_STATES
 # -----------------------------------------------------------------------------
 
 
+# Any more complicated and we should use Arrow
+# https://arrow.readthedocs.io/en/latest/
 def get_interval(options):
     assert options.interval.upper() == '3Y'
 

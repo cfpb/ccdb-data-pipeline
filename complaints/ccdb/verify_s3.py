@@ -2,7 +2,6 @@ from __future__ import print_function
 
 import os
 import sys
-from zipfile import ZipFile
 
 import boto3
 import configargparse

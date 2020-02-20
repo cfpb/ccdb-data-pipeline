@@ -82,3 +82,21 @@ class TestMain(unittest.TestCase):
         self.assertIn('Command Line Args:', console_output)
         self.assertNotIn('Defaults:', console_output)
         self.assertNotIn('Environment Variables:', console_output)
+
+    @patch('complaints.ccdb.push_s3.boto3')
+    def test_main_happy_path_nozip(self, boto3):
+        bucket = Mock()
+        s3 = Mock()
+        s3.Bucket.return_value = bucket
+        boto3.resource.return_value = s3
+
+        self.optional.append('--no-zip')
+        argv = build_argv(self.optional, self.positional)
+        with captured_output(argv) as (out, err):
+            sut.main()
+
+        boto3.resource.assert_called_once_with('s3')
+        s3.Bucket.assert_called_once_with('foo')
+        bucket.upload_file.assert_called_once_with(
+            self.positional[0], 'bar/from_s3.ndjson', Callback=ANY
+        )

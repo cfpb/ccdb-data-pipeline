@@ -23,7 +23,7 @@ class ProgressPercentage(object):
         sys.stdout.flush()
 
 
-def upload(options):
+def upload_zip(options):
     s3 = boto3.resource('s3')
     bucket = s3.Bucket(options.bucket)
 
@@ -54,6 +54,28 @@ def upload(options):
     os.remove(zip_file_name)
 
 
+def upload_raw(options):
+    s3 = boto3.resource('s3')
+    bucket = s3.Bucket(options.bucket)
+
+    _, filename = os.path.split(options.infile)
+    key = options.folder + '/' + filename
+
+    bucket.upload_file(
+        options.infile, key, Callback=ProgressPercentage(options)
+    )
+
+    # Clear the buffer
+    sys.stdout.write("\n")
+    sys.stdout.flush()
+
+
+def upload(options):
+    if options.no_zip:
+        upload_raw(options)
+    else:
+        upload_zip(options)
+
 # -----------------------------------------------------------------------------
 # Main
 # -----------------------------------------------------------------------------
@@ -70,6 +92,8 @@ def build_arg_parser():
     )
     p.add('--dump-config', action='store_true', dest='dump_config',
           help='dump config vars and their source')
+    p.add('--no-zip', action='store_true', dest='no_zip',
+          help='do not zip contents before uploading')
     group = p.add_argument_group('S3')
     group.add('--s3-bucket', '-b', dest='bucket',
               required=True, env_var='OUTPUT_S3_BUCKET',

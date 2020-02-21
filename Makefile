@@ -5,7 +5,7 @@ OS_NAME := $(shell uname -s | tr A-Z a-z)
 # ND-JSON = {}\n{}\n{}\n
 
 DIRS := complaints/ccdb/intake complaints/ccdb/ready_es complaints/ccdb/ready_s3
-MAX_RECORDS := 0
+MAX_RECORDS ?= 0
 
 # Aliases
 
@@ -16,6 +16,7 @@ ALIAS := complaint-public-$(ENV)
 CONFIG_CCDB := config-ccdb.ini
 
 DATASET_CSV := complaints/ccdb/intake/complaints.csv
+DATASET_HERO_MAP_3Y := complaints/ccdb/ready_s3/hero-map-3y.json
 DATASET_ND_JSON := complaints/ccdb/ready_es/complaints.json
 DATASET_PUBLIC_CSV := complaints/ccdb/ready_s3/complaints.csv
 DATASET_PUBLIC_JSON := complaints/ccdb/ready_s3/complaints.json
@@ -104,9 +105,10 @@ $(INDEX_CCDB): complaints/ccdb/ccdb_mapping.json $(DATASET_ND_JSON) $(METADATA_J
 	   --taxonomy complaints/taxonomy/taxonomy.txt --index-name $(ALIAS)
 	touch $@
 
-$(PUSH_S3): $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON)
+$(PUSH_S3): $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON) $(DATASET_HERO_MAP_3Y)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_JSON)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_CSV)
+	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(DATASET_HERO_MAP_3Y)
 	touch $@
 
 verify_s3: $(CONFIG_CCDB)
@@ -117,6 +119,9 @@ $(CONFIG_CCDB):
 
 $(DATASET_CSV): $(INPUT_S3_TIMESTAMP)
 	$(PY) -m complaints.ccdb.acquire -c $(CONFIG_CCDB) -o $@
+
+$(DATASET_HERO_MAP_3Y): $(DATASET_CSV)
+	$(PY) -m complaints.ccdb.build_hero_map $< $@
 
 $(DATASET_ND_JSON): $(DATASET_CSV) $(FIELDS_S3_JSON)
 	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format NDJSON \

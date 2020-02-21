@@ -109,7 +109,7 @@ $(PUSH_S3): $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_CSV)
 	touch $@
 
-verify_s3:
+verify_s3: $(CONFIG_CCDB)
 	$(PY) -m complaints.ccdb.verify_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_JSON) $(S3_JSON_COUNT) $(AKAMAI_CACHE_COUNT)
 
 $(CONFIG_CCDB):

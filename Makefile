@@ -36,7 +36,7 @@ PUSH_S3 := complaints/ccdb/ready_s3/.last_pushed
 # Verification
 
 S3_JSON_COUNT := complaints/ccdb/verification/json_prev_size.txt
-AKAMI_CACHE_COUNT := complaints/ccdb/verification/cache_prev_size.txt
+AKAMAI_CACHE_COUNT := complaints/ccdb/verification/cache_prev_size.txt
 
 # Defaults
 
@@ -110,7 +110,7 @@ $(PUSH_S3): $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON)
 	touch $@
 
 verify_s3:
-	$(PY) -m complaints.ccdb.verify_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_JSON) $(S3_JSON_COUNT) $(AKAMI_CACHE_COUNT)
+	$(PY) -m complaints.ccdb.verify_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_JSON) $(S3_JSON_COUNT) $(AKAMAI_CACHE_COUNT)
 
 $(CONFIG_CCDB):
 	cp config_sample.ini $(CONFIG_CCDB)

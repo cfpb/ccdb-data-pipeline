@@ -93,7 +93,7 @@ def build_arg_parser():
     group.add(dest='json_size',
               help="Location of the file tracking JSON file size")
     group.add(dest='cache_size',
-              help="Location of the file tracking Akami file size")
+              help="Location of the file tracking Akamai file size")
     return p
 
 

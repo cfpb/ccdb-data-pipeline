@@ -22,7 +22,7 @@ DATASET_PUBLIC_CSV := complaints/ccdb/ready_s3/complaints.csv
 DATASET_PUBLIC_JSON := complaints/ccdb/ready_s3/complaints.json
 
 METADATA_JSON := complaints/ccdb/intake/complaints_metadata.json
-#METADATA_PUBLIC_JSON := complaints/ccdb/ready_s3/complaints_metadata.json
+METADATA_PUBLIC_JSON := complaints/ccdb/ready_s3/complaints_metadata.json
 
 # Field Names
 
@@ -67,8 +67,7 @@ endif
 
 all: dirs check_latest $(ALL_LIST)
 
-check_latest: $(CONFIG_CCDB)
-# check_latest: dirs $(CONFIG_CCDB)
+check_latest: dirs $(CONFIG_CCDB)
 	# checking to see if there is a new dataset
 	$(PY) -m complaints.ccdb.acquire --check-latest -c $(CONFIG_CCDB) -o $(INPUT_S3_TIMESTAMP)
 
@@ -107,13 +106,12 @@ $(INDEX_CCDB): complaints/ccdb/ccdb_mapping.json $(DATASET_ND_JSON) $(METADATA_J
 	   --taxonomy complaints/taxonomy/taxonomy.txt --index-name $(ALIAS)
 	touch $@
 
-$(PUSH_S3): $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON) $(DATASET_HERO_MAP_3Y) # $(METADATA_PUBLIC_JSON)
+$(PUSH_S3): $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON) $(DATASET_HERO_MAP_3Y)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_JSON)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(DATASET_PUBLIC_JSON)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_CSV)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(DATASET_PUBLIC_CSV)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(DATASET_HERO_MAP_3Y)
-	#$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(METADATA_PUBLIC_JSON)
 	touch $@
 
 verify_s3: $(CONFIG_CCDB)

@@ -1,13 +1,9 @@
 import os
 import unittest
+from unittest.mock import Mock, patch
 
 import complaints.ccdb.verify_s3 as sut
 from common.tests import build_argv, captured_output, make_configargs
-
-try:
-    from unittest.mock import patch, Mock
-except ImportError:
-    from mock import patch, Mock
 
 
 def toAbsolute(relative):
@@ -38,13 +34,10 @@ class TestMain(unittest.TestCase):
         ]
 
     def tearDown(self):
-        try:
-            with open(self.json_size_file, 'w+') as f:
-                f.write(str(0))
-            with open(self.cache_size_file, 'w+') as f:
-                f.write(str(0))
-        except Exception:
-            pass
+        with open(self.json_size_file, 'w+') as f:
+            f.write(str(0))
+        with open(self.cache_size_file, 'w+') as f:
+            f.write(str(0))
 
     @patch('complaints.ccdb.verify_s3.boto3')
     def test_verify_happy_path(self, boto3):
@@ -58,6 +51,7 @@ class TestMain(unittest.TestCase):
         s3.Bucket.return_value = bucket
         boto3.resource.return_value = s3
 
+        self.optional.insert(0, '--dump-config')
         argv = build_argv(self.optional, self.positional)
         with captured_output(argv) as (out, err):
             sut.main()
@@ -67,20 +61,14 @@ class TestMain(unittest.TestCase):
         s3.Bucket.assert_called_once_with('foo')
 
         # assert file size update
-        try:
-            with open(self.json_size_file, 'r') as f:
-                prev_json_size = int(f.read())
-        except Exception:
-            prev_json_size = 0
+        with open(self.json_size_file, 'r') as f:
+            prev_json_size = int(f.read())
 
         self.assertTrue(prev_json_size == 180)
 
         # assert cache size update
-        try:
-            with open(self.cache_size_file, 'r') as f:
-                prev_cache_size = int(f.read())
-        except Exception:
-            prev_cache_size = 0
+        with open(self.cache_size_file, 'r') as f:
+            prev_cache_size = int(f.read())
 
         self.assertTrue(prev_cache_size != 0)
 
@@ -134,20 +122,14 @@ class TestMain(unittest.TestCase):
             sut.main()
 
         # assert json size update
-        try:
-            with open(invalid_count_file, 'r') as f:
-                prev_json_size = int(f.read())
-        except Exception:
-            prev_json_size = 0
+        with open(invalid_count_file, 'r') as f:
+            prev_json_size = int(f.read())
 
         self.assertTrue(prev_json_size != 0)
 
         # Clean up
-        try:
-            with open(invalid_count_file, 'w+') as f:
-                f.write(str('Invalid'))
-        except Exception:
-            pass
+        with open(invalid_count_file, 'w+') as f:
+            f.write(str('Invalid'))
 
     @patch('complaints.ccdb.verify_s3.boto3')
     def test_verify_cache_verify_failure(self, boto3):
@@ -203,17 +185,11 @@ class TestMain(unittest.TestCase):
             sut.main()
 
         # assert json size update
-        try:
-            with open(invalid_count_file, 'r') as f:
-                prev_cache_size = int(f.read())
-        except Exception:
-            prev_cache_size = 0
+        with open(invalid_count_file, 'r') as f:
+            prev_cache_size = int(f.read())
 
         self.assertTrue(prev_cache_size != 0)
 
         # Clean up
-        try:
-            with open(invalid_count_file, 'w+') as f:
-                f.write(str('Invalid'))
-        except Exception:
-            pass
+        with open(invalid_count_file, 'w+') as f:
+            f.write(str('Invalid'))

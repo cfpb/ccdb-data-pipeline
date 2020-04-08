@@ -106,12 +106,13 @@ $(INDEX_CCDB): complaints/ccdb/ccdb_mapping.json $(DATASET_ND_JSON) $(METADATA_J
 	   --taxonomy complaints/taxonomy/taxonomy.txt --index-name $(ALIAS)
 	touch $@
 
-$(PUSH_S3): $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON) $(DATASET_HERO_MAP_3Y)
+$(PUSH_S3): $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON) $(DATASET_HERO_MAP_3Y) $(METADATA_PUBLIC_JSON)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_JSON)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(DATASET_PUBLIC_JSON)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_CSV)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(DATASET_PUBLIC_CSV)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(DATASET_HERO_MAP_3Y)
+	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(METADATA_PUBLIC_JSON)
 	touch $@
 
 verify_s3: $(CONFIG_CCDB)
@@ -153,5 +154,5 @@ $(METADATA_JSON): $(INPUT_S3_TIMESTAMP)
 	      -k $(INPUT_S3_KEY_METADATA) \
 	      -o $@
 
-#$(METADATA_PUBLIC_JSON): $(METADATA_JSON)
-#	sed -E '/timestamp|total_count|^{|^}/!d' $< > $@
+$(METADATA_PUBLIC_JSON): $(METADATA_JSON)
+	$(PY) -m complaints.ccdb.scrub_metadata $< $@

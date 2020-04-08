@@ -17,28 +17,31 @@ def load_metadata(filename):
         try:
             jo = json.load(f)
         except Exception:
-            print("'%s' is not a valid JSON document.".format(filename),
+            print("'{0}' is not a valid JSON document.".format(filename),
                   file=sys.stderr)
             sys.exit(errno.ENOENT)
     return jo
 
 
+def save_metadata(metadata, filename):
+    try:
+        with io.open(filename, 'w', encoding='utf-8') as f:
+            json.dump(metadata, f, indent=2, sort_keys=True)
+    except Exception:
+        print("Unable to write '{0}'".format(filename), file=sys.stderr)
+        sys.exit(errno.EIO)
+
+
 def scrub(options):
     internal = load_metadata(options.infile)
-    external = {k: internal[k] for k in VALID_ATTR}
+    external = {k: internal[k] for k in VALID_ATTR if k in internal}
 
     if len(external) != len(VALID_ATTR):
-        print("'%s' is missing one or more of %s".format(
+        print("'{0}' is missing one or more of {1}".format(
             options.infile, ', '.join(VALID_ATTR)), file=sys.stderr)
         sys.exit(errno.EPERM)
 
-    with io.open(options.outfile, 'w', encoding='utf-8') as f:
-        try:
-            json.dump(external, f, indent=2, sort_keys=True)
-        except Exception:
-            print("Unable to write '%s'".format(options.outfile),
-                  file=sys.stderr)
-            sys.exit(errno.EIO)
+    save_metadata(external, options.outfile)
 
 # -----------------------------------------------------------------------------
 # Main

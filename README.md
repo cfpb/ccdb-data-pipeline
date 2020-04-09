@@ -14,7 +14,16 @@ This pipeline is intended to index data in Elasticsearch and is dependent on hav
 
 Detailed instructions on how to install, configure, and get the project running are in the [INSTALL](INSTALL.md) document.
 
-## Usage
+## Usage (Users)
+
+1. Set environment variables
+    1. `export ES_USERNAME=<foo>`
+    1. `export ES_PASSWORD=<bar>`
+    1. `export ENV=[ENVIRONMENT]`
+        1. where ENVIRONMENT=`dev`, `staging`, `prod`
+1. `make from_public`
+
+## Usage (Developers)
 
 1. `source ./activate-virtualenv.sh`
 1. Set environment variables
@@ -29,11 +38,6 @@ Detailed instructions on how to install, configure, and get the project running 
     1. `export OUTPUT_S3_BUCKET=<bucket-name>`
     1. `export OUTPUT_S3_FOLDER=ccdb/test/<your initials>`
 1. `make`
-
-## Getting help
-
-Instruct users how to get help with this software; this might include links to an issue tracker, wiki, mailing list, etc.
-
 
 ## Open source licensing info
 1. [TERMS](TERMS.md)

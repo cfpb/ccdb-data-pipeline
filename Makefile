@@ -35,6 +35,11 @@ INDEX_CCDB := complaints/ccdb/ready_es/.last_indexed
 INPUT_S3_TIMESTAMP := complaints/ccdb/intake/.latest_dataset
 PUSH_S3 := complaints/ccdb/ready_s3/.last_pushed
 
+# URLs
+
+URL_PUBLIC_CSV := http://files.consumerfinance.gov/ccdb/complaints.csv
+URL_PUBLIC_METADATA := http://files.consumerfinance.gov/ccdb/complaints_metadata.json
+
 # Verification
 
 S3_JSON_COUNT := complaints/ccdb/verification/json_prev_size.txt
@@ -79,6 +84,16 @@ dirs:
 
 elasticsearch: dirs check_latest $(INDEX_CCDB)
 
+
+from_public: dirs
+	touch $(INPUT_S3_TIMESTAMP)
+	curl -L -o $(DATASET_CSV) $(URL_PUBLIC_CSV)
+	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format NDJSON \
+	                         --fields $(FIELDS_S3_JSON) \
+	                         $(DATASET_CSV) \
+	                         $(DATASET_ND_JSON)
+	curl -L -o $(METADATA_JSON) $(URL_PUBLIC_METADATA)
+	$(MAKE) $(INDEX_CCDB)
 
 ls_in:
 	$(eval FOLDER=$(shell dirname $$INPUT_S3_KEY))

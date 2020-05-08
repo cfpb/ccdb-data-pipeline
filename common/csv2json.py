@@ -1,4 +1,5 @@
 import csv
+import errno
 import io
 import json
 import sys
@@ -82,6 +83,7 @@ def run(options):
                     )
                 )
                 sys.stderr.flush()
+                sys.exit(errno.ENOENT)
 
         for row in parser:  # pragma: no branch
             obj = dict(zip(columns, row))

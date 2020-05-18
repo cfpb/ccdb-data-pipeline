@@ -1,3 +1,4 @@
+
 OS_NAME := $(shell uname -s | tr A-Z a-z)
 
 # JSON = [{}, {}, {}]
@@ -21,6 +22,7 @@ DATASET_ND_JSON := complaints/ccdb/ready_es/complaints.json
 DATASET_PUBLIC_CSV := complaints/ccdb/ready_s3/complaints.csv
 DATASET_PUBLIC_JSON := complaints/ccdb/ready_s3/complaints.json
 
+METADATA_JAVASCRIPT := complaints/ccdb/ready_s3/metadata.js
 METADATA_JSON := complaints/ccdb/intake/complaints_metadata.json
 METADATA_PUBLIC_JSON := complaints/ccdb/ready_s3/complaints_metadata.json
 
@@ -121,13 +123,14 @@ $(INDEX_CCDB): complaints/ccdb/ccdb_mapping.json $(DATASET_ND_JSON) $(METADATA_J
 	   --taxonomy complaints/taxonomy/taxonomy.txt --index-name $(ALIAS)
 	touch $@
 
-$(PUSH_S3): $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON) $(DATASET_HERO_MAP_3Y) $(METADATA_PUBLIC_JSON)
+$(PUSH_S3): $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON) $(DATASET_HERO_MAP_3Y) $(METADATA_PUBLIC_JSON) $(METADATA_JAVASCRIPT)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_JSON)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(DATASET_PUBLIC_JSON)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_CSV)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(DATASET_PUBLIC_CSV)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(DATASET_HERO_MAP_3Y)
 	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(METADATA_PUBLIC_JSON)
+	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(METADATA_JAVASCRIPT)
 	touch $@
 
 verify_s3: $(CONFIG_CCDB)
@@ -163,6 +166,9 @@ endif
 $(DATASET_PUBLIC_JSON): $(DATASET_CSV) $(FIELDS_S3_JSON)
 	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format JSON \
 	                         --fields $(FIELDS_S3_JSON) $< $@
+
+$(METADATA_JAVASCRIPT): $(METADATA_PUBLIC_JSON)
+	$(PY) -m complaints.ccdb.build_metadata_javascript $< $@
 
 $(METADATA_JSON): $(INPUT_S3_TIMESTAMP)
 	$(PY) -m complaints.ccdb.acquire -c $(CONFIG_CCDB) \

@@ -41,6 +41,22 @@ def noop_coroutine(options, outfile):
         yield i
 
 
+def validate_files(actual_file, expected_file):
+    import io
+
+    with io.open(actual_file, 'r', encoding='utf-8') as f:
+        actuals = [l for l in f]
+
+    with io.open(expected_file, 'r', encoding='utf-8') as f:
+        expecteds = [l for l in f]
+
+    assert len(actuals) == len(expecteds)
+
+    for i, act in enumerate(actuals):
+        assert act == expecteds[i], '[{}]\nexp==>{}<==\nact==>{}<=='.format(
+            i, expecteds[i], act)
+
+
 def validate_json(actual_file, expected_file):
     import io
 

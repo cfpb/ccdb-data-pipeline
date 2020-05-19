@@ -48,6 +48,7 @@ def run(options):
     filename = os.path.join(thisScriptDir, 'fields-s3', src_fields)
 
     # Copy
+    print('Using "{}" for field mapping'.format(src_fields))
     shutil.copy(filename, options.outfile)
 
 # -----------------------------------------------------------------------------

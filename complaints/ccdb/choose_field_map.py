@@ -17,8 +17,8 @@ PUBLIC_V1 = "Date received,Product,Sub-product,Issue,Sub-issue," \
             "Date sent to company,Company response to consumer," \
             "Timely response?,Consumer disputed?,Complaint ID"
 
-INTAKE_V2 = INTAKE_V1 + ",event_tags"
-PUBLIC_V2 = PUBLIC_V1 + ",Event Tags"
+INTAKE_V2 = INTAKE_V1 + ",event_tag"
+PUBLIC_V2 = PUBLIC_V1 + ",Event tag"
 
 # -----------------------------------------------------------------------------
 # Process

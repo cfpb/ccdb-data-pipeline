@@ -25,11 +25,13 @@ digraph ccdb_pipelines {
   }
 
   # targets / pre-requisites
+  choose_field_map [shape=parallelogram]
   csv2json [shape=parallelogram]
   index_ccdb [shape=parallelogram]
 
 
   # pre-requisite -> recipe -> target
+  complaints_csv -> choose_field_map -> fields_s3_json
   {complaints_csv, fields_s3_json} -> csv2json -> complaints_json
   {complaints_json, complaints_metadata, ccdb_mapping_json, settings_json} -> index_ccdb -> complaint_public_dev
 }

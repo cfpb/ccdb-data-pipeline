@@ -1,4 +1,3 @@
-
 OS_NAME := $(shell uname -s | tr A-Z a-z)
 
 # JSON = [{}, {}, {}]
@@ -28,8 +27,8 @@ METADATA_PUBLIC_JSON := complaints/ccdb/ready_s3/complaints_metadata.json
 
 # Field Names
 
-FIELDS_S3_CSV := complaints/ccdb/fields-s3-csv.txt
-FIELDS_S3_JSON := complaints/ccdb/fields-s3-json.txt
+FIELDS_S3_CSV := complaints/ccdb/intake/fields-s3-csv.txt
+FIELDS_S3_JSON := complaints/ccdb/intake/fields-s3-json.txt
 
 # Sentinels
 
@@ -90,6 +89,8 @@ elasticsearch: dirs check_latest $(INDEX_CCDB)
 from_public: dirs
 	touch $(INPUT_S3_TIMESTAMP)
 	curl -L -o $(DATASET_CSV) $(URL_PUBLIC_CSV)
+	$(PY) -m complaints.ccdb.choose_field_map --target-format JSON \
+	                                          $(DATASET_CSV) $(FIELDS_S3_JSON)
 	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format NDJSON \
 	                         --fields $(FIELDS_S3_JSON) \
 	                         $(DATASET_CSV) \
@@ -166,6 +167,12 @@ endif
 $(DATASET_PUBLIC_JSON): $(DATASET_CSV) $(FIELDS_S3_JSON)
 	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format JSON \
 	                         --fields $(FIELDS_S3_JSON) $< $@
+
+$(FIELDS_S3_CSV): $(DATASET_CSV)
+	$(PY) -m complaints.ccdb.choose_field_map --target-format CSV $< $@
+
+$(FIELDS_S3_JSON): $(DATASET_CSV)
+	$(PY) -m complaints.ccdb.choose_field_map --target-format JSON $< $@
 
 $(METADATA_JAVASCRIPT): $(METADATA_PUBLIC_JSON)
 	$(PY) -m complaints.ccdb.build_metadata_javascript $< $@

@@ -71,11 +71,12 @@ class TestMain(unittest.TestCase):
         )
         argv = build_argv(self.optional, self.positional)
 
-        with captured_output(argv) as (out, err):
-            sut.main()
-
-        # Still processes!
-        validate_json(self.actual_file, fixtureToAbsolute('utf-8.json'))
+        with self.assertRaises(SystemExit) as ex:
+            with captured_output(argv) as (out, err):
+                sut.main()
 
         actual_print = err.getvalue().strip()
         self.assertIn('has 4 fields.  Expected 3', actual_print)
+
+        # assert exit code
+        self.assertEqual(ex.exception.code, 2)

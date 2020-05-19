@@ -1,0 +1,37 @@
+
+digraph ccdb_pipelines {
+  rankdir=LR;
+  node [fontsize=10 shape=folder];
+  edge [fontsize=9]
+  label="make elasticsearch"
+
+  # recipe instances
+  complaints_json [label="complaints.json" shape=note]
+  fields_s3_json [label="fields-s3-json.txt" shape=note]
+  ccdb_mapping_json [label="ccdb_mapping.json" shape=note]
+  settings_json [label="settings.json" shape=note]
+
+  subgraph cluster_100 {
+    label="S3 Intake"
+
+    complaints_csv [label="complaints.csv" shape=cds]
+    complaints_metadata [label="complaints_metadata.json" shape=cds]
+  }
+
+  subgraph cluster_200 {
+    label="Elasticsearch"
+
+    complaint_public_dev [label="complaint-public-dev" shape=cylinder]
+  }
+
+  # targets / pre-requisites
+  choose_field_map [shape=parallelogram]
+  csv2json [shape=parallelogram]
+  index_ccdb [shape=parallelogram]
+
+
+  # pre-requisite -> recipe -> target
+  complaints_csv -> choose_field_map -> fields_s3_json
+  {complaints_csv, fields_s3_json} -> csv2json -> complaints_json
+  {complaints_json, complaints_metadata, ccdb_mapping_json, settings_json} -> index_ccdb -> complaint_public_dev
+}

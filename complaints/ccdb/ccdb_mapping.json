@@ -92,6 +92,10 @@
       "type": "date",
       "format": "MM/dd/yyyy"
     },
+    "event_tag": {
+      "index": "not_analyzed",
+      "type": "string"
+    },
     "has_narrative": {
       "index": "not_analyzed",
       "type": "boolean"

@@ -38,8 +38,8 @@ PUSH_S3 := complaints/ccdb/ready_s3/.last_pushed
 
 # URLs
 
-URL_PUBLIC_CSV := http://files.consumerfinance.gov/ccdb/complaints.csv
-URL_PUBLIC_METADATA := http://files.consumerfinance.gov/ccdb/complaints_metadata.json
+URL_PUBLIC_CSV ?= https://files.consumerfinance.gov/ccdb/complaints.csv
+URL_PUBLIC_METADATA ?= https://files.consumerfinance.gov/ccdb/complaints_metadata.json
 
 # Verification
 
@@ -87,14 +87,9 @@ elasticsearch: dirs check_latest $(INDEX_CCDB)
 
 
 from_public: dirs
+	@# This will get the date modified header: curl -L -sI $(URL_PUBLIC_CSV)
 	touch $(INPUT_S3_TIMESTAMP)
 	curl -L -o $(DATASET_CSV) $(URL_PUBLIC_CSV)
-	$(PY) -m complaints.ccdb.choose_field_map --target-format JSON \
-	                                          $(DATASET_CSV) $(FIELDS_S3_JSON)
-	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format NDJSON \
-	                         --fields $(FIELDS_S3_JSON) \
-	                         $(DATASET_CSV) \
-	                         $(DATASET_ND_JSON)
 	curl -L -o $(METADATA_JSON) $(URL_PUBLIC_METADATA)
 	$(MAKE) $(INDEX_CCDB)
 

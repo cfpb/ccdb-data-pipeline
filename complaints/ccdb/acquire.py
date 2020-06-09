@@ -31,7 +31,7 @@ def check_latest(options):
 
     utc_dt = dataset.last_modified
     local_dt = utc_dt.astimezone(pytz.timezone(options.timezone))
-    timestamp = int(local_dt.strftime("%s"))
+    timestamp = int(local_dt.timestamp())
 
     if not os.path.exists(options.outfile):
         open(options.outfile, 'a').close()

@@ -208,11 +208,12 @@ class TestMain(unittest.TestCase):
         logger.info.assert_any_call('1,001 records indexed, total = 1,001')
         logger.info.assert_any_call('Adding alias onion for index onion-v1')
 
-    @freeze_time("2019-09-09T00:00:00-05:00")
+    @freeze_time("2019-09-09")
+    @patch('complaints.ccdb.index_ccdb.format_timestamp_local')
     @patch('complaints.ccdb.index_ccdb.bulk')
     @patch('complaints.ccdb.index_ccdb.get_es_connection')
     @patch('complaints.ccdb.index_ccdb.setup_logging')
-    def test_main_happy_path_s3(self, logger_setup, es_conn, bulk):
+    def test_main_happy_path_s3(self, logger_setup, es_conn, bulk, local_time):
         logger = Mock()
         logger_setup.return_value = logger
 
@@ -221,6 +222,10 @@ class TestMain(unittest.TestCase):
         es_conn.return_value = es
 
         bulk.side_effect = self.capture_actions
+
+        # GMT: Monday, September 9, 2019 4:00:00 AM
+        # EDT: Monday, September 9, 2019 12:00:00 AM
+        local_time.return_value = 1568001600
 
         self.optional[-1] = toAbsolute('__fixtures__/from_s3.ndjson')
         self.optional.append('--metadata')

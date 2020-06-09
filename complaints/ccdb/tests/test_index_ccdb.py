@@ -208,7 +208,7 @@ class TestMain(unittest.TestCase):
         logger.info.assert_any_call('1,001 records indexed, total = 1,001')
         logger.info.assert_any_call('Adding alias onion for index onion-v1')
 
-    @freeze_time("2019-09-09")
+    @freeze_time("2019-09-09", tz_offset=0)
     @patch('complaints.ccdb.index_ccdb.bulk')
     @patch('complaints.ccdb.index_ccdb.get_es_connection')
     @patch('complaints.ccdb.index_ccdb.setup_logging')

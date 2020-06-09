@@ -59,7 +59,7 @@ def run(options):
     ovr_columns = []
     if options.fields:
         with open(options.fields) as f:
-            ovr_columns = [l.strip() for l in f]
+            ovr_columns = [line.strip() for line in f]
 
     formatters = {
         'JSON': saveStandardJson,

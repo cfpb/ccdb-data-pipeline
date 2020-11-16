@@ -1,9 +1,4 @@
 {
-  "_all": {
-    "analyzer": "cr_analyzer",
-    "search_analyzer": "cr_search_analyzer",
-    "type": "string"
-  },
   "_source": {
     "excludes": [
       "autocomplete",
@@ -14,157 +9,130 @@
     "autocomplete": {
       "analyzer": "shingle_analyzer",
       "search_analyzer": "cr_search_analyzer",
-      "type": "string"
+      "type": "text"
     },
     "company": {
       "fields": {
         "raw": {
-          "index": "not_analyzed",
-          "type": "string"
+          "type": "keyword"
         },
         "suggest": {
           "analyzer": "uppercase_analyzer",
-          "type": "string"
+          "type": "text"
         }
       },
       "analyzer": "cr_analyzer",
-      "index": "analyzed",
       "search_analyzer": "cr_search_analyzer",
-      "type": "string"
+      "type": "text"
     },
     "company_public_response": {
       "fields": {
         "raw": {
-          "index": "not_analyzed",
-          "type": "string"
+          "type": "keyword"
         }
       },
       "analyzer": "cr_analyzer",
-      "index": "analyzed",
       "search_analyzer": "cr_search_analyzer",
-      "type": "string"
+      "type": "text"
     },
     "company_response": {
-      "index": "not_analyzed",
-      "type": "string"
+      "type": "keyword"
     },
     "complaint_id": {
-      "index": "not_analyzed",
-      "type": "string"
+      "type": "keyword"
     },
     "complaint_what_happened": {
       "analyzer": "cr_analyzer",
-      "index": "analyzed",
       "search_analyzer": "cr_search_analyzer",
-      "type": "string"
+      "type": "text"
     },
     "consumer_consent_provided": {
       "fields": {
         "raw": {
-          "index": "not_analyzed",
-          "type": "string"
+          "type": "keyword"
         }
       },
-      "index": "analyzed",
-      "type": "string"
+      "type": "text"
     },
     "consumer_disputed": {
       "fields": {
         "raw": {
-          "index": "not_analyzed",
-          "type": "string"
+          "type": "keyword"
         }
       },
-      "index": "analyzed",
-      "type": "string"
+      "type": "text"
     },
     "date_received": {
       "type": "date"
     },
     "date_received_formatted": {
       "type": "date",
-      "format": "MM/dd/yyyy"
+      "format": "MM/dd/yyyy||MM/dd/yy"
     },
     "date_sent_to_company": {
       "type": "date"
     },
     "date_sent_to_company_formatted": {
       "type": "date",
-      "format": "MM/dd/yyyy"
+      "format": "MM/dd/yyyy||MM/dd/yy"
     },
     "event_tag": {
-      "index": "not_analyzed",
-      "type": "string"
+      "type": "keyword"
     },
     "has_narrative": {
-      "index": "not_analyzed",
       "type": "boolean"
     },
     "issue": {
       "fields": {
         "raw": {
-          "index": "not_analyzed",
-          "type": "string"
+          "type": "keyword"
         }
       },
-      "index": "analyzed",
-      "type": "string"
+      "type": "text"
     },
     "product": {
       "fields": {
         "raw": {
-          "index": "not_analyzed",
-          "type": "string"
+          "type": "keyword"
         }
       },
-      "index": "analyzed",
-      "type": "string"
+      "type": "text"
     },
     "state": {
-      "index": "not_analyzed",
-      "type": "string"
+      "type": "keyword"
     },
     "sub_product": {
       "fields": {
         "raw": {
-          "index": "not_analyzed",
-          "type": "string"
+          "type": "keyword"
         }
       },
-      "index": "analyzed",
-      "type": "string"
+      "type": "text"
     },
     "sub_issue": {
       "fields": {
         "raw": {
-          "index": "not_analyzed",
-          "type": "string"
+          "type": "keyword"
         }
       },
-      "index": "analyzed",
-      "type": "string"
+      "type": "text"
     },
     "submitted_via": {
-      "index": "not_analyzed",
-      "type": "string"
+      "type": "keyword"
     },
     "suggest": {
       "analyzer": "standard",
-      "payloads": false,
       "search_analyzer": "standard",
       "type": "completion"
     },
     "tags": {
-      "type": "string",
-      "index": "not_analyzed"
+      "type": "keyword"
     },
     "timely": {
-      "index": "not_analyzed",
-      "type": "string"
+      "type": "keyword"
     },
     "zip_code": {
-      "index": "not_analyzed",
-      "type": "string"
+      "type": "keyword"
     }
   }
 }

@@ -1,13 +1,13 @@
 {
   "refresh_interval": "-1",
+  "similarity" : {
+    "cr_similarity" : {
+      "type" : "BM25",
+      "k1" : 1.2,
+      "b" : 0.75
+    }
+  },
   "analysis": {
-    "similarity" : {
-      "cr_similarity" : {
-        "type" : "BM25",
-        "k1" : 1.2,
-        "b" : 0.75
-      }
-    },
     "filter": {
       "cr_word_delimiter": {
         "type": "word_delimiter",
@@ -33,7 +33,6 @@
         "type": "custom",
         "tokenizer": "whitespace",
         "filter": [
-          "standard",
           "cr_word_delimiter",
           "lowercase",
           "stop",
@@ -44,7 +43,6 @@
         "type": "custom",
         "tokenizer": "whitespace",
         "filter": [
-          "standard",
           "lowercase",
           "stop",
           "kstem"

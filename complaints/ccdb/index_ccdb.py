@@ -153,7 +153,7 @@ def index_json_data(
         index=index_name,
         body={
             "settings": settings,
-            "mappings": {doc_type_name: mapping}
+            "mappings": mapping
         }
     )
     logger.info(
@@ -177,7 +177,7 @@ def index_json_data(
             logger.info("chunk retrieved, now bulk load")
             success, _ = bulk(
                 es, actions=doc_ary, index=index_name,
-                doc_type=doc_type_name, chunk_size=chunk_size, refresh=True
+                chunk_size=chunk_size, refresh=True
             )
             total_rows_of_data += success
             logger.info(

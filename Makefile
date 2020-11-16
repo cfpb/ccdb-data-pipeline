@@ -115,8 +115,8 @@ $(INDEX_CCDB): complaints/ccdb/ccdb_mapping.json $(DATASET_ND_JSON) $(METADATA_J
 	   --dataset $(DATASET_ND_JSON) \
 	   --metadata $(METADATA_JSON) \
 	   --index-name $(ALIAS)
-	$(PY) -m complaints.taxonomy.index_taxonomy -c $(CONFIG_CCDB) \
-	   --taxonomy complaints/taxonomy/taxonomy.txt --index-name $(ALIAS)
+# 	$(PY) -m complaints.taxonomy.index_taxonomy -c $(CONFIG_CCDB) \
+# 	   --taxonomy complaints/taxonomy/taxonomy.txt --index-name $(ALIAS)
 	touch $@
 
 $(PUSH_S3): $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON) $(DATASET_HERO_MAP_3Y) $(METADATA_PUBLIC_JSON) $(METADATA_JAVASCRIPT)

@@ -22,14 +22,13 @@ def alias_to_index_name(es, logger, alias, suffix=''):
 
 
 def index_taxonomy(es, logger, taxonomy_text, alias):
-    mapping = {'_all': {'type': 'string'},
+    mapping = {'_all': {'type': 'text'},
                'properties': {
                     'suggest': {'type': 'completion',
                                 'analyzer': 'standard',
-                                'search_analyzer': 'standard',
-                                'payloads': False,
+                                'search_analyzer': 'standard'
                                 },
-                    'text': {'type': 'string'}
+                    'text': {'type': 'text'}
                     }
                }
 

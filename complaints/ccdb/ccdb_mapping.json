@@ -1,16 +1,10 @@
 {
   "_source": {
     "excludes": [
-      "autocomplete",
-      "suggest"
+      "typeahead_dropdown"
     ]
   },
   "properties": {
-    "autocomplete": {
-      "analyzer": "shingle_analyzer",
-      "search_analyzer": "cr_search_analyzer",
-      "type": "text"
-    },
     "company": {
       "fields": {
         "raw": {
@@ -88,7 +82,8 @@
           "type": "keyword"
         }
       },
-      "type": "text"
+      "type": "text",
+      "copy_to": "typeahead_dropdown"
     },
     "product": {
       "fields": {
@@ -96,7 +91,8 @@
           "type": "keyword"
         }
       },
-      "type": "text"
+      "type": "text",
+      "copy_to": "typeahead_dropdown"
     },
     "state": {
       "type": "keyword"
@@ -107,7 +103,8 @@
           "type": "keyword"
         }
       },
-      "type": "text"
+      "type": "text",
+      "copy_to": "typeahead_dropdown"
     },
     "sub_issue": {
       "fields": {
@@ -115,21 +112,22 @@
           "type": "keyword"
         }
       },
-      "type": "text"
+      "type": "text",
+      "copy_to": "typeahead_dropdown"
     },
     "submitted_via": {
       "type": "keyword"
     },
-    "suggest": {
-      "analyzer": "standard",
-      "search_analyzer": "standard",
-      "type": "completion"
-    },
     "tags": {
-      "type": "keyword"
+      "type": "keyword",
+      "copy_to": "typeahead_dropdown"
     },
     "timely": {
       "type": "keyword"
+    },
+    "typeahead_dropdown": {
+      "type": "completion",
+      "max_input_length": 80
     },
     "zip_code": {
       "type": "keyword"

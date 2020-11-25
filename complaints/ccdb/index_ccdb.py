@@ -5,7 +5,8 @@ from functools import partial
 import configargparse
 from common.date import (format_date_as_mdy, format_date_est,
                          format_timestamp_local, now_as_string)
-from common.es_proxy import add_basic_es_arguments, get_es_connection
+from common.es_proxy import (add_basic_es_arguments, 
+                             get_es_connection, get_aws_es_connection)
 from common.log import setup_logging
 from elasticsearch import TransportError
 from elasticsearch.helpers import bulk
@@ -254,7 +255,11 @@ def main():
     backup_index_name = "{}-v2".format(index_alias)
 
     logger.info("Creating Elasticsearch Connection")
-    es = get_es_connection(cfg)
+    if cfg.is_aws_host:
+        es = get_aws_es_connection(cfg)
+        logger.info('AWS configured as Elasticsearch host')
+    else: 
+        es = get_es_connection(cfg)
 
     qas_timestamp = get_qa_timestamp(cfg, logger)
 

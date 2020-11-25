@@ -114,7 +114,8 @@ $(INDEX_CCDB): complaints/ccdb/ccdb_mapping.json $(DATASET_ND_JSON) $(METADATA_J
 	$(PY) -m complaints.ccdb.index_ccdb -c $(CONFIG_CCDB) \
 	   --dataset $(DATASET_ND_JSON) \
 	   --metadata $(METADATA_JSON) \
-	   --index-name $(ALIAS)
+	   --index-name $(ALIAS) \
+	   --is-aws-host $(IS_AWS_HOST)
 # 	$(PY) -m complaints.taxonomy.index_taxonomy -c $(CONFIG_CCDB) \
 # 	   --taxonomy complaints/taxonomy/taxonomy.txt --index-name $(ALIAS)
 	touch $@

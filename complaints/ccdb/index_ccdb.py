@@ -237,6 +237,8 @@ def build_arg_parser():
               help="Complaint data in NDJSON format")
     group.add('--metadata', dest='metadata',
               help="Metadata in JSON format")
+    group.add('--is-aws-host',  dest='is_aws_host',
+              help='Is your ES instance hosted as an AWS service?')
     return p
 
 
@@ -255,6 +257,7 @@ def main():
     backup_index_name = "{}-v2".format(index_alias)
 
     logger.info("Creating Elasticsearch Connection")
+    
     if cfg.is_aws_host:
         es = get_aws_es_connection(cfg)
         logger.info('AWS configured as Elasticsearch host')

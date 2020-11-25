@@ -1,4 +1,5 @@
 from elasticsearch import Elasticsearch
+from requests_aws4auth import AWS4Auth
 
 
 def add_basic_es_arguments(parser):
@@ -26,5 +27,18 @@ def get_es_connection(config):
     )
     return es
 
+def get_aws_es_connection(config):
+    awsauth = AWS4Auth(
+      os.environ.get('AWS_ES_ACCESS_KEY'),
+      os.environ.get('AWS_ES_SECRET_KEY'),
+      'us-east-1',
+      'es'
+    )
+    url = "{}://{}:{}".format("http", config.es_host, 443)
+    es = Elasticsearch(
+        url, http_auth=awsauth,
+        user_ssl=True, timeout=1000
+    )
+    return es
 
 __all__ = ['add_basic_es_arguments', 'get_es_connection']

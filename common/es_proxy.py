@@ -14,7 +14,7 @@ def add_basic_es_arguments(parser):
     group.add('--es-password', '-a', dest='es_password',
               default='',
               help='Elasticsearch password', env_var='ES_PASSWORD')
-    group.add('--index-name',  dest='index_name',
+    group.add('--index-name',  dest='index_name', required=True
               help='Elasticsearch index name')
     group.add('--aws-access-key',  dest='aws_access_key',
               help='If AWS, an access key is required') 

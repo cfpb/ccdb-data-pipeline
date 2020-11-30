@@ -1,4 +1,4 @@
-from elasticsearch import Elasticsearch
+from elasticsearch import Elasticsearch, RequestsHttpConnection
 from requests_aws4auth import AWS4Auth
 
 
@@ -35,16 +35,19 @@ def get_es_connection(config):
 
 def get_aws_es_connection(config):
     awsauth = AWS4Auth(
-      config.aws_access_key,
-      config.aws_secret_key,
-      'us-east-1',
-      'es'
-    )
-    url = "{}://{}:{}".format("http", config.es_host, 443)
+          config.aws_access_key,
+          config.aws_secret_key,
+          'us-east-1',
+          'es'
+        )
     es = Elasticsearch(
-        url, http_auth=awsauth,
-        user_ssl=True, timeout=1000
+        hosts=[{'host': config.es_host, 'port': 443}],
+        http_auth=awsauth,
+        use_ssl=True,
+        verify_certs=True,
+        connection_class=RequestsHttpConnection
     )
+
     return es
 
 __all__ = ['add_basic_es_arguments', 'get_es_connection', 'get_aws_es_connection']

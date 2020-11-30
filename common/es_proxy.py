@@ -17,9 +17,11 @@ def add_basic_es_arguments(parser):
     group.add('--index-name',  dest='index_name', required=True,
               help='Elasticsearch index name')
     group.add('--aws-access-key',  dest='aws_access_key',
-              help='If AWS, an access key is required') 
+              help='If AWS, an access key is required',
+              env_var="AWS_ACCESS_KEY") 
     group.add('--aws-secret-key',  dest='aws_secret_key',
-              help='If AWS, a secret key is required')                     
+              help='If AWS, a secret key is required',
+              env_var="AWS_SECRET_KEY")                     
     return group
 
 

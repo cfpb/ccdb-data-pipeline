@@ -239,7 +239,8 @@ def build_arg_parser():
     group.add('--metadata', dest='metadata',
               help="Metadata in JSON format")
     group.add('--is-aws-host',  dest='is_aws_host',
-              help='Is your ES instance hosted as an AWS service?')
+              help='Is your ES instance hosted as an AWS service?',
+              env_var='IS_AWS_HOST')
     return p
 
 

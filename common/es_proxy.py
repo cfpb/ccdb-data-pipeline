@@ -33,8 +33,8 @@ def get_es_connection(config):
 
 def get_aws_es_connection(config):
     awsauth = AWS4Auth(
-      os.environ.get('AWS_ES_ACCESS_KEY'),
-      os.environ.get('AWS_ES_SECRET_KEY'),
+      config.aws_access_key,
+      config.aws_secret_key,
       'us-east-1',
       'es'
     )

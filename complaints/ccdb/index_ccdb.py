@@ -137,7 +137,7 @@ def yield_chunked_docs(get_data_function, data, chunk_size):
 
 def index_json_data(
     es, logger, doc_type_name, settings_json, mapping_json, data, index_name,
-    backup_index_name, alias, chunk_size=20000, qas_timestamp=0
+    backup_index_name, alias, chunk_size=10000, qas_timestamp=0
 ):
     settings = load_json(logger, settings_json)
     mapping = load_json(logger, mapping_json)

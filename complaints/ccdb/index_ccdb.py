@@ -5,7 +5,8 @@ from functools import partial
 import configargparse
 from common.date import (format_date_as_mdy, format_date_est,
                          format_timestamp_local, now_as_string)
-from common.es_proxy import add_basic_es_arguments, get_es_connection
+from common.es_proxy import (add_basic_es_arguments, 
+                             get_es_connection, get_aws_es_connection)
 from common.log import setup_logging
 from elasticsearch import TransportError
 from elasticsearch.helpers import bulk
@@ -135,7 +136,7 @@ def yield_chunked_docs(get_data_function, data, chunk_size):
 
 def index_json_data(
     es, logger, doc_type_name, settings_json, mapping_json, data, index_name,
-    backup_index_name, alias, chunk_size=20000, qas_timestamp=0
+    backup_index_name, alias, chunk_size=1000, qas_timestamp=0
 ):
     settings = load_json(logger, settings_json)
     mapping = load_json(logger, mapping_json)
@@ -236,6 +237,9 @@ def build_arg_parser():
               help="Complaint data in NDJSON format")
     group.add('--metadata', dest='metadata',
               help="Metadata in JSON format")
+    group.add('--is-aws-host',  dest='is_aws_host',
+              help='Is your ES instance hosted as an AWS service?',
+              env_var='IS_AWS_HOST')
     return p
 
 
@@ -254,7 +258,12 @@ def main():
     backup_index_name = "{}-v2".format(index_alias)
 
     logger.info("Creating Elasticsearch Connection")
-    es = get_es_connection(cfg)
+    
+    if cfg.is_aws_host:
+        es = get_aws_es_connection(cfg)
+        logger.info('AWS configured as Elasticsearch host')
+    else: 
+        es = get_es_connection(cfg)
 
     qas_timestamp = get_qa_timestamp(cfg, logger)
 

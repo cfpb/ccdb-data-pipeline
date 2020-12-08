@@ -1,4 +1,5 @@
-from elasticsearch import Elasticsearch
+from elasticsearch import Elasticsearch, RequestsHttpConnection
+from requests_aws4auth import AWS4Auth
 
 
 def add_basic_es_arguments(parser):
@@ -15,6 +16,12 @@ def add_basic_es_arguments(parser):
               help='Elasticsearch password', env_var='ES_PASSWORD')
     group.add('--index-name',  dest='index_name', required=True,
               help='Elasticsearch index name')
+    group.add('--aws-access-key',  dest='aws_access_key',
+              help='If AWS, an access key is required',
+              env_var='AWS_ACCESS_KEY') 
+    group.add('--aws-secret-key',  dest='aws_secret_key',
+              help='If AWS, a secret key is required',
+              env_var='AWS_SECRET_KEY')                     
     return group
 
 
@@ -26,5 +33,24 @@ def get_es_connection(config):
     )
     return es
 
+def get_aws_es_connection(config):
+    awsauth = AWS4Auth(
+          config.aws_access_key,
+          config.aws_secret_key,
+          'us-east-1',
+          'es'
+        )
+    es = Elasticsearch(
+        hosts=[{'host': config.es_host, 'port': 443}],
+        http_auth=awsauth,
+        use_ssl=True,
+        verify_certs=True,
+        connection_class=RequestsHttpConnection,
+        timeout=1000
+    )
 
-__all__ = ['add_basic_es_arguments', 'get_es_connection']
+    print(es.info())
+
+    return es
+
+__all__ = ['add_basic_es_arguments', 'get_es_connection', 'get_aws_es_connection']

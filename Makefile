@@ -54,18 +54,18 @@ ALL_LIST=$(PUSH_S3) $(INDEX_CCDB)
 # Environment specific configuration
 
 ifeq ($(ENV), local)
-	PY := python
-	MAX_RECORDS := 80001
+  PY := python
+  MAX_RECORDS := 80001
 else ifeq ($(ENV), dev)
-	PY := python
+  PY := python
 else ifeq ($(ENV), staging)
-	PY := python
+  PY := python
 else ifeq ($(ENV), prod)
-	PY := python
-	ALIAS := complaint-public
+  PY := python
+  ALIAS := complaint-public
 else
-	$(error "must specify ENV={local, dev, staging, prod}")
-	exit 1;
+  $(error "must specify ENV={local, dev, staging, prod}")
+  exit 1;
 endif
 
 # -----------------------------------------------------------------------------
@@ -74,31 +74,31 @@ endif
 all: dirs check_latest $(ALL_LIST)
 
 check_latest: dirs $(CONFIG_CCDB)
-	# checking to see if there is a new dataset
-	$(PY) -m complaints.ccdb.acquire --check-latest -c $(CONFIG_CCDB) -o $(INPUT_S3_TIMESTAMP)
+  # checking to see if there is a new dataset
+  $(PY) -m complaints.ccdb.acquire --check-latest -c $(CONFIG_CCDB) -o $(INPUT_S3_TIMESTAMP)
 
 clean:
-	for dir in $(DIRS) ; do rm -rf $$dir ; done
+  for dir in $(DIRS) ; do rm -rf $$dir ; done
 
 dirs:
-	for dir in $(DIRS) ; do [ -d $$dir ] || mkdir -p $$dir ; done
+  for dir in $(DIRS) ; do [ -d $$dir ] || mkdir -p $$dir ; done
 
 elasticsearch: dirs check_latest $(INDEX_CCDB)
 
 
 from_public: dirs
-	@# This will get the date modified header: curl -L -sI $(URL_PUBLIC_CSV)
-	touch $(INPUT_S3_TIMESTAMP)
-	curl -L -o $(DATASET_CSV) $(URL_PUBLIC_CSV)
-	curl -L -o $(METADATA_JSON) $(URL_PUBLIC_METADATA)
-	$(MAKE) $(INDEX_CCDB)
+  @# This will get the date modified header: curl -L -sI $(URL_PUBLIC_CSV)
+  touch $(INPUT_S3_TIMESTAMP)
+  curl -L -o $(DATASET_CSV) $(URL_PUBLIC_CSV)
+  curl -L -o $(METADATA_JSON) $(URL_PUBLIC_METADATA)
+  $(MAKE) $(INDEX_CCDB)
 
 ls_in:
-	$(eval FOLDER=$(shell dirname $$INPUT_S3_KEY))
-	aws s3 ls --recursive "s3://$$INPUT_S3_BUCKET/$(FOLDER)"
+  $(eval FOLDER=$(shell dirname $$INPUT_S3_KEY))
+  aws s3 ls --recursive "s3://$$INPUT_S3_BUCKET/$(FOLDER)"
 
 ls_out:
-	aws s3 ls --recursive "s3://$$OUTPUT_S3_BUCKET/$$OUTPUT_S3_FOLDER"
+  aws s3 ls --recursive "s3://$$OUTPUT_S3_BUCKET/$$OUTPUT_S3_FOLDER"
 
 s3: dirs check_latest $(PUSH_S3)
 
@@ -111,71 +111,71 @@ verify_s3: verify_s3
 .DELETE_ON_ERROR :
 
 $(INDEX_CCDB): complaints/ccdb/ccdb_mapping.json $(DATASET_ND_JSON) $(METADATA_JSON) $(CONFIG_CCDB)
-	$(PY) -m complaints.ccdb.index_ccdb -c $(CONFIG_CCDB) \
-	   --dataset $(DATASET_ND_JSON) \
-	   --metadata $(METADATA_JSON) \
-	   --index-name $(ALIAS)
-# 	$(PY) -m complaints.taxonomy.index_taxonomy -c $(CONFIG_CCDB) \
-# 	   --taxonomy complaints/taxonomy/taxonomy.txt --index-name $(ALIAS)
-	touch $@
+  $(PY) -m complaints.ccdb.index_ccdb -c $(CONFIG_CCDB) \
+     --dataset $(DATASET_ND_JSON) \
+     --metadata $(METADATA_JSON) \
+     --index-name $(ALIAS)
+# $(PY) -m complaints.taxonomy.index_taxonomy -c $(CONFIG_CCDB) \
+#    --taxonomy complaints/taxonomy/taxonomy.txt --index-name $(ALIAS)
+  touch $@
 
 $(PUSH_S3): $(DATASET_PUBLIC_CSV) $(DATASET_PUBLIC_JSON) $(DATASET_HERO_MAP_3Y) $(METADATA_PUBLIC_JSON) $(METADATA_JAVASCRIPT)
-	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_JSON)
-	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(DATASET_PUBLIC_JSON)
-	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_CSV)
-	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(DATASET_PUBLIC_CSV)
-	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(DATASET_HERO_MAP_3Y)
-	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(METADATA_PUBLIC_JSON)
-	$(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(METADATA_JAVASCRIPT)
-	touch $@
+  $(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_JSON)
+  $(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(DATASET_PUBLIC_JSON)
+  $(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_CSV)
+  $(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(DATASET_PUBLIC_CSV)
+  $(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(DATASET_HERO_MAP_3Y)
+  $(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(METADATA_PUBLIC_JSON)
+  $(PY) -m complaints.ccdb.push_s3 -c $(CONFIG_CCDB) --no-zip $(METADATA_JAVASCRIPT)
+  touch $@
 
 verify_s3: $(CONFIG_CCDB)
-	$(PY) -m complaints.ccdb.verify_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_JSON) $(S3_JSON_COUNT) $(AKAMAI_CACHE_COUNT)
+  $(PY) -m complaints.ccdb.verify_s3 -c $(CONFIG_CCDB) $(DATASET_PUBLIC_JSON) $(S3_JSON_COUNT) $(AKAMAI_CACHE_COUNT)
 
 $(CONFIG_CCDB):
-	cp config_sample.ini $(CONFIG_CCDB)
+  cp config_sample.ini $(CONFIG_CCDB)
 
 $(DATASET_CSV): $(INPUT_S3_TIMESTAMP)
-	$(PY) -m complaints.ccdb.acquire -c $(CONFIG_CCDB) -o $@
+  $(PY) -m complaints.ccdb.acquire -c $(CONFIG_CCDB) -o $@
 
 $(DATASET_HERO_MAP_3Y): $(DATASET_CSV)
-	$(PY) -m complaints.ccdb.build_hero_map $< $@
+  $(PY) -m complaints.ccdb.build_hero_map $< $@
 
 $(DATASET_ND_JSON): $(DATASET_CSV) $(FIELDS_S3_JSON)
-	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format NDJSON \
-	                         --fields $(FIELDS_S3_JSON) $< $@
+  $(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format NDJSON \
+                           --fields $(FIELDS_S3_JSON) $< $@
 
 $(DATASET_PUBLIC_CSV): $(DATASET_CSV) $(FIELDS_S3_CSV)
-	cp $< $@
-	$(eval FIELDS=$(shell cat $(FIELDS_S3_CSV) | tr '\n' ','))
-	@# Replace first line of CSV with expected column names
-	@# https://stackoverflow.com/a/13438118
-	@#
-	@# But MacOS and GNU have slightly different syntax
-	@# https://stackoverflow.com/a/57766728
+  cp $< $@
+  $(eval FIELDS=$(shell cat $(FIELDS_S3_CSV) | tr '\n' ','))
+  @# Replace first line of CSV with expected column names
+  @# https://stackoverflow.com/a/13438118
+  @#
+  @# But MacOS and GNU have slightly different syntax
+  @# https://stackoverflow.com/a/57766728
 ifeq ($(OS_NAME),darwin)
-	sed -i '' -e '1s/.*/$(FIELDS)/' $@
+  sed -i '' -e '1s/.*/$(FIELDS)/' $@
 else
-	sed -i -e '1s/.*/$(FIELDS)/' $@
+  sed -i -e '1s/.*/$(FIELDS)/' $@
 endif
 
 $(DATASET_PUBLIC_JSON): $(DATASET_CSV) $(FIELDS_S3_JSON)
-	$(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format JSON \
-	                         --fields $(FIELDS_S3_JSON) $< $@
+  $(PY) common/csv2json.py --limit $(MAX_RECORDS) --json-format JSON \
+                           --fields $(FIELDS_S3_JSON) $< $@
 
 $(FIELDS_S3_CSV): $(DATASET_CSV)
-	$(PY) -m complaints.ccdb.choose_field_map --target-format CSV $< $@
+  $(PY) -m complaints.ccdb.choose_field_map --target-format CSV $< $@
 
 $(FIELDS_S3_JSON): $(DATASET_CSV)
-	$(PY) -m complaints.ccdb.choose_field_map --target-format JSON $< $@
+  $(PY) -m complaints.ccdb.choose_field_map --target-format JSON $< $@
 
 $(METADATA_JAVASCRIPT): $(METADATA_PUBLIC_JSON)
-	$(PY) -m complaints.ccdb.build_metadata_javascript $< $@
+  $(PY) -m complaints.ccdb.build_metadata_javascript $< $@
 
 $(METADATA_JSON): $(INPUT_S3_TIMESTAMP)
-	$(PY) -m complaints.ccdb.acquire -c $(CONFIG_CCDB) \
-	      -k $(INPUT_S3_KEY_METADATA) \
-	      -o $@
+  $(PY) -m complaints.ccdb.acquire -c $(CONFIG_CCDB) \
+        -k $(INPUT_S3_KEY_METADATA) \
+        -o $@
 
 $(METADATA_PUBLIC_JSON): $(METADATA_JSON)
-	$(PY) -m complaints.ccdb.scrub_metadata $< $@
+  $(PY) -m complaints.ccdb.scrub_metadata $< $@

@@ -116,7 +116,7 @@ def data_load_strategy_complaint(data, transform_fn):
     with open(data) as f:
         for line in f.readlines():
             doc = transform_fn(json.loads(line))
-            yield {'_op_type': 'create',
+            yield {'_op_type': 'index',
                    '_id': doc['complaint_id'],
                    '_source': doc}
 

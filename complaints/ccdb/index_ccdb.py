@@ -1,12 +1,15 @@
 import json
 import sys
+import time
 from functools import partial
 
 import configargparse
-from common.date import (format_date_as_mdy, format_date_est,
-                         format_timestamp_local, now_as_string)
-from common.es_proxy import (add_basic_es_arguments, 
-                             get_es_connection, get_aws_es_connection)
+from common.date import (
+    format_date_as_mdy, format_date_est, format_timestamp_local, now_as_string
+)
+from common.es_proxy import (
+    add_basic_es_arguments, get_aws_es_connection, get_es_connection
+)
 from common.log import setup_logging
 from elasticsearch import TransportError
 from elasticsearch.helpers import bulk
@@ -185,6 +188,8 @@ def index_json_data(
                     success, total_rows_of_data
                 )
             )
+            if total_rows_of_data % 400000 == 0:
+                time.sleep(120)
         update_indexes_in_alias(
             es, logger, alias, backup_index_name, index_name
         )

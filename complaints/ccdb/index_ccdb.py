@@ -1,5 +1,6 @@
 import json
 import sys
+import time
 from functools import partial
 
 import configargparse
@@ -186,6 +187,8 @@ def index_json_data(
                     success, total_rows_of_data
                 )
             )
+            if total_rows_of_data % 400000 == 0:
+                time.sleep(120)
         update_indexes_in_alias(
             es, logger, alias, backup_index_name, index_name
         )

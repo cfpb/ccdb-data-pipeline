@@ -23,6 +23,7 @@ class ProgressPercentage(object):
 
 def check_latest(options):
     import os
+
     import pytz
 
     s3 = boto3.resource('s3')

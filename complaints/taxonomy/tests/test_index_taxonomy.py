@@ -7,6 +7,7 @@ from common.tests import build_argv, captured_output
 
 def toAbsolute(relative):
     import os
+
     # where is _this_ file?
     thisScriptDir = os.path.dirname(__file__)
 

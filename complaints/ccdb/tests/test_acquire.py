@@ -3,8 +3,9 @@ import unittest
 from datetime import datetime
 from unittest.mock import ANY, Mock, patch
 
-import complaints.ccdb.acquire as sut
 import pytz
+
+import complaints.ccdb.acquire as sut
 from common.tests import build_argv, captured_output, make_configargs
 
 

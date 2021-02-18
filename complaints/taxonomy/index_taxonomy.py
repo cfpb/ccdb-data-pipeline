@@ -1,6 +1,7 @@
 import sys
 
 import configargparse
+
 from common.es_proxy import add_basic_es_arguments, get_es_connection
 from common.log import setup_logging
 
@@ -22,16 +23,18 @@ def alias_to_index_name(es, logger, alias, suffix=''):
 
 
 def index_taxonomy(es, logger, taxonomy_text, alias):
-    mapping = {'_all': {'type': 'string'},
-               'properties': {
-                    'suggest': {'type': 'completion',
-                                'analyzer': 'standard',
-                                'search_analyzer': 'standard',
-                                'payloads': False,
-                                },
-                    'text': {'type': 'string'}
-                    }
-               }
+    mapping = {
+        '_all': {'type': 'string'},
+        'properties': {
+            'suggest': {
+                'type': 'completion',
+                'analyzer': 'standard',
+                'search_analyzer': 'standard',
+                'payloads': False,
+            },
+            'text': {'type': 'string'}
+        }
+    }
 
     with open(taxonomy_text) as f:
         words = f.read().split('\n')

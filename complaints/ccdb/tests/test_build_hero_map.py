@@ -1,9 +1,10 @@
 import os
 import unittest
 
+from freezegun import freeze_time
+
 import complaints.ccdb.build_hero_map as sut
 from common.tests import build_argv, captured_output, make_configargs
-from freezegun import freeze_time
 
 
 def fixtureToAbsolute(fixture_file):

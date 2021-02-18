@@ -13,7 +13,7 @@ def add_basic_es_arguments(parser):
     group.add('--es-password', '-a', dest='es_password',
               default='',
               help='Elasticsearch password', env_var='ES_PASSWORD')
-    group.add('--index-name',  dest='index_name', required=True,
+    group.add('--index-name', dest='index_name', required=True,
               help='Elasticsearch index name')
     return group
 

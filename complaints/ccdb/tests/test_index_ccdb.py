@@ -1,13 +1,15 @@
 import unittest
 from unittest.mock import ANY, Mock, patch
 
+from freezegun import freeze_time
+
 import complaints.ccdb.index_ccdb as sut
 from common.tests import build_argv, captured_output
-from freezegun import freeze_time
 
 
 def toAbsolute(relative):
     import os
+
     # where is _this_ file?
     thisScriptDir = os.path.dirname(__file__)
 

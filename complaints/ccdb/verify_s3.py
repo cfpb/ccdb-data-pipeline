@@ -29,8 +29,9 @@ def verify_file(options):
         prev_size = 0
 
     if new_size < prev_size:
-        print("\n\nThere was a problem during file verification!" +
-              "\nPrevious file size: {}\nNew file size: {}\n\n".format(
+        print(
+            "\n\nThere was a problem during file verification!"
+            "\nPrevious file size: {}\nNew file size: {}\n\n".format(
                 prev_size, new_size), file=sys.stderr)
         exit(2)
     else:
@@ -42,7 +43,7 @@ def verify_file(options):
 def verify_cache(options):
     path, base_filename = os.path.split(options.json_file)
     url = 'http://files.consumerfinance.gov/{}/{}.zip'.format(
-      options.folder, base_filename)
+        options.folder, base_filename)
 
     response = requests.head(url)
     new_size = int(response.headers['content-length'])

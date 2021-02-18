@@ -68,4 +68,4 @@ class TestMain(unittest.TestCase):
         self.assertEqual(ex.exception.code, 5)
 
         console_output = err.getvalue()
-        self.assertIn("Unable to write 'foo'",  console_output)
+        self.assertIn("Unable to write 'foo'", console_output)

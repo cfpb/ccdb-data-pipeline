@@ -192,8 +192,9 @@ class TestMain(unittest.TestCase):
         es.indices.delete.assert_called_once_with(index='onion-v1')
 
         # Bulk
+        # import pdb; pdb.set_trace()
         bulk.assert_called_once_with(
-            es, actions=ANY, index='onion-v1', chunk_size=20000, refresh=True
+            es, actions=ANY, index='onion-v1', chunk_size=2000, refresh=True
         )
 
         self.validate_actions(toAbsolute('__fixtures__/exp_socrata.ndjson'))
@@ -248,7 +249,7 @@ class TestMain(unittest.TestCase):
 
         # Bulk
         bulk.assert_called_once_with(
-            es, actions=ANY, index='onion-v1', chunk_size=20000, refresh=True
+            es, actions=ANY, index='onion-v1', chunk_size=2000, refresh=True
         )
 
         self.validate_actions(toAbsolute('__fixtures__/exp_s3.ndjson'))

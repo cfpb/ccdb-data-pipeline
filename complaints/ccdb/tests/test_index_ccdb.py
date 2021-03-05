@@ -194,7 +194,6 @@ class TestMain(unittest.TestCase):
         es.indices.delete.assert_called_once_with(index='onion-v1')
 
         # Bulk
-        # import pdb; pdb.set_trace()
         bulk.assert_called_once_with(
             es, actions=ANY, index='onion-v1', chunk_size=2000, refresh=True
         )

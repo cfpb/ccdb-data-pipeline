@@ -8,7 +8,7 @@ from elasticsearch.helpers import bulk
 
 from common.date import (format_date_as_mdy, format_date_est,
                          format_timestamp_local, now_as_string)
-from common.es_proxy import (add_basic_es_arguments, 
+from common.es_proxy import (add_basic_es_arguments,
                              get_es_connection, get_aws_es_connection)
 from common.log import setup_logging
 
@@ -238,7 +238,7 @@ def build_arg_parser():
               help="Complaint data in NDJSON format")
     group.add('--metadata', dest='metadata',
               help="Metadata in JSON format")
-    group.add('--is-aws-host',  dest='is_aws_host',
+    group.add('--is-aws-host', dest='is_aws_host',
               help='Is your ES instance hosted as an AWS service?',
               env_var='IS_AWS_HOST')
     return p
@@ -259,11 +259,11 @@ def main():
     backup_index_name = "{}-v2".format(index_alias)
 
     logger.info("Creating Elasticsearch Connection")
-    
+
     if cfg.is_aws_host:
         es = get_aws_es_connection(cfg)
         logger.info('AWS configured as Elasticsearch host')
-    else: 
+    else:
         es = get_es_connection(cfg)
 
     qas_timestamp = get_qa_timestamp(cfg, logger)

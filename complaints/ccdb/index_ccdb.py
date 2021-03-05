@@ -8,8 +8,8 @@ from elasticsearch.helpers import bulk
 
 from common.date import (format_date_as_mdy, format_date_est,
                          format_timestamp_local, now_as_string)
-from common.es_proxy import (add_basic_es_arguments,
-                             get_es_connection, get_aws_es_connection)
+from common.es_proxy import (add_basic_es_arguments, get_aws_es_connection,
+                             get_es_connection)
 from common.log import setup_logging
 
 # -----------------------------------------------------------------------------

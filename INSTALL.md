@@ -1,6 +1,6 @@
-# Installation instructions
+# Local installation
 
-## Installing for local development
+### The CCDB repos
 
 The CCDB project is broken into three repos, which is great for isolating code for indexing ([ccdb-data-pipeline](https://github.com/cfpb/ccdb-data-pipeline)), searching ([ccdb5-api](https://github.com/cfpb/ccdb5-api)), and user interface ([ccdb5-ui](https://github.com/cfpb/ccdb5-ui)). The public data are produced in a pipeline that begins with complaints stored in SalesForce and ends with a public CSV file, which is scrubbed of PII and updated on S3 every morning. The CSV is then indexed in our production Elasticsearch service.
 
@@ -14,7 +14,7 @@ cd ccdb-data-pipeline
 pip install -r requirements.txt
 ```
 
-### A hybrid setup
+### A hybrid local setup
 The next hurdle is how to get current complaint data loaded in local Elasticsearch and how to explore the resulting index.
 
 Kibana is a great resource for exploring and troubleshooting Elasticsearch, but we don't have Kibana approved for our AWS Elasticsearch services. So running Kibana and Elasticsearch locally is attractive, and the easiest way to get them running together is in Docker.

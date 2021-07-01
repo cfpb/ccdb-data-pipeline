@@ -6,11 +6,12 @@ The CCDB project is broken into three repos, which is great for isolating code f
 
 The separation of concerns allows us to run the complaint pipeline from source to Elasticsearch without involving consumerfinance.gov code. But the separation makes it tricky to get a local development environment running with indexed data along with development versions of code from the various repos.
 
-The first step is to create and activate a Python3 virtualenv, then clone the project.
+The first step is to create and activate a Python3 virtualenv, then clone and set up the project.
 
 ```bash
 git clone https://github.com/cfpb/ccdb-data-pipeline.git
 cd ccdb-data-pipeline
+cp config_sample.ini config.ini
 pip install -r requirements.txt
 ```
 
@@ -34,7 +35,7 @@ export ES_PASSWORD=""
 export ENV=dev
 ```
 
-With your local Elasticsearch service running, you can now run the `make` option that uses the public CCDB data files:
+With your local Elasticsearch service running at localhost:9200, you can now run the `make` option that uses the public CCDB data files:
 
 ```bash
 make from_public

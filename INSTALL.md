@@ -50,14 +50,20 @@ Once you have Elasticsearch running in Docker and available at localhost:9200, v
 First create and activate a Python3 virtualenv for the data pipeline, then clone and set up the project.
 
 ```bash
-pyenv virtualenv 3.6.9 ccdb-pipeline && pyenv activate ccdb-pipeline
+pyenv virtualenv 3.6.9 ccdb-data-pipeline && pyenv activate ccdb-data-pipeline
 git clone https://github.com/cfpb/ccdb-data-pipeline.git
 cd ccdb-data-pipeline
 cp config_sample.ini config.ini
 pip install -r requirements.txt
 ```
 
-Add these env variables:  
+Copy the sample env file and source it:
+```bash
+cp .env_example .env
+source .env
+```
+
+That should set these required env variables for you:  
 ```bash
 export ES_USERNAME=elasticsearch
 export ES_PASSWORD=""
@@ -69,6 +75,29 @@ Confirm that Elasticsearch is running at localhost:9200
 ```bash
 curl localhost:9200
 ```
+
+That should return something like this:
+
+```bash
+{
+  "name" : "6a91ecd93c82",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "XqMcQxTzTX6IQ6qqJ1-zAg",
+  "version" : {
+    "number" : "7.10.1",
+    "build_flavor" : "oss",
+    "build_type" : "tar",
+    "build_hash" : "1c34507e66d7db1211f66f3513706fdf548736aa",
+    "build_date" : "2020-12-05T01:00:33.671820Z",
+    "build_snapshot" : false,
+    "lucene_version" : "8.7.0",
+    "minimum_wire_compatibility_version" : "6.8.0",
+    "minimum_index_compatibility_version" : "6.0.0-beta1"
+  },
+  "tagline" : "You Know, for Search"
+}
+```
+
 
 Now you can run the ccdb-data-pipeline to index public CCDB complaint data.
 
@@ -88,4 +117,44 @@ Kibana has some nice autocompletion helpers for testing queries and for other us
 See the Kibana [console docs](https://www.elastic.co/guide/en/kibana/current/console-kibana.html) to dig deeper.
 
 You should now have the complaint search running with the latest data at <http://localhost:8000/data-research/consumer-complaints/search/>.
+
+## To locally test Elasticsearch2 operations (soon to be deprecated):
+
+After instantiating the cfgov docker stack, Elasticsearch 2 will be listening on localhost:9000.
+
+So, using the **elasticsearch-2-final** branch of ccdb-data-pipeline, set the port var to 9000:
+
+```bash
+export ES_USERNAME=elasticsearch
+export ES_PASSWORD=""
+export ENV=dev
+export ES_PORT=9000
+```
+
+Then run `make from_public`
+
+
+## Working on the production pipeline
+
+To test and develop the prod pipeline, which runs in Jenkins to populate the production Elasticsearch index and post files to S3, you'll need a few more values in your env:
+
+```bash
+export AWS_ACCESS_KEY_ID=<svc_account_access_key>
+export AWS_SECRET_ACCESS_KEY=<svc_account_secret_access_key>
+export INPUT_S3_BUCKET=enterprise-data-team
+export INPUT_S3_KEY=projects/consumer-complaints/public/consumer_complaint_datashare.csv
+export INPUT_S3_KEY_METADATA=projects/consumer-complaints/public/consumer_complaint_datashare_metadata.json
+```
+
+Then you can run `make elasticsearch` to mimic the production pipeline, but without uploading any files to s3 as the prod pipeline does.
+
+Running the full production pipeline, with the bare command `make`, will upload seven large public files to s3.  
+To test without overwriting the files created by the prod pipeline, you can export these env vars before running `make`:
+
+```bash
+export OUTPUT_S3_BUCKET=enterprise-data-team
+export OUTPUT_S3_FOLDER=projects/consumer-complaints/internal_test/<YOUR INITIALS>
+```
+
+The commands `make` and `make elasticsearch` include a timestamp check, so if your local data files are up to date, the pipeline won't run.
 

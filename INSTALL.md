@@ -2,7 +2,7 @@
 
 ### The CCDB repos
 
-The CCDB project is broken into three repos, which isolates code for indexing ([ccdb-data-pipeline](https://github.com/cfpb/ccdb-data-pipeline)), searching ([ccdb5-api](https://github.com/cfpb/ccdb5-api)), and user interface ([ccdb5-ui](https://github.com/cfpb/ccdb5-ui)). The public data are produced in a pipeline that begins with complaints stored in SalesForce and ends with a public CSV file, which is scrubbed of PII and updated on S3 every morning. The CSV is then indexed in our production Elasticsearch service.
+The CCDB project is broken into three repos, which isolates code for indexing (this repository), searching ([ccdb5-api](https://github.com/cfpb/ccdb5-api)), and user interface ([ccdb5-ui](https://github.com/cfpb/ccdb5-ui)). The public data are produced in a pipeline that begins with original complaints stored in an internal database and ends with a public CSV file, which is scrubbed of PII and updated on S3 every morning. The CSV is then indexed in our production Elasticsearch service.
 
 The separation of concerns allows us to run the complaint pipeline from source to Elasticsearch without involving consumerfinance.gov code. But the separation makes it tricky to get a local development environment running with indexed data along with development versions of code from the various repos.
 
@@ -28,7 +28,6 @@ In the environment where cfgov is running, make sure the following env vars are 
 
 ```bash
 export COMPLAINT_ES_INDEX=complaint-public-dev
-export COMPLAINT_DOC_TYPE=complaint
 ```
 
 ### Option 2: A Docker-only setup
@@ -37,7 +36,6 @@ If you're not concerned with Python-specific tools like pdb, you can run the who
 
 ```bash
 export COMPLAINT_ES_INDEX=complaint-public-dev
-export COMPLAINT_DOC_TYPE=complaint
 export ES_HOST=elasticsearch
 ```
 
@@ -117,22 +115,6 @@ Kibana has some nice autocompletion helpers for testing queries and for other us
 See the Kibana [console docs](https://www.elastic.co/guide/en/kibana/current/console-kibana.html) to dig deeper.
 
 You should now have the complaint search running with the latest data at <http://localhost:8000/data-research/consumer-complaints/search/>.
-
-## To locally test Elasticsearch2 operations (soon to be deprecated):
-
-After instantiating the cfgov docker stack, Elasticsearch 2 will be listening on localhost:9000.
-
-So, using the **elasticsearch-2-final** branch of ccdb-data-pipeline, set the port var to 9000:
-
-```bash
-export ES_USERNAME=elasticsearch
-export ES_PASSWORD=""
-export ENV=dev
-export ES_PORT=9000
-```
-
-Then run `make from_public`
-
 
 ## Working on the production pipeline
 

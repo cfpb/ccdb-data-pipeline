@@ -2,13 +2,13 @@
 
 An ETL data pipeline intended to support the operations of the Consumer Complaint Search application.
 
-**Description**: This purpose of this code is to provide data for Consumer Complaint Search. This pipeline downloads scrubbed consumer complaint data and indexes that data in Elasticsearch for the Complaint Search application to display and analyze.
+**Description**: The purpose is to provide data for Consumer Complaint Search. The pipeline downloads scrubbed consumer complaint data and indexes it in Elasticsearch for the search application to display and analyze.
 
 **Status**:  In Production
 
 ## Dependencies
 
-This pipeline is intended to index data in Elasticsearch and is dependent on having an Elasticsearch instance to interface with.
+This pipeline is dependent on having an Elasticsearch instance to interface with.  
 
 ## Installation
 

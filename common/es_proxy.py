@@ -53,10 +53,3 @@ def get_aws_es_connection(config):
     print(es.info())
 
     return es
-
-
-__all__ = [
-    'add_basic_es_arguments',
-    'get_es_connection',
-    'get_aws_es_connection',
-]

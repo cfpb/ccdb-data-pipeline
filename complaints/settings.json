@@ -28,7 +28,19 @@
         "token_separator": " "
       }
     },
+    "char_filter": {
+      "entity": {
+        "type": "pattern_replace",
+        "pattern": "\\.",
+        "replacement": ""
+      }
+    },
     "analyzer": {
+      "entity": {
+        "type": "custom",
+        "tokenizer": "keyword",
+        "char_filter": ["entity"]
+      },
       "cr_analyzer": {
         "type": "custom",
         "tokenizer": "whitespace",

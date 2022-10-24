@@ -68,6 +68,14 @@ export ES_PASSWORD=""
 export ENV=dev
 ```
 
+Optional:
+
+To reduce your load time, set the MAX_RECORDS env variable to any number to load a subset of records of available complaints.
+```bash
+export MAX_RECORDS=10000
+```
+
+
 Confirm that Elasticsearch is running at localhost:9200
 
 ```bash

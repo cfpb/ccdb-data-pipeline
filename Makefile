@@ -89,7 +89,7 @@ from_public: dirs
 	@# This will get the date modified header: curl -L -sI $(URL_PUBLIC_CSV)
 	touch $(INPUT_S3_TIMESTAMP)
 	curl -L -o $(DATASET_CSV) $(URL_PUBLIC_CSV)
-	curl -L -o $(METADATA_JSON) $(URL_PUBLIC_METADATA)
+	# curl -L -o $(METADATA_JSON) $(URL_PUBLIC_METADATA)
 	$(MAKE) $(INDEX_CCDB)
 
 ls_in:
@@ -165,10 +165,10 @@ $(FIELDS_S3_JSON): $(DATASET_CSV)
 $(METADATA_JAVASCRIPT): $(METADATA_PUBLIC_JSON)
 	$(PY) -m complaints.ccdb.build_metadata_javascript $< $@
 
-$(METADATA_JSON): $(INPUT_S3_TIMESTAMP)
-	$(PY) -m complaints.ccdb.acquire -c $(CONFIG_CCDB) \
-	      -k $(INPUT_S3_KEY_METADATA) \
-	      -o $@
+# $(METADATA_JSON): $(INPUT_S3_TIMESTAMP)
+# 	$(PY) -m complaints.ccdb.acquire -c $(CONFIG_CCDB) \
+# 	      -k $(INPUT_S3_KEY_METADATA) \
+# 	      -o $@
 
 $(METADATA_PUBLIC_JSON): $(METADATA_JSON)
 	$(PY) -m complaints.ccdb.scrub_metadata $< $@

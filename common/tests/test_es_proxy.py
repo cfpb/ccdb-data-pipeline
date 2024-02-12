@@ -24,5 +24,5 @@ class TestEdges(unittest.TestCase):
         mock_es.assert_called_once_with(
             'http://www.example.org:9222',
             http_auth=('king', 'kong'),
-            timeout=1000,
+            timeout=2000,
             user_ssl=True)

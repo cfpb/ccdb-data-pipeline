@@ -47,7 +47,7 @@ def get_aws_es_connection(config):
         use_ssl=True,
         verify_certs=True,
         connection_class=RequestsHttpConnection,
-        timeout=1000
+        timeout=2000
     )
 
     print(es.info())

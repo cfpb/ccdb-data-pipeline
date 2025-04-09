@@ -115,7 +115,7 @@ def load_json(logger, file):
 
 def data_load_strategy_complaint(data, transform_fn):
     with open(data) as f:
-        for line in f.readlines():
+        for line in f:
             doc = transform_fn(json.loads(line))
             yield {'_op_type': 'index',
                    '_id': doc['complaint_id'],

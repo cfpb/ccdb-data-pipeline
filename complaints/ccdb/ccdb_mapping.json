@@ -11,8 +11,8 @@
           "type": "keyword"
         },
         "suggest": {
-          "analyzer": "uppercase_analyzer",
-          "type": "text"
+          "type": "completion",
+          "analyzer": "entity"
         }
       },
       "analyzer": "cr_analyzer",

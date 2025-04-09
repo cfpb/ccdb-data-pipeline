@@ -29,7 +29,7 @@ def get_es_connection(config):
     url = "{}://{}:{}".format("http", config.es_host, config.es_port)
     es = Elasticsearch(
         url, http_auth=(config.es_username, config.es_password),
-        user_ssl=True, timeout=1000
+        user_ssl=True, timeout=2000
     )
     return es
 
@@ -47,7 +47,7 @@ def get_aws_es_connection(config):
         use_ssl=True,
         verify_certs=True,
         connection_class=RequestsHttpConnection,
-        timeout=1000
+        timeout=2000
     )
 
     print(es.info())

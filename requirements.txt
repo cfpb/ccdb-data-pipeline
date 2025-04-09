@@ -3,5 +3,5 @@ ConfigArgParse==0.14.0
 elasticsearch==7.13.4
 ijson==2.4
 pytz
-requests==2.31.0
+requests==2.32.3
 requests_aws4auth==0.8.0

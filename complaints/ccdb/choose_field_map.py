@@ -7,13 +7,15 @@ import sys
 import configargparse
 
 INTAKE_V1 = "date_received,product,sub_product,issue,sub_issue," \
-            "consumer_narrative,company_public_response,company,state," \
-            "zip_code,tag,consent_status,submitted_via,date_sent_to_company," \
+            "consumer_narrative,company_public_response,company," \
+            "msa, congressional_district, state, zip_code," \
+            "tag,consent_status,submitted_via,date_sent_to_company," \
             "company_response_to_consumer,timely_response,consumer_disputed," \
             "public_id"
 PUBLIC_V1 = "Date received,Product,Sub-product,Issue,Sub-issue," \
             "Consumer complaint narrative,Company public response,Company," \
-            "State,ZIP code,Tags,Consumer consent provided?,Submitted via," \
+            "MSA, Congressional district, State, ZIP code," \
+            "Tags,Consumer consent provided?,Submitted via," \
             "Date sent to company,Company response to consumer," \
             "Timely response?,Consumer disputed?,Complaint ID"
 

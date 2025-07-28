@@ -94,6 +94,12 @@
       "type": "text",
       "copy_to": "typeahead_dropdown"
     },
+    "msa": {
+      "type": "keyword"
+    },
+    "congressional_district": {
+      "type": "keyword"
+    },
     "state": {
       "type": "keyword"
     },

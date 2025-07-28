@@ -131,6 +131,12 @@
     },
     "zip_code": {
       "type": "keyword"
+    },
+    "msa": {
+      "type": "keyword"
+    },
+    "congressional_district": {
+      "type": "keyword"
     }
   }
 }

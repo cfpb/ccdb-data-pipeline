@@ -83,7 +83,19 @@ clean:
 dirs:
 	for dir in $(DIRS) ; do [ -d $$dir ] || mkdir -p $$dir ; done
 
-elasticsearch: dirs check_latest $(INDEX_CCDB)
+elasticsearch: dirs check_latest
+	@get_timestamp() { \
+		ls -l "$$1" 2>/dev/null | awk '{print $$6, $$7, $$8}' || echo 'none'; \
+	}; \
+	echo "S3 dataset timestamp: $$(get_timestamp $(INPUT_S3_TIMESTAMP))"; \
+	echo "Last index timestamp: $$(get_timestamp $(INDEX_CCDB))"
+	@if [ -n "$(FORCE_REINDEX)" ] || \
+		[ ! -f $(INDEX_CCDB) ] || \
+		[ $(INPUT_S3_TIMESTAMP) -nt $(INDEX_CCDB) ]; then \
+		$(MAKE) $(INDEX_CCDB); \
+	else \
+		echo "Data already indexed, nothing to do"; \
+	fi
 
 
 from_public: dirs

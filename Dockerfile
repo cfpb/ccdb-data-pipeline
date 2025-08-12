@@ -1,4 +1,4 @@
-FROM python:3.8-alpine
+FROM python:3.13-alpine
 
 ENV LANG=en_US.UTF-8
 ENV PIP_NO_CACHE_DIR=true

@@ -12,6 +12,8 @@ COPY . .
 RUN apk update --no-cache && \
     apk upgrade --no-cache --ignore alpine-baselayout && \
     apk add --no-cache \
+        aws-cli \
+        jq \
         make
 
 RUN pip install --upgrade pip setuptools && \

@@ -1,3 +1,5 @@
+from urllib.parse import quote
+
 from elasticsearch import Elasticsearch, RequestsHttpConnection
 from requests_aws4auth import AWS4Auth
 
@@ -26,10 +28,17 @@ def add_basic_es_arguments(parser):
 
 
 def get_es_connection(config):
-    url = "{}://{}:{}".format("http", config.es_host, config.es_port)
+    host = config.es_host
+
+    if config.es_username and config.es_password:
+        encoded_username = quote(config.es_username)
+        encoded_password = quote(config.es_password)
+        host = f'{encoded_username}:{encoded_password}@{host}'
+
     es = Elasticsearch(
-        url, http_auth=(config.es_username, config.es_password),
-        user_ssl=True, timeout=2000
+        f'http://{host}:{config.es_port}',
+        use_ssl=(str(config.es_port) == '443'),
+        timeout=2000
     )
     return es
 

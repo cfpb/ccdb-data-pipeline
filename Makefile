@@ -4,7 +4,8 @@ OS_NAME := $(shell uname -s | tr A-Z a-z)
 # "SOCRATA_JSON" = {metadata: {}, data: [[], [], []]}
 # ND-JSON = {}\n{}\n{}\n
 
-DIRS := complaints/ccdb/intake complaints/ccdb/ready_es complaints/ccdb/ready_s3
+STATE_DIR := complaints/ccdb
+DIRS := $(STATE_DIR)/intake $(STATE_DIR)/ready_es $(STATE_DIR)/ready_s3
 MAX_RECORDS ?= 0
 
 # Aliases
@@ -15,25 +16,25 @@ ALIAS := complaint-public-$(ENV)
 
 CONFIG_CCDB := config-ccdb.ini
 
-DATASET_CSV := complaints/ccdb/intake/complaints.csv
-DATASET_ND_JSON := complaints/ccdb/ready_es/complaints.json
-DATASET_PUBLIC_CSV := complaints/ccdb/ready_s3/complaints.csv
-DATASET_PUBLIC_JSON := complaints/ccdb/ready_s3/complaints.json
+DATASET_CSV := $(STATE_DIR)/intake/complaints.csv
+DATASET_ND_JSON := $(STATE_DIR)/ready_es/complaints.json
+DATASET_PUBLIC_CSV := $(STATE_DIR)/ready_s3/complaints.csv
+DATASET_PUBLIC_JSON := $(STATE_DIR)/ready_s3/complaints.json
 
-METADATA_JAVASCRIPT := complaints/ccdb/ready_s3/metadata.js
-METADATA_JSON := complaints/ccdb/intake/complaints_metadata.json
-METADATA_PUBLIC_JSON := complaints/ccdb/ready_s3/complaints_metadata.json
+METADATA_JAVASCRIPT := $(STATE_DIR)/ready_s3/metadata.js
+METADATA_JSON := $(STATE_DIR)/intake/complaints_metadata.json
+METADATA_PUBLIC_JSON := $(STATE_DIR)/ready_s3/complaints_metadata.json
 
 # Field Names
 
-FIELDS_S3_CSV := complaints/ccdb/intake/fields-s3-csv.txt
-FIELDS_S3_JSON := complaints/ccdb/intake/fields-s3-json.txt
+FIELDS_S3_CSV := $(STATE_DIR)/intake/fields-s3-csv.txt
+FIELDS_S3_JSON := $(STATE_DIR)/intake/fields-s3-json.txt
 
 # Sentinels
 
-INDEX_CCDB := complaints/ccdb/ready_es/.last_indexed
-INPUT_S3_TIMESTAMP := complaints/ccdb/intake/.latest_dataset
-PUSH_S3 := complaints/ccdb/ready_s3/.last_pushed
+INDEX_CCDB := $(STATE_DIR)/ready_es/.last_indexed
+INPUT_S3_TIMESTAMP := $(STATE_DIR)/intake/.latest_dataset
+PUSH_S3 := $(STATE_DIR)/ready_s3/.last_pushed
 
 # URLs
 
@@ -42,8 +43,8 @@ URL_PUBLIC_METADATA ?= https://files.consumerfinance.gov/ccdb/complaints_metadat
 
 # Verification
 
-S3_JSON_COUNT := complaints/ccdb/verification/json_prev_size.txt
-AKAMAI_CACHE_COUNT := complaints/ccdb/verification/cache_prev_size.txt
+S3_JSON_COUNT := $(STATE_DIR)/verification/json_prev_size.txt
+AKAMAI_CACHE_COUNT := $(STATE_DIR)/verification/cache_prev_size.txt
 
 # Defaults
 
@@ -82,7 +83,19 @@ clean:
 dirs:
 	for dir in $(DIRS) ; do [ -d $$dir ] || mkdir -p $$dir ; done
 
-elasticsearch: dirs check_latest $(INDEX_CCDB)
+elasticsearch: dirs check_latest
+	@get_timestamp() { \
+		ls -l "$$1" 2>/dev/null | awk '{print $$6, $$7, $$8}' || echo 'none'; \
+	}; \
+	echo "S3 dataset timestamp: $$(get_timestamp $(INPUT_S3_TIMESTAMP))"; \
+	echo "Last index timestamp: $$(get_timestamp $(INDEX_CCDB))"
+	@if [ -n "$(FORCE_REINDEX)" ] || \
+		[ ! -f $(INDEX_CCDB) ] || \
+		[ $(INPUT_S3_TIMESTAMP) -nt $(INDEX_CCDB) ]; then \
+		$(MAKE) $(INDEX_CCDB); \
+	else \
+		echo "Data already indexed, nothing to do"; \
+	fi
 
 
 from_public: dirs

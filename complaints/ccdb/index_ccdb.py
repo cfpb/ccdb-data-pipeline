@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 from functools import partial
 
@@ -11,6 +12,8 @@ from common.date import (format_date_as_mdy, format_date_est,
 from common.es_proxy import (add_basic_es_arguments, get_aws_es_connection,
                              get_es_connection)
 from common.log import setup_logging
+
+BATCH_SIZE = os.getenv("BATCH_SIZE", 2000)
 
 # -----------------------------------------------------------------------------
 # Enhancing Functions
@@ -137,7 +140,7 @@ def yield_chunked_docs(get_data_function, data, chunk_size):
 
 def index_json_data(
     es, logger, doc_type_name, settings_json, mapping_json, data, index_name,
-    backup_index_name, alias, chunk_size=2000, qas_timestamp=0
+    backup_index_name, alias, chunk_size=BATCH_SIZE, qas_timestamp=0
 ):
     settings = load_json(logger, settings_json)
     mapping = load_json(logger, mapping_json)

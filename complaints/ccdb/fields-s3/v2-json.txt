@@ -17,3 +17,5 @@ timely
 consumer_disputed
 complaint_id
 event_tag
+msa
+congressional_district

@@ -17,3 +17,5 @@ Timely response?
 Consumer disputed?
 Complaint ID
 Event tag
+MSA
+Congressional district

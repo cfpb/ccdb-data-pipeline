@@ -87,6 +87,11 @@ def run(options):
 
         for row in parser:  # pragma: no branch
             obj = dict(zip(columns, row))
+            if options.narratives:
+                if not obj.get("complaint_what_happened"):
+                    continue
+                else:
+                    obj["has_narrative"] = True
             i = formatter.send(obj)
 
             if (i % options.heartbeat) == 0:
@@ -103,20 +108,32 @@ def run(options):
 
 
 def build_arg_parser():
-    p = configargparse.ArgParser(prog='csv2json',
-                                 description='converts a CSV to JSON',
-                                 ignore_unknown_config_file_keys=True)
-    p.add('--fields', dest='fields', default=None,
-          help='The columns names to use instead of the source names')
-    p.add('--limit', '-n', dest='limit', type=int, default=0,
-          help='Stop at this many records')
-    p.add('--json-format', dest='jsonFormat',
-          choices=['JSON', 'NDJSON'], default='JSON',
-          help='The output format')
-    p.add('--heartbeat', dest='heartbeat', type=int, default=10000,
-          help='Indicate rows are being processed every N records')
-    p.add('infile', help="The name of the CSV file")
-    p.add('outfile', help="The name of the JSON file to write")
+    p = configargparse.ArgParser(
+        prog="csv2json",
+        description="converts a CSV to JSON",
+        ignore_unknown_config_file_keys=True
+    )
+    p.add(
+        "--fields", dest="fields", default=None,
+        help="The columns names to use instead of the source names")
+    p.add(
+        "--limit", "-n", dest="limit", type=int, default=0,
+        help="Stop at this many records")
+    p.add(
+        "--json-format", dest="jsonFormat",
+        choices=["JSON", "NDJSON"], default="JSON",
+        help="The output format"
+    )
+    p.add(
+        "--heartbeat", dest="heartbeat", type=int, default=10000,
+        help="Indicate rows are being processed every N records"
+    )
+    p.add(
+        "--narratives", action="store_true", dest="narratives",
+        help="Local-use flag to exclude complaints with no narratives"
+    )
+    p.add("infile", help="The name of the CSV file")
+    p.add("outfile", help="The name of the JSON file to write")
     return p
 
 
@@ -127,5 +144,5 @@ def main():
     run(cfg)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

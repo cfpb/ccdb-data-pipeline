@@ -6,6 +6,11 @@ The CCDB project is broken into three repos, which isolates code for indexing (t
 
 The separation of concerns allows us to run the complaint pipeline from source to Elasticsearch without involving consumerfinance.gov code. But the separation makes it tricky to get a local development environment running with indexed data along with development versions of code from the various repos.
 
+### OpenSearch vs Elasticsearch
+CCDB5, consumerfinance.gov, and internal apps originally used Elasticsearch for indexing. By October 2025, we had converted all to AWS OpenSearch in production. However, we still use Elasticsearch and Kibana containers for local development, and we haven't changed environment variable names that refer to "Elasticsearch" or to the shorthand "ES". OpenSearch code runs fine against Elasticsearch instances, and the var names are just labels, so this does not pose a problem. 
+
+However, this would not work in the other direction: Elasticsearch API code can't be used against modern OpenSearch instances. We no longer use Elasticsearch API code.
+
 ### An indexing task
 
 One hurdle is how to get current complaint data indexed locally in Elasticsearch and how to explore the resulting index.

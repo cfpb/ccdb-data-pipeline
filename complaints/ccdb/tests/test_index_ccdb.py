@@ -267,7 +267,7 @@ class TestMain(unittest.TestCase):
     @patch('complaints.ccdb.index_ccdb.get_es_connection')
     @patch('complaints.ccdb.index_ccdb.setup_logging')
     def test_main_transport_error(self, logger_setup, es_conn, bulk):
-        from elasticsearch import TransportError
+        from opensearchpy import TransportError
 
         logger = Mock()
         logger_setup.return_value = logger

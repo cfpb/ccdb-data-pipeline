@@ -1,6 +1,6 @@
 from urllib.parse import quote
 
-from elasticsearch import Elasticsearch, RequestsHttpConnection
+from opensearchpy import OpenSearch, RequestsHttpConnection
 from requests_aws4auth import AWS4Auth
 
 
@@ -35,7 +35,7 @@ def get_es_connection(config):
         encoded_password = quote(config.es_password)
         host = f'{encoded_username}:{encoded_password}@{host}'
 
-    es = Elasticsearch(
+    es = OpenSearch(
         f'http://{host}:{config.es_port}',
         use_ssl=(str(config.es_port) == '443'),
         timeout=2000
@@ -50,7 +50,7 @@ def get_aws_es_connection(config):
         'us-east-1',
         'es'
     )
-    es = Elasticsearch(
+    es = OpenSearch(
         hosts=[{'host': config.es_host, 'port': 443}],
         http_auth=awsauth,
         use_ssl=True,

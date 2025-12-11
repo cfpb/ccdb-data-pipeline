@@ -4,8 +4,8 @@ import sys
 from functools import partial
 
 import configargparse
-from elasticsearch import TransportError
-from elasticsearch.helpers import bulk
+from opensearchpy import TransportError
+from opensearchpy.helpers import bulk
 
 from common.date import (format_date_as_mdy, format_date_est,
                          format_timestamp_local, now_as_string)

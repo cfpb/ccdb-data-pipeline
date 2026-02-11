@@ -7,6 +7,14 @@ ENV HOME=/usr/home
 
 WORKDIR ${HOME}
 
+# Add Zscaler Root CA certificate, rebuild CA certificates, and both the root
+# cert and the rebuilt ca-certificates cert to APP_HOME for reuse.
+ADD https://raw.githubusercontent.com/cfpb/zscaler-cert/3982ebd9edf9de9267df8d1732ff5a6f88e38375/zscaler_root_ca.pem ${HOME}/zscaler-root-public.cert
+RUN cp ${HOME}/zscaler-root-public.cert /usr/local/share/ca-certificates/zscaler-root-public.cert && \
+    apk add ca-certificates --no-cache --no-check-certificate && \
+    update-ca-certificates && \
+    cp /etc/ssl/certs/ca-certificates.crt ${HOME}/ca-certificates.crt
+
 COPY . .
 
 RUN apk update --no-cache && \

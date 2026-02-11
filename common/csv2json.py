@@ -1,11 +1,11 @@
 import csv
 import errno
 import io
-import json
 import sys
 from itertools import count
 
 import configargparse
+import orjson
 
 # -----------------------------------------------------------------------------
 # Unicode CSV Iterator
@@ -28,7 +28,7 @@ def saveNewlineDelimitedJson(options):
         try:
             for i in count():  # pragma: no branch
                 row = yield i
-                f.write(json.dumps(row))
+                f.write(orjson.dumps(row).decode('utf-8'))
                 f.write('\n')
         finally:
             pass
@@ -44,7 +44,7 @@ def saveStandardJson(options):
             for i in count():  # pragma: no branch
                 row = yield i
                 f.write(sep)
-                f.write(json.dumps(row))
+                f.write(orjson.dumps(row).decode('utf-8'))
                 sep = ',\n'
         finally:
             f.write('\n]')

@@ -13,7 +13,7 @@ from common.es_proxy import (add_basic_es_arguments, get_aws_es_connection,
                              get_es_connection)
 from common.log import setup_logging
 
-BATCH_SIZE = os.getenv("BATCH_SIZE", 2000)
+BATCH_SIZE = int(os.getenv("BATCH_SIZE", 2000))
 
 # -----------------------------------------------------------------------------
 # Enhancing Functions
@@ -181,7 +181,7 @@ def index_json_data(
             logger.info("chunk retrieved, now bulk load")
             success, _ = bulk(
                 es, actions=doc_ary, index=index_name,
-                chunk_size=chunk_size, refresh=True
+                chunk_size=chunk_size, refresh=False
             )
             total_rows_of_data += success
             logger.info(
@@ -189,6 +189,10 @@ def index_json_data(
                     success, total_rows_of_data
                 )
             )
+
+        logger.info(f"Refreshing index {index_name}")
+        es.indices.refresh(index=index_name)
+
         update_indexes_in_alias(
             es, logger, alias, backup_index_name, index_name
         )

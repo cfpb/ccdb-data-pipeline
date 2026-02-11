@@ -195,8 +195,11 @@ class TestMain(unittest.TestCase):
 
         # Bulk
         bulk.assert_called_once_with(
-            es, actions=ANY, index='onion-v1', chunk_size=2000, refresh=True
+            es, actions=ANY, index='onion-v1', chunk_size=2000, refresh=False
         )
+
+        # Index refresh call
+        es.indices.refresh.assert_called_once_with(index='onion-v1')
 
         self.validate_actions(toAbsolute('__fixtures__/exp_socrata.ndjson'))
 
@@ -250,8 +253,11 @@ class TestMain(unittest.TestCase):
 
         # Bulk
         bulk.assert_called_once_with(
-            es, actions=ANY, index='onion-v1', chunk_size=2000, refresh=True
+            es, actions=ANY, index='onion-v1', chunk_size=2000, refresh=False
         )
+
+        # Index refresh call
+        es.indices.refresh.assert_called_once_with(index='onion-v1')
 
         self.validate_actions(toAbsolute('__fixtures__/exp_s3.ndjson'))
 

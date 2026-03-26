@@ -3,5 +3,5 @@ ConfigArgParse==0.14.0
 opensearch-py==3.0.0
 orjson==3.11.7
 pytz
-requests==2.32.4
+requests==2.33.0
 requests_aws4auth

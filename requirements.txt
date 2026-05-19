@@ -5,3 +5,4 @@ orjson==3.11.7
 pytz
 requests==2.32.4
 requests_aws4auth
+urllib3==2.7.0

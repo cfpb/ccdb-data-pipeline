@@ -70,13 +70,7 @@ def build_arg_parser():
     p = configargparse.ArgParser(
         prog='acquire',
         description='retrieves the latest S3 file',
-        ignore_unknown_config_file_keys=True,
-        default_config_files=['./config.ini'],
-        args_for_setting_config_path=['-c', '--config'],
-        args_for_writing_out_config_file=['--save-config']
     )
-    p.add('--dump-config', action='store_true', dest='dump_config',
-          help='dump config vars and their source')
     p.add('--check-latest', '-t', action='store_true',
           dest='get_latest',
           help='check the timestamp of the most recent dataset')
@@ -101,8 +95,7 @@ def main():
     p = build_arg_parser()
     cfg = p.parse_args()
 
-    if cfg.dump_config:
-        print(p.format_values())
+    print(p.format_values())
 
     if cfg.get_latest:
         check_latest(cfg)

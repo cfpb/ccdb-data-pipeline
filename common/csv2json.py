@@ -121,11 +121,11 @@ def build_arg_parser():
         help="Stop at this many records")
     p.add(
         "--json-format", dest="jsonFormat",
-        choices=["JSON", "NDJSON"], default="JSON",
+        choices=["JSON", "NDJSON"], default="NDJSON",
         help="The output format"
     )
     p.add(
-        "--heartbeat", dest="heartbeat", type=int, default=10000,
+        "--heartbeat", dest="heartbeat", type=int, default=100000,
         help="Indicate rows are being processed every N records"
     )
     p.add(

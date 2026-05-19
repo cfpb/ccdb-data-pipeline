@@ -1,0 +1,22 @@
+name: Build Docker image and push to GHCR
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cfpb/actions/docker-build-push@5b3ff0ebe0ac88a69752a6e0fff1b73a2f6ebcf9
+        with:
+          image-name: ccdb-data-pipeline
+          token: ${{ secrets.GITHUB_TOKEN }}

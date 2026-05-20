@@ -4,11 +4,9 @@ import sys
 from datetime import datetime, timezone
 from functools import partial
 
-import configargparse
 from opensearchpy import TransportError
 from opensearchpy.helpers import bulk
 
-from common.es_proxy import get_es_connection
 from common.log import setup_logging
 
 BATCH_SIZE = int(os.getenv("BATCH_SIZE", 5000))
@@ -187,56 +185,3 @@ def reindex_json_data(es, data, alias):
         )
         es.indices.put_alias(name=alias, index=backup_index_name)
         sys.exit(e.error)
-
-
-# -----------------------------------------------------------------------------
-# Main
-# -----------------------------------------------------------------------------
-
-
-def build_arg_parser():
-    p = configargparse.ArgParser(
-        prog="index_ccdb",
-        description="fill Elasticsearch with public complaint data",
-    )
-    p.add(
-        "--dataset",
-        dest="dataset",
-        required=True,
-        help="Complaint data in NDJSON format",
-    )
-    p.add(
-        "--alias",
-        dest="alias",
-        default="complaint-public",
-        help="Elasticsearch index name",
-    )
-    p.add(
-        "--reindex",
-        dest="reindex",
-        default=False,
-        help="Whether to add to or replace an index",
-    )
-    return p
-
-
-def main():
-    p = build_arg_parser()
-    cfg = p.parse_args()
-
-    logger.info("Running index_ccdb with")
-    logger.info(p.format_values())
-
-    logger.info("Creating Elasticsearch Connection")
-
-    es = get_es_connection()
-
-    logger.info("Begin indexing data in Elasticsearch")
-    if cfg.reindex:
-        reindex_json_data(es, cfg.dataset, cfg.alias)
-    else:
-        update_index_with_data(es, cfg.dataset, cfg.alias)
-
-
-if __name__ == "__main__":
-    main()

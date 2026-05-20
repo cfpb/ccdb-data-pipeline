@@ -1,5 +1,4 @@
 boto3==1.43.10
-ConfigArgParse==0.14.0
 opensearch-py==3.0.0
 orjson==3.11.7
 requests==2.32.4

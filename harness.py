@@ -1,8 +1,8 @@
 import subprocess
+import os
 
-import configargparse
+import argparse
 
-from common.csv2json import run as csv2json
 from common.es_proxy import get_es_connection, get_last_indexed
 from common.log import setup_logging
 from common.s3_utils import create_zipped_archive, update_zipped_archive
@@ -14,21 +14,20 @@ logger = setup_logging("harness")
 
 
 def build_arg_parser():
-    p = configargparse.ArgParser(
+    p = argparse.ArgumentParser(
         prog="harness",
         description="Collect data from Salesforce and index it into Opensearch",
     )
 
-    p.add(
+    p.add_argument(
         "--alias",
-        dest="alias",
         default="complaint-public",
         help="Opensearch alias name",
     )
-    p.add(
+
+    p.add_argument(
         "--reindex",
-        dest="reindex",
-        default=False,
+        action="store_true",
         help="Whether to add to or replace an index",
     )
 

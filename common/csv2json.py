@@ -4,7 +4,7 @@ import io
 import sys
 from itertools import count
 
-import configargparse
+import argparse
 import orjson
 
 # -----------------------------------------------------------------------------
@@ -108,7 +108,7 @@ def run(options):
 
 
 def build_arg_parser():
-    p = configargparse.ArgParser(
+    p = argparse.ArgParser(
         prog="csv2json",
         description="converts a CSV to JSON",
         ignore_unknown_config_file_keys=True

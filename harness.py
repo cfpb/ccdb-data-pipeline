@@ -52,6 +52,8 @@ def main():
         query = get_time_slice(timestamp)
         logger.info(f"Getting data since: {timestamp}")
 
+    logger.info(f"Using session_id: {session_id}")
+
     subprocess.run(
         [
             "sf",

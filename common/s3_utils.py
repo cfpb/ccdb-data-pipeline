@@ -60,7 +60,7 @@ def write_and_zip(in_file, out_file, mode="w", header=None):
             for row in reader:
                 row[0] = ymd(row[0])
                 if row[13]:
-                    row[13] = ymd(row[13])
+                    row[13] = ymd(row[12])
                 writer.writerow(row)
 
     with ZipFile(f"{out_file}.zip", "w", ZIP_DEFLATED) as zip:

@@ -4,7 +4,7 @@ import io
 import sys
 from itertools import count
 
-import configargparse
+import argparse
 import orjson
 
 # -----------------------------------------------------------------------------
@@ -22,14 +22,15 @@ def unicode_csv_reader(unicode_csv_data, dialect=csv.excel, **kwargs):
 # Formatter Functions
 # -----------------------------------------------------------------------------
 
+
 def saveNewlineDelimitedJson(options):
     fileName = options.outfile
-    with io.open(fileName, 'w', encoding='utf-8', newline='') as f:
+    with io.open(fileName, "w", encoding="utf-8", newline="") as f:
         try:
             for i in count():  # pragma: no branch
                 row = yield i
-                f.write(orjson.dumps(row).decode('utf-8'))
-                f.write('\n')
+                f.write(orjson.dumps(row).decode("utf-8"))
+                f.write("\n")
         finally:
             pass
 
@@ -37,22 +38,23 @@ def saveNewlineDelimitedJson(options):
 def saveStandardJson(options):
     fileName = options.outfile
 
-    sep = '\n'
-    with io.open(fileName, 'w', encoding='utf-8', newline='') as f:
-        f.write('[')
+    sep = "\n"
+    with io.open(fileName, "w", encoding="utf-8", newline="") as f:
+        f.write("[")
         try:
             for i in count():  # pragma: no branch
                 row = yield i
                 f.write(sep)
-                f.write(orjson.dumps(row).decode('utf-8'))
-                sep = ',\n'
+                f.write(orjson.dumps(row).decode("utf-8"))
+                sep = ",\n"
         finally:
-            f.write('\n]')
+            f.write("\n]")
 
 
 # -----------------------------------------------------------------------------
 # Process
 # -----------------------------------------------------------------------------
+
 
 def run(options):
     # Load the column names
@@ -61,14 +63,11 @@ def run(options):
         with open(options.fields) as f:
             ovr_columns = [line.strip() for line in f]
 
-    formatters = {
-        'JSON': saveStandardJson,
-        'NDJSON': saveNewlineDelimitedJson
-    }
+    formatters = {"JSON": saveStandardJson, "NDJSON": saveNewlineDelimitedJson}
     formatter = formatters[options.jsonFormat](options)
     i = next(formatter)
 
-    with io.open(options.infile, 'r', encoding='utf-8') as f:
+    with io.open(options.infile, "r", encoding="utf-8") as f:
         parser = unicode_csv_reader(f)
         src_columns = next(parser)
 
@@ -78,7 +77,7 @@ def run(options):
                 columns = ovr_columns
             else:
                 sys.stderr.write(
-                    '{} has {} fields.  Expected {}\n'.format(
+                    "{} has {} fields.  Expected {}\n".format(
                         options.fields, len(ovr_columns), len(src_columns)
                     )
                 )
@@ -95,12 +94,13 @@ def run(options):
             i = formatter.send(obj)
 
             if (i % options.heartbeat) == 0:
-                print(' {:,d} rows processed'.format(i))
+                print(" {:,d} rows processed".format(i))
 
             if options.limit and i >= options.limit:
                 break
 
     formatter.close()
+
 
 # -----------------------------------------------------------------------------
 # Main
@@ -108,32 +108,46 @@ def run(options):
 
 
 def build_arg_parser():
-    p = configargparse.ArgParser(
+    p = argparse.ArgumentParser(
         prog="csv2json",
         description="converts a CSV to JSON",
-        ignore_unknown_config_file_keys=True
     )
-    p.add(
-        "--fields", dest="fields", default=None,
-        help="The columns names to use instead of the source names")
-    p.add(
-        "--limit", "-n", dest="limit", type=int, default=0,
-        help="Stop at this many records")
-    p.add(
-        "--json-format", dest="jsonFormat",
-        choices=["JSON", "NDJSON"], default="JSON",
-        help="The output format"
+    p.add_argument(
+        "--fields",
+        dest="fields",
+        default=None,
+        help="The columns names to use instead of the source names",
     )
-    p.add(
-        "--heartbeat", dest="heartbeat", type=int, default=10000,
-        help="Indicate rows are being processed every N records"
+    p.add_argument(
+        "--limit",
+        "-n",
+        dest="limit",
+        type=int,
+        default=0,
+        help="Stop at this many records",
     )
-    p.add(
-        "--narratives", action="store_true", dest="narratives",
-        help="Local-use flag to exclude complaints with no narratives"
+    p.add_argument(
+        "--json-format",
+        dest="jsonFormat",
+        choices=["JSON", "NDJSON"],
+        default="NDJSON",
+        help="The output format",
     )
-    p.add("infile", help="The name of the CSV file")
-    p.add("outfile", help="The name of the JSON file to write")
+    p.add_argument(
+        "--heartbeat",
+        dest="heartbeat",
+        type=int,
+        default=100000,
+        help="Indicate rows are being processed every N records",
+    )
+    p.add_argument(
+        "--narratives",
+        action="store_true",
+        dest="narratives",
+        help="Local-use flag to exclude complaints with no narratives",
+    )
+    p.add_argument("infile", help="The name of the CSV file")
+    p.add_argument("outfile", help="The name of the JSON file to write")
     return p
 
 

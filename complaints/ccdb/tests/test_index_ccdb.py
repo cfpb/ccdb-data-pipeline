@@ -114,8 +114,6 @@ class TestMain(unittest.TestCase):
         self.optional = [
             '--es-host', 'www.example.com',
             '--index-name', 'onion',
-            '--settings', toAbsolute('../../settings.json'),
-            '--mapping', toAbsolute('../ccdb_mapping.json'),
             '--dataset', toAbsolute('__fixtures__/from_s3.ndjson')
         ]
         self.actual_file = toAbsolute('__fixtures__/actual.json')

@@ -52,7 +52,17 @@ def main():
         query = get_time_slice(timestamp)
         logger.info(f"Getting data since: {timestamp}")
 
-    logger.info(f"Using session_id: {session_id}")
+    org = os.getenv("SALESFORCE_DOMAIN")
+
+    subprocess.run(
+        [
+            "sf",
+            "config",
+            "set",
+            f"org-instance-url=https://{org}.salesforce.com",
+            "--global",
+        ]
+    )
 
     subprocess.run(
         [

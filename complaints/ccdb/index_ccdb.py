@@ -9,7 +9,7 @@ from opensearchpy.helpers import bulk
 
 from common.log import setup_logging
 
-BATCH_SIZE = int(os.getenv("BATCH_SIZE", 5000))
+BATCH_SIZE = int(os.getenv("BATCH_SIZE", 10000))
 SETTINGS_FILE = "complaints/settings.json"
 MAPPING_FILE = "complaints/ccdb/ccdb_mapping.json"
 
@@ -31,10 +31,6 @@ def enhance_complaint(complaint):
     # Add this field
     complaint["has_narrative"] = s != "" and s is not None
     complaint["date_indexed"] = DATE_INDEXED
-    complaint["consumer_disputed"] = adjust_disputed(complaint["consumer_disputed"])
-    complaint["consumer_consent_provided"] = adjust_consent(
-        complaint["consumer_consent_provided"]
-    )
 
     # Set all values with empty strings to None to comply with V1
     # logic
@@ -42,20 +38,6 @@ def enhance_complaint(complaint):
     # Restore complaint_what_happened to prevent ES queries from breaking
     normalized_complaint["complaint_what_happened"] = s
     return normalized_complaint
-
-
-def adjust_disputed(disputed):
-    if disputed == "Response disputed":
-        return "Yes"
-    return "No"
-
-
-def adjust_consent(consent):
-    if consent == "Provided":
-        return "Consent provided"
-    elif consent == "Narrative Consent Withdrawn":
-        return "Consent withdrawn"
-    return "Consent not provided"
 
 
 # -----------------------------------------------------------------------------

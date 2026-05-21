@@ -39,8 +39,6 @@ def main():
     args = p.parse_args()
 
     logger.info("Running indexing harness")
-    logger.info(p.format_values())
-
     logger.info("Creating Opensearch Connection")
 
     es = get_es_connection()

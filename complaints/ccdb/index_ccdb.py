@@ -9,7 +9,7 @@ from opensearchpy.helpers import bulk
 
 from common.log import setup_logging
 
-BATCH_SIZE = int(os.getenv("BATCH_SIZE", 10000))
+BATCH_SIZE = int(os.getenv("BATCH_SIZE", 5000))
 SETTINGS_FILE = "complaints/settings.json"
 MAPPING_FILE = "complaints/ccdb/ccdb_mapping.json"
 

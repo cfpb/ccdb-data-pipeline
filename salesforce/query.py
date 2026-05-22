@@ -8,7 +8,7 @@ def ensure_date(dtstring):
 
 
 def get_time_slice(since, til=None):
-    since_q = f"{full_query} AND LastModifiedDate >= {ensure_date(since)}"
+    since_q = f"{full_query} AND CreatedDate >= {ensure_date(since)}"
     if til:
-        return f"{since_q} AND LastModifiedDate < {ensure_date(til)}"
+        return f"{since_q} AND CreatedDate < {ensure_date(til)}"
     return since_q

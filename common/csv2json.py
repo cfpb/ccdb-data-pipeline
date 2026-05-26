@@ -1,10 +1,10 @@
+import argparse
 import csv
 import errno
 import io
 import sys
 from itertools import count
 
-import argparse
 import orjson
 
 # -----------------------------------------------------------------------------

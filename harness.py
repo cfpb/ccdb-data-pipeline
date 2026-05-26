@@ -1,7 +1,6 @@
-import subprocess
-import os
-
 import argparse
+import os
+import subprocess
 
 from common.es_proxy import get_es_connection, get_last_indexed
 from common.log import setup_logging

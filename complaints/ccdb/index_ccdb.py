@@ -82,9 +82,8 @@ def swap_backup_index(es, alias, index_name, backup_index_name):
             )
             backup_index_name, index_name = index_name, backup_index_name
         else:
-            logger.info(
-                "Alias exists but doesn't point to {index_name}.\nKeeping index variables."
-            )
+            logger.info(f"Alias exists but doesn't point to {index_name}")
+            logger.info("Keeping index variables.")
     return index_name, backup_index_name
 
 

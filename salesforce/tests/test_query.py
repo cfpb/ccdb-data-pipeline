@@ -21,8 +21,8 @@ class TestQuery(unittest.TestCase):
         result = query.get_time_slice(since)
 
         self.assertTrue(result.startswith("SELECT CreatedDate,"))
-        self.assertIn(f"AND CreatedDate >= {since}", result)
-        self.assertNotIn("AND CreatedDate <", result)
+        self.assertIn(f"AND LastModifiedDate >= {since}", result)
+        self.assertNotIn("AND LastModifiedDate <", result)
 
     def test_get_time_slice_with_til(self):
         """Verify the query when both 'since' and 'til' parameters are provided."""
@@ -30,8 +30,8 @@ class TestQuery(unittest.TestCase):
         til = "2023-02-01T00:00:00"
         result = query.get_time_slice(since, til)
 
-        self.assertIn(f"AND CreatedDate >= {since}", result)
-        self.assertIn(f"AND CreatedDate < {til}", result)
+        self.assertIn(f"AND LastModifiedDate >= {since}", result)
+        self.assertIn(f"AND LastModifiedDate < {til}", result)
 
     def test_query_includes_all_fields(self):
         """Check that expected fields/pieces of the query exist."""

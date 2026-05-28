@@ -60,7 +60,8 @@ def main():
             "set",
             f"org-instance-url=https://{org}.salesforce.com",
             "--global",
-        ]
+        ],
+        check=True,
     )
 
     subprocess.run(
@@ -77,7 +78,8 @@ def main():
             "120",
             "--target-org",
             session_id,
-        ]
+        ],
+        check=True,
     )
 
     subprocess.run(
@@ -88,7 +90,8 @@ def main():
             "complaints/ccdb/fields-s3/v1-json.txt",
             "salesforce_data.csv",
             "complaints.json",
-        ]
+        ],
+        check=True,
     )
 
     bucket = os.getenv("S3_BUCKET")

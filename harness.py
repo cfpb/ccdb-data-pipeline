@@ -89,7 +89,7 @@ def main():
             "--fields",
             "complaints/ccdb/fields-s3/v1-json.txt",
             "salesforce_data.csv",
-            "complaints.json",
+            "to_index.json",
         ],
         check=True,
     )
@@ -100,11 +100,11 @@ def main():
 
     if args.reindex:
         logger.info("Reindexing data in Opensearch")
-        reindex_json_data(es, "complaints.json", args.alias)
+        reindex_json_data(es, "to_index.json", args.alias)
         create_zipped_archives(bucket, prefix, basename, "salesforce_data.csv")
     else:
         logger.info("Adding data to existing Opensearch index")
-        update_index_with_data(es, "complaints.json", args.alias)
+        update_index_with_data(es, "to_index.json", args.alias)
         update_zipped_archives(bucket, prefix, basename, "salesforce_data.csv")
 
 

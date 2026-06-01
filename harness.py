@@ -4,7 +4,7 @@ import subprocess
 
 from common.es_proxy import get_es_connection, get_last_indexed
 from common.log import setup_logging
-from common.s3_utils import create_zipped_archive, update_zipped_archive
+from common.s3_utils import create_zipped_archives, update_zipped_archives
 from complaints.ccdb.index_ccdb import reindex_json_data, update_index_with_data
 from salesforce.connection import session_id
 from salesforce.query import full_query, get_time_slice
@@ -95,16 +95,17 @@ def main():
     )
 
     bucket = os.getenv("S3_BUCKET")
-    key = os.getenv("S3_KEY", "ccdb/complaints.csv.zip")
+    prefix = "ccdb/"
+    basename = "complaints"
 
     if args.reindex:
         logger.info("Reindexing data in Opensearch")
         reindex_json_data(es, "complaints.json", args.alias)
-        create_zipped_archive(bucket, key, "salesforce_data.csv")
+        create_zipped_archives(bucket, prefix, basename, "salesforce_data.csv")
     else:
         logger.info("Adding data to existing Opensearch index")
         update_index_with_data(es, "complaints.json", args.alias)
-        update_zipped_archive(bucket, key, "salesforce_data.csv")
+        update_zipped_archives(bucket, prefix, basename, "salesforce_data.csv")
 
 
 if __name__ == "__main__":

@@ -58,6 +58,8 @@ class TestS3Utils(unittest.TestCase):
             [
                 "python",
                 "common/csv2json.py",
+                "--json-format",
+                "JSON",
                 "--fields",
                 "complaints/ccdb/fields-s3/v1-json.txt",
                 "archive.csv",

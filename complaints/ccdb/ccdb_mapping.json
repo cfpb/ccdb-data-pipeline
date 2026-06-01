@@ -40,22 +40,6 @@
       "search_analyzer": "cr_search_analyzer",
       "type": "text"
     },
-    "consumer_consent_provided": {
-      "fields": {
-        "raw": {
-          "type": "keyword"
-        }
-      },
-      "type": "text"
-    },
-    "consumer_disputed": {
-      "fields": {
-        "raw": {
-          "type": "keyword"
-        }
-      },
-      "type": "text"
-    },
     "date_received": {
       "type": "date"
     },

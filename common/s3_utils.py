@@ -53,6 +53,8 @@ def make_json(csv_filename):
         [
             "python",
             "common/csv2json.py",
+            "--json-format",
+            "JSON",
             "--fields",
             "complaints/ccdb/fields-s3/v1-json.txt",
             csv_filename,

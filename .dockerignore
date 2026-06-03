@@ -1,6 +1,6 @@
 **
+!harness.py
 !common
 !complaints
-!config_sample.ini
-!Makefile
+!salesforce
 !requirements.txt

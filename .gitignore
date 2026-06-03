@@ -65,14 +65,9 @@ nosetests.xml
 coverage.xml
 
 # Generated Files
-ccdb_output.json
-count_data*
-todaysData.json
-intake/
-ready_es/
-ready_s3/
-verification/*
-
-# Sensitive Configuration
-config.ini
-config-*.ini
+salesforce_data.csv
+complaints.json
+complaints.json.zip
+complaints.csv.
+complaints.csv.zip
+to_index.json

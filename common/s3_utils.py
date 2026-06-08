@@ -6,14 +6,20 @@ from zipfile import ZIP_DEFLATED, ZipFile
 
 import boto3
 
+from common.log import setup_logging
+
+logger = setup_logging("s3_utils")
+
 
 def download_file(bucket, prefix, file):
+    logger.info(f"Downloading file: {file}")
     s3 = boto3.resource("s3")
     bkt = s3.Bucket(bucket)
     bkt.download_file(f"{prefix}{file}", file)
 
 
 def append_to_zips(zip_name, datafile):
+    logger.info("Appending to zips")
     csv_filename = zip_name[:-4]
 
     with ZipFile(zip_name, "r") as zip_ref:
@@ -49,6 +55,8 @@ def append_to_zips(zip_name, datafile):
 
 def make_json(csv_filename):
     json_filename = f"{csv_filename[:-4]}.json"
+
+    logger.info(f"Making json: {json_filename}")
     subprocess.run(
         [
             "python",
@@ -66,12 +74,15 @@ def make_json(csv_filename):
 
 
 def upload_file(bucket, prefix, file):
+    logger.info(f"Uploading file: {file}")
     s3 = boto3.resource("s3")
     bkt = s3.Bucket(bucket)
     bkt.upload_file(file, f"{prefix}{file}")
 
 
 def update_zipped_archives(bucket, prefix, basename, new_data):
+    logger.info("Updating zipped archives")
+
     csv_filename = f"{basename}.csv"
     zipped_csv = f"{csv_filename}.zip"
     zipped_json = f"{basename}.json.zip"
@@ -83,6 +94,8 @@ def update_zipped_archives(bucket, prefix, basename, new_data):
 
 
 def create_zipped_archives(bucket, prefix, basename, new_data):
+    logger.info("Creating zipped archives")
+
     csv_filename = f"{basename}.csv"
     zipped_csv = f"{csv_filename}.zip"
 
@@ -101,6 +114,9 @@ def create_zipped_archives(bucket, prefix, basename, new_data):
 
 
 def write_csv(in_file, out_file, mode="w", header=None):
+    logger.info(f"Writing to csv: {out_file}")
+    logger.info(f"Using mode: {mode}")
+
     with open(in_file, "r", newline="") as infile:
         with open(out_file, mode, newline="") as outfile:
             reader = csv.reader(infile)

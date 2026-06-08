@@ -82,6 +82,8 @@ def main():
         check=True,
     )
 
+    logger.info("Converting salesforce data to indexable ndjson")
+
     subprocess.run(
         [
             "python",

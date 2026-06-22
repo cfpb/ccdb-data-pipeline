@@ -15,26 +15,17 @@ class TestQuery(unittest.TestCase):
         with self.assertRaises(ValueError):
             query.ensure_date("01-01-2023")
 
-    def test_get_time_slice_since_only(self):
-        """Verify the query when only the 'since' parameter is provided."""
+    def test_get_all_data_since(self):
+        """Verify the query with the 'since' parameter."""
         since = "2023-01-01T00:00:00"
-        result = query.get_time_slice(since)
+        result = query.get_all_data_since(since)
 
         self.assertTrue(result.startswith("SELECT CreatedDate,"))
-        self.assertIn(f"AND LastModifiedDate >= {since}", result)
-        self.assertNotIn("AND LastModifiedDate <", result)
-
-    def test_get_time_slice_with_til(self):
-        """Verify the query when both 'since' and 'til' parameters are provided."""
-        since = "2023-01-01T00:00:00"
-        til = "2023-02-01T00:00:00"
-        result = query.get_time_slice(since, til)
-
-        self.assertIn(f"AND LastModifiedDate >= {since}", result)
-        self.assertIn(f"AND LastModifiedDate < {til}", result)
+        self.assertIn(f"WHERE LastModifiedDate >= {since}", result)
+        self.assertNotIn("CCDB_Eligible__c = true", result)
 
     def test_query_includes_all_fields(self):
         """Check that expected fields/pieces of the query exist."""
-        result = query.get_time_slice("2023-01-01T00:00:00")
+        result = query.get_all_data_since("2023-01-01T00:00:00")
         self.assertIn("CCDB_ID__c", result)
-        self.assertIn("FROM Case WHERE CCDB_Eligible__c = true", result)
+        self.assertIn("CCDB_Eligible__c", result)

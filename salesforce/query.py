@@ -17,17 +17,17 @@ full_query = (
     "Initial_Sent_to_Company_DateTime__c,"
     "CCDB_Company_Response__c,"
     "CCDB_Timely_Response__c,"
-    "CCDB_ID__c "
-    "FROM Case WHERE CCDB_Eligible__c = true"
+    "CCDB_ID__c,"
+    "CCDB_Eligible__c "
+    "FROM Case"
 )
+
+eligible_query = f"{full_query} WHERE CCDB_Eligible__c = true"
 
 
 def ensure_date(dtstring):
     return datetime.fromisoformat(dtstring).isoformat()
 
 
-def get_time_slice(since, til=None):
-    since_q = f"{full_query} AND LastModifiedDate >= {ensure_date(since)}"
-    if til:
-        return f"{since_q} AND LastModifiedDate < {ensure_date(til)}"
-    return since_q
+def get_all_data_since(since):
+    return f"{full_query} WHERE LastModifiedDate >= {ensure_date(since)}"

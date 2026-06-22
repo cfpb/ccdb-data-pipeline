@@ -7,7 +7,7 @@ from common.log import setup_logging
 from common.s3_utils import create_zipped_archives, update_zipped_archives
 from complaints.ccdb.index_ccdb import reindex_json_data, update_index_with_data
 from salesforce.connection import session_id
-from salesforce.query import full_query, get_time_slice
+from salesforce.query import eligible_query, get_all_data_since
 
 logger = setup_logging("harness")
 
@@ -44,11 +44,11 @@ def main():
     query = ""
 
     if args.reindex:
-        query = full_query
+        query = eligible_query
         logger.info("Getting all data")
     else:
         timestamp = get_last_indexed(es, args.alias)
-        query = get_time_slice(timestamp)
+        query = get_all_data_since(timestamp)
         logger.info(f"Getting data since: {timestamp}")
 
     org = os.getenv("SALESFORCE_DOMAIN")
@@ -89,7 +89,7 @@ def main():
             "python",
             "common/csv2json.py",
             "--fields",
-            "complaints/ccdb/fields-s3/v1-json.txt",
+            "complaints/ccdb/fields/json-eligible.txt",
             "salesforce_data.csv",
             "to_index.json",
         ],

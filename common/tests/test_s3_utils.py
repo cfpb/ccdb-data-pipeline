@@ -61,7 +61,7 @@ class TestS3Utils(unittest.TestCase):
                 "--json-format",
                 "JSON",
                 "--fields",
-                "complaints/ccdb/fields-s3/v1-json.txt",
+                "complaints/ccdb/fields/json.txt",
                 "archive.csv",
                 "archive.json",
             ],
@@ -101,7 +101,7 @@ class TestS3Utils(unittest.TestCase):
 
         # Mock the open call for both files
         with patch("builtins.open", mock_open()):
-            s3_utils.write_csv("in.csv", "out.csv", header=["h1", "h2"])
+            s3_utils.write_csv("in.csv", "out.csv", ["h1", "h2"])
 
         mock_writer_instance.writerow.assert_any_call(["h1", "h2"])
         mock_writer_instance.writerow.assert_any_call(
@@ -185,9 +185,7 @@ class TestS3Utils(unittest.TestCase):
         with patch("builtins.open", mock_open(read_data="col1\ncol2")):
             s3_utils.create_zipped_archives("bucket", "prefix/", "base", "new.csv")
 
-        mock_write_csv.assert_called_once_with(
-            "new.csv", "base.csv", header=["col1", "col2"]
-        )
+        mock_write_csv.assert_called_once_with("new.csv", "base.csv", ["col1", "col2"])
         mock_make_json.assert_called_once_with("base.csv")
         mock_make_zip.assert_any_call("base.csv", "base.csv.zip")
         mock_make_zip.assert_any_call("base.json", "base.json.zip")

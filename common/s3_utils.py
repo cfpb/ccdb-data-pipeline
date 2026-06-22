@@ -38,7 +38,8 @@ def append_to_zips(zip_name, datafile):
                 next(append_reader)
                 for row in append_reader:
                     new_ids[row[15]] = 1
-                    temp_writer.writerow(row)
+                    # Strip eligible
+                    temp_writer.writerow(row[:16])
 
             for row in orig_reader:
                 if new_ids.get(row[15]):
@@ -64,7 +65,7 @@ def make_json(csv_filename):
             "--json-format",
             "JSON",
             "--fields",
-            "complaints/ccdb/fields-s3/v1-json.txt",
+            "complaints/ccdb/fields/json.txt",
             csv_filename,
             json_filename,
         ],
@@ -100,10 +101,10 @@ def create_zipped_archives(bucket, prefix, basename, new_data):
     zipped_csv = f"{csv_filename}.zip"
 
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    header_file = os.path.join(base_dir, "complaints/ccdb/fields-s3/v1-csv.txt")
+    header_file = os.path.join(base_dir, "complaints/ccdb/fields/csv.txt")
     with open(header_file, "r") as f:
         public_header = f.read().splitlines()
-        write_csv(new_data, csv_filename, header=public_header)
+        write_csv(new_data, csv_filename, public_header)
 
     json_filename = make_json(csv_filename)
     zipped_json = f"{json_filename}.zip"
@@ -113,25 +114,24 @@ def create_zipped_archives(bucket, prefix, basename, new_data):
     upload_file(bucket, prefix, zipped_json)
 
 
-def write_csv(in_file, out_file, mode="w", header=None):
+def write_csv(in_file, out_file, header):
     logger.info(f"Writing to csv: {out_file}")
-    logger.info(f"Using mode: {mode}")
 
     with open(in_file, "r", newline="") as infile:
-        with open(out_file, mode, newline="") as outfile:
+        with open(out_file, "w", newline="") as outfile:
             reader = csv.reader(infile)
             # Remove header from infile
             next(reader)
 
             writer = csv.writer(outfile, lineterminator="\n")
+            writer.writerow(header)
 
-            if header:
-                writer.writerow(header)
             for row in reader:
                 row[0] = ymd(row[0])
                 if row[12]:
                     row[12] = ymd(row[12])
-                writer.writerow(row)
+                # Trim 'eligible' field
+                writer.writerow(row[:16])
 
 
 def make_zip(file, zipped):

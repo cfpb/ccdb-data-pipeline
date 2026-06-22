@@ -1,0 +1,17 @@
+date_received
+product
+sub_product
+issue
+sub_issue
+complaint_what_happened
+company_public_response
+company
+state
+zip_code
+tags
+submitted_via
+date_sent_to_company
+company_response
+timely
+complaint_id
+eligible

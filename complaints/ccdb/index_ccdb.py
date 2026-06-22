@@ -101,7 +101,11 @@ def data_load_strategy_complaint(data, transform_fn):
     with open(data) as f:
         for line in f:
             doc = transform_fn(json.loads(line))
-            yield {"_op_type": "index", "_id": doc["complaint_id"], "_source": doc}
+            if doc["eligible"]:
+                del doc["eligible"]
+                yield {"_op_type": "index", "_id": doc["complaint_id"], "_source": doc}
+            else:
+                yield {"_op_type": "delete", "_id": doc["complaint_id"]}
 
 
 def yield_chunked_docs(get_data_function, data, chunk_size):

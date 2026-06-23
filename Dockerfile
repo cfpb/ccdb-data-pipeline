@@ -22,7 +22,7 @@ RUN apk update --no-cache && \
     apk add --no-cache \
         aws-cli \
         jq \
-        nodejs=24.16.0 \
+        nodejs=24.16.0-r0 \
         npm \
         coreutils
 

@@ -64,6 +64,8 @@ def main():
         check=True,
     )
 
+    print('Salesforce configured. Now pulling Salesforce data...')
+
     subprocess.run(
         [
             "sf",

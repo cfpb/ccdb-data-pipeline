@@ -1,6 +1,5 @@
 boto3==1.43.10
 opensearch-py==3.0.0
 orjson==3.11.7
-requests==2.32.4
+requests==2.34.2
 simple-salesforce==1.12.9
-urllib3==2.7.0

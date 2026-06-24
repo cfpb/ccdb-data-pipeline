@@ -22,14 +22,14 @@ RUN apk update --no-cache && \
     apk add --no-cache \
         aws-cli \
         jq \
-        nodejs=24.16.0-r0 \
+        nodejs \
         npm \
         coreutils
 
 RUN pip install --upgrade pip setuptools && \
     pip install -r ./requirements.txt
 
-RUN npm install @salesforce/cli --global
+RUN npm install @salesforce/cli@dev --global
 
 # Don't run as the root user.
 ARG USER=base

@@ -101,10 +101,10 @@ def data_load_strategy_complaint(data, transform_fn):
     with open(data) as f:
         for line in f:
             doc = transform_fn(json.loads(line))
-            if doc["eligible"] == 'true':
+            if doc["eligible"] == "true":
                 del doc["eligible"]
                 yield {"_op_type": "index", "_id": doc["complaint_id"], "_source": doc}
-            else:
+            elif doc["complaint_id"]:
                 yield {"_op_type": "delete", "_id": doc["complaint_id"]}
 
 

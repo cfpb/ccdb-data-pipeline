@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from functools import partial
 
 from opensearchpy import TransportError
-from opensearchpy.helpers import bulk
+from opensearchpy.helpers import bulk, errors
 
 from common.log import setup_logging
 
@@ -129,13 +129,22 @@ def update_index_with_data(es, data, index_name, chunk_size=BATCH_SIZE):
 
     for doc_ary in yield_chunked_docs(get_data_fn, data, chunk_size):
         logger.info("chunk retrieved, now bulk load")
-        success, _ = bulk(
-            es, actions=doc_ary, index=index_name, chunk_size=chunk_size, refresh=False
-        )
-        total_rows_of_data += success
-        logger.info(
-            "{:,d} records indexed, total = {:,d}".format(success, total_rows_of_data)
-        )
+        try:
+            success, _ = bulk(
+                es,
+                actions=doc_ary,
+                index=index_name,
+                chunk_size=chunk_size,
+                refresh=False,
+            )
+            total_rows_of_data += success
+            logger.info(
+                "{:,d} records indexed, total = {:,d}".format(
+                    success, total_rows_of_data
+                )
+            )
+        except errors.BulkIndexError as e:
+            pass
 
     logger.info(f"Refreshing index {index_name}")
     es.indices.refresh(index=index_name)

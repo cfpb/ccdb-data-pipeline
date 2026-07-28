@@ -23,8 +23,13 @@ logger = setup_logging("index_ccdb")
 
 
 def enhance_complaint(complaint):
-    if "complaint_id" not in complaint:
-        complaint["complaint_id"] = complaint["public_id"]
+
+    if not complaint.get("complaint_id"):
+        if complaint.get("public_id"):
+            complaint["complaint_id"] = complaint["public_id"]
+        else:  # We must reject complaints with no public_id
+            logger.info(f"No public_id for complaint {complaint}")
+            return
 
     s = complaint.get("complaint_what_happened")
 
@@ -101,6 +106,8 @@ def data_load_strategy_complaint(data, transform_fn):
     with open(data) as f:
         for line in f:
             doc = transform_fn(json.loads(line))
+            if not doc:  # skip complaints that have no public_id
+                continue
             if doc["eligible"] == "true":
                 del doc["eligible"]
                 yield {"_op_type": "index", "_id": doc["complaint_id"], "_source": doc}
@@ -143,7 +150,7 @@ def update_index_with_data(es, data, index_name, chunk_size=BATCH_SIZE):
                     success, total_rows_of_data
                 )
             )
-        except errors.BulkIndexError as e:
+        except errors.BulkIndexError:
             pass
 
     logger.info(f"Refreshing index {index_name}")

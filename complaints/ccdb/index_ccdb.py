@@ -23,14 +23,6 @@ logger = setup_logging("index_ccdb")
 
 
 def enhance_complaint(complaint):
-
-    if not complaint.get("complaint_id"):
-        if complaint.get("public_id"):
-            complaint["complaint_id"] = complaint["public_id"]
-        else:  # We must reject complaints with no public_id
-            logger.info(f"No public_id for complaint {complaint}")
-            return
-
     s = complaint.get("complaint_what_happened")
 
     # Add this field
@@ -106,8 +98,6 @@ def data_load_strategy_complaint(data, transform_fn):
     with open(data) as f:
         for line in f:
             doc = transform_fn(json.loads(line))
-            if not doc:  # skip complaints that have no public_id
-                continue
             if doc["eligible"] == "true":
                 del doc["eligible"]
                 yield {"_op_type": "index", "_id": doc["complaint_id"], "_source": doc}

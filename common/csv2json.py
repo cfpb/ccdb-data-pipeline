@@ -86,11 +86,6 @@ def run(options):
 
         for row in parser:  # pragma: no branch
             obj = dict(zip(columns, row))
-            if options.narratives:
-                if not obj.get("complaint_what_happened"):
-                    continue
-                else:
-                    obj["has_narrative"] = True
             i = formatter.send(obj)
 
             if (i % options.heartbeat) == 0:
@@ -139,12 +134,6 @@ def build_arg_parser():
         type=int,
         default=100000,
         help="Indicate rows are being processed every N records",
-    )
-    p.add_argument(
-        "--narratives",
-        action="store_true",
-        dest="narratives",
-        help="Local-use flag to exclude complaints with no narratives",
     )
     p.add_argument("infile", help="The name of the CSV file")
     p.add_argument("outfile", help="The name of the JSON file to write")

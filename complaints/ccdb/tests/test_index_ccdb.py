@@ -99,21 +99,6 @@ class TestIndexCCDB(unittest.TestCase):
         rest = [x for x in gen]
         self.assertEqual(rest, [["quux"]])
 
-    def test_enhance_complaint(self):
-        blank_public_id = {"public_id": "", "complaint_what_happened": "test"}
-        has_public_id = {
-            "public_id": "12345678", "complaint_what_happened": "test"
-        }
-        # success = {
-        #     "public_id": "12345678",
-        #     "complaint_what_happened": "test",
-        #     "complaint_id": "12345678"
-        # }
-        expected_failure = sut.enhance_complaint(blank_public_id)
-        self.assertIs(expected_failure, None)
-        expected = sut.enhance_complaint(has_public_id)
-        self.assertEqual(expected.get("complaint_id"), "12345678")
-
 
 class TestMain(unittest.TestCase):
     def setUp(self):

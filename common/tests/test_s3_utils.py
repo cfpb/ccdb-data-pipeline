@@ -131,13 +131,13 @@ class TestS3Utils(unittest.TestCase):
         mock_orig_reader = MagicMock()
         mock_orig_reader.__next__.return_value = ["header"]
         # row[15] setup for de-duplication testing
-        row_orig = [""] * 16
+        row_orig = [""] * 17
         row_orig[15] = "duplicate_id"
         mock_orig_reader.__iter__.return_value = [row_orig]
 
         mock_append_reader = MagicMock()
         mock_append_reader.__next__.return_value = ["header"]
-        row_append = [""] * 16
+        row_append = [""] * 17
         row_append[15] = "duplicate_id"
         mock_append_reader.__iter__.return_value = [row_append]
 

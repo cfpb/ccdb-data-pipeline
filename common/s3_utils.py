@@ -37,7 +37,13 @@ def append_to_zips(zip_name, datafile):
                 append_reader = csv.reader(file_to_append)
                 next(append_reader)
                 for row in append_reader:
+                    # If ineligible, skip both here and in orig file
+                    if row[16] != "true":
+                        if row[15]:
+                            new_ids[row[15]] = 1
+                        continue
                     new_ids[row[15]] = 1
+
                     # Strip eligible
                     temp_writer.writerow(row[:16])
 

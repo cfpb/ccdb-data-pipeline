@@ -49,25 +49,6 @@ class TestS3Utils(unittest.TestCase):
 
         mock_zip_instance.write.assert_called_once_with("test.csv")
 
-    @patch("common.s3_utils.subprocess.run")
-    def test_make_json(self, mock_sub_run):
-        result = s3_utils.make_json("archive.csv")
-
-        self.assertEqual(result, "archive.json")
-        mock_sub_run.assert_called_once_with(
-            [
-                "python",
-                "common/csv2json.py",
-                "--json-format",
-                "JSON",
-                "--fields",
-                "complaints/ccdb/fields/json.txt",
-                "archive.csv",
-                "archive.json",
-            ],
-            check=True,
-        )
-
     @patch("common.s3_utils.ymd")
     @patch("common.s3_utils.csv.writer")
     @patch("common.s3_utils.csv.reader")
@@ -109,18 +90,16 @@ class TestS3Utils(unittest.TestCase):
         )
 
     @patch("common.s3_utils.make_zip")
-    @patch("common.s3_utils.make_json")
     @patch("common.s3_utils.os.replace")
     @patch("common.s3_utils.csv.writer")
     @patch("common.s3_utils.csv.reader")
     @patch("common.s3_utils.ZipFile")
-    def test_append_to_zips(
+    def test_append_to_zip(
         self,
         mock_zipfile,
         mock_reader,
         mock_writer,
         mock_replace,
-        mock_make_json,
         mock_make_zip,
     ):
         # Simulating Zip extraction
@@ -146,51 +125,41 @@ class TestS3Utils(unittest.TestCase):
         mock_writer_instance = MagicMock()
         mock_writer.return_value = mock_writer_instance
 
-        mock_make_json.return_value = "archive.json"
-
         with patch("builtins.open", mock_open()):
-            s3_utils.append_to_zips("archive.zip", "new_data.csv")
+            s3_utils.append_to_zip("archive.zip", "new_data.csv")
 
         mock_zip_ref.extractall.assert_called_once_with(".")
         mock_replace.assert_called_once_with("temp_file", "archive")
-        mock_make_json.assert_called_once_with("archive")
 
-        # Ensure it zipped both the CSV and JSON variations
+        # Ensure it zipped the CSV
         mock_make_zip.assert_any_call("archive", "archive.zip")
-        mock_make_zip.assert_any_call("archive.json", "archive.json.zip")
 
     @patch("common.s3_utils.upload_file")
-    @patch("common.s3_utils.append_to_zips")
+    @patch("common.s3_utils.append_to_zip")
     @patch("common.s3_utils.download_file")
-    def test_update_zipped_archives(self, mock_download, mock_append, mock_upload):
-        s3_utils.update_zipped_archives("bucket", "prefix/", "base", "new.csv")
+    def test_update_zipped_archive(self, mock_download, mock_append, mock_upload):
+        s3_utils.update_zipped_archive("bucket", "prefix/", "base", "new.csv")
 
         mock_download.assert_called_once_with("bucket", "prefix/", "base.csv.zip")
         mock_append.assert_called_once_with("base.csv.zip", "new.csv")
         mock_upload.assert_any_call("bucket", "prefix/", "base.csv.zip")
-        mock_upload.assert_any_call("bucket", "prefix/", "base.json.zip")
 
     @patch("common.s3_utils.upload_file")
     @patch("common.s3_utils.make_zip")
-    @patch("common.s3_utils.make_json")
     @patch("common.s3_utils.write_csv")
     @patch("common.s3_utils.os.path.abspath")
-    def test_create_zipped_archives(
-        self, mock_abspath, mock_write_csv, mock_make_json, mock_make_zip, mock_upload
+    def test_create_zipped_archive(
+        self, mock_abspath, mock_write_csv, mock_make_zip, mock_upload
     ):
         mock_abspath.return_value = "/root/common/s3_utils.py"
-        mock_make_json.return_value = "base.json"
 
         # Mock the header file reading context manager
         with patch("builtins.open", mock_open(read_data="col1\ncol2")):
-            s3_utils.create_zipped_archives("bucket", "prefix/", "base", "new.csv")
+            s3_utils.create_zipped_archive("bucket", "prefix/", "base", "new.csv")
 
         mock_write_csv.assert_called_once_with("new.csv", "base.csv", ["col1", "col2"])
-        mock_make_json.assert_called_once_with("base.csv")
         mock_make_zip.assert_any_call("base.csv", "base.csv.zip")
-        mock_make_zip.assert_any_call("base.json", "base.json.zip")
         mock_upload.assert_any_call("bucket", "prefix/", "base.csv.zip")
-        mock_upload.assert_any_call("bucket", "prefix/", "base.json.zip")
 
 
 if __name__ == "__main__":

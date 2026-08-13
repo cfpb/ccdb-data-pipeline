@@ -1,6 +1,5 @@
 import csv
 import os
-import subprocess
 from datetime import datetime
 from zipfile import ZIP_DEFLATED, ZipFile
 
@@ -18,8 +17,8 @@ def download_file(bucket, prefix, file):
     bkt.download_file(f"{prefix}{file}", file)
 
 
-def append_to_zips(zip_name, datafile):
-    logger.info("Appending to zips")
+def append_to_zip(zip_name, datafile):
+    logger.info("Appending to zip")
     csv_filename = zip_name[:-4]
 
     with ZipFile(zip_name, "r") as zip_ref:
@@ -53,30 +52,7 @@ def append_to_zips(zip_name, datafile):
 
     os.replace("temp_file", csv_filename)
 
-    json_filename = make_json(csv_filename)
-
     make_zip(csv_filename, f"{csv_filename}.zip")
-    make_zip(json_filename, f"{json_filename}.zip")
-
-
-def make_json(csv_filename):
-    json_filename = f"{csv_filename[:-4]}.json"
-
-    logger.info(f"Making json: {json_filename}")
-    subprocess.run(
-        [
-            "python",
-            "common/csv2json.py",
-            "--json-format",
-            "JSON",
-            "--fields",
-            "complaints/ccdb/fields/json.txt",
-            csv_filename,
-            json_filename,
-        ],
-        check=True,
-    )
-    return json_filename
 
 
 def upload_file(bucket, prefix, file):
@@ -86,20 +62,18 @@ def upload_file(bucket, prefix, file):
     bkt.upload_file(file, f"{prefix}{file}")
 
 
-def update_zipped_archives(bucket, prefix, basename, new_data):
+def update_zipped_archive(bucket, prefix, basename, new_data):
     logger.info("Updating zipped archives")
 
     csv_filename = f"{basename}.csv"
     zipped_csv = f"{csv_filename}.zip"
-    zipped_json = f"{basename}.json.zip"
 
     download_file(bucket, prefix, zipped_csv)
-    append_to_zips(zipped_csv, new_data)
+    append_to_zip(zipped_csv, new_data)
     upload_file(bucket, prefix, zipped_csv)
-    upload_file(bucket, prefix, zipped_json)
 
 
-def create_zipped_archives(bucket, prefix, basename, new_data):
+def create_zipped_archive(bucket, prefix, basename, new_data):
     logger.info("Creating zipped archives")
 
     csv_filename = f"{basename}.csv"
@@ -111,12 +85,8 @@ def create_zipped_archives(bucket, prefix, basename, new_data):
         public_header = f.read().splitlines()
         write_csv(new_data, csv_filename, public_header)
 
-    json_filename = make_json(csv_filename)
-    zipped_json = f"{json_filename}.zip"
     make_zip(csv_filename, zipped_csv)
-    make_zip(json_filename, zipped_json)
     upload_file(bucket, prefix, zipped_csv)
-    upload_file(bucket, prefix, zipped_json)
 
 
 def write_csv(in_file, out_file, header):

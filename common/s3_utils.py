@@ -38,16 +38,16 @@ def append_to_zips(zip_name, datafile):
                 next(append_reader)
                 for row in append_reader:
                     # If ineligible, skip both here and in orig file
-                    if row[16] != "true":
-                        if row[15]:
-                            new_ids[row[15]] = 1
+                    if row[15] != "true":
+                        if row[14]:
+                            new_ids[row[14]] = 1
                         continue
-                    new_ids[row[15]] = 1
+                    new_ids[row[14]] = 1
 
                     temp_writer.writerow(process_row(row))
 
             for row in orig_reader:
-                if new_ids.get(row[15]):
+                if new_ids.get(row[14]):
                     continue
                 temp_writer.writerow(row)
 
@@ -138,14 +138,11 @@ def write_csv(in_file, out_file, header):
 def process_row(row):
     # Simplify dates
     row[0] = ymd(row[0])
-    if row[12]:
-        row[12] = ymd(row[12])
-
-    # Remove newlines from narrative
-    row[5] = " ".join(row[5].split())
+    if row[11]:
+        row[11] = ymd(row[11])
 
     # Trim 'eligible' field
-    return row[:16]
+    return row[:15]
 
 
 def make_zip(file, zipped):

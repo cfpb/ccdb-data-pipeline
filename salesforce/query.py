@@ -7,7 +7,6 @@ full_query = (
     "CCDB_Subproduct__c,"
     "CCDB_Issue__c,"
     "CCDB_Subissue__c,"
-    "CCDB_Consumer_Narrative__c,"
     "Company_Public_Response_Type__c,"
     "Explorer_Company_Name__c,"
     "CCDB_State_Abbr__c,"

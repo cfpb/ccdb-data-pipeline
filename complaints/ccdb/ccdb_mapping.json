@@ -35,11 +35,6 @@
     "complaint_id": {
       "type": "keyword"
     },
-    "complaint_what_happened": {
-      "analyzer": "cr_analyzer",
-      "search_analyzer": "cr_search_analyzer",
-      "type": "text"
-    },
     "date_received": {
       "type": "date"
     },
@@ -48,9 +43,6 @@
     },
     "event_tag": {
       "type": "keyword"
-    },
-    "has_narrative": {
-      "type": "boolean"
     },
     "issue": {
       "fields": {

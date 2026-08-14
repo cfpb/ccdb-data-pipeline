@@ -69,7 +69,6 @@ class TestS3Utils(unittest.TestCase):
                 "",
                 "",
                 "",
-                "",
                 "2026-01-02T00:00:00",
             ]
         ]
@@ -86,7 +85,7 @@ class TestS3Utils(unittest.TestCase):
 
         mock_writer_instance.writerow.assert_any_call(["h1", "h2"])
         mock_writer_instance.writerow.assert_any_call(
-            ["2026-01-01", "data", "", "", "", "", "", "", "", "", "", "", "2026-01-02"]
+            ["2026-01-01", "data", "", "", "", "", "", "", "", "", "", "2026-01-02"]
         )
 
     @patch("common.s3_utils.make_zip")

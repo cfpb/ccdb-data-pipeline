@@ -3,7 +3,6 @@ product
 sub_product
 issue
 sub_issue
-complaint_what_happened
 company_public_response
 company
 state

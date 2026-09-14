@@ -23,17 +23,11 @@ logger = setup_logging("index_ccdb")
 
 
 def enhance_complaint(complaint):
-    s = complaint.get("complaint_what_happened")
-
     # Add this field
-    complaint["has_narrative"] = s != "" and s is not None
     complaint["date_indexed"] = DATE_INDEXED
 
-    # Set all values with empty strings to None to comply with V1
-    # logic
+    # Set all values with empty strings to None to comply with V1 logic
     normalized_complaint = {k: v if v != "" else None for k, v in complaint.items()}
-    # Restore complaint_what_happened to prevent ES queries from breaking
-    normalized_complaint["complaint_what_happened"] = s
     return normalized_complaint
 
 

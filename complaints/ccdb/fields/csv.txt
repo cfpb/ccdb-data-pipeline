@@ -3,7 +3,6 @@ Product
 Sub-product
 Issue
 Sub-issue
-Consumer complaint narrative
 Company public response
 Company
 State

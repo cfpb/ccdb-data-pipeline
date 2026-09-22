@@ -21,7 +21,7 @@ class TestQuery(unittest.TestCase):
         result = query.get_all_data_since(since)
 
         self.assertTrue(result.startswith("SELECT CreatedDate,"))
-        self.assertIn(f"WHERE LastModifiedDate >= {since}", result)
+        self.assertIn(f"WHERE SystemModstamp >= {since}", result)
         self.assertNotIn("CCDB_Eligible__c = true", result)
 
     def test_query_includes_all_fields(self):

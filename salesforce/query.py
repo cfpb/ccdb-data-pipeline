@@ -29,4 +29,4 @@ def ensure_date(dtstring):
 
 
 def get_all_data_since(since):
-    return f"{full_query} WHERE LastModifiedDate >= {ensure_date(since)}"
+    return f"{full_query} WHERE SystemModstamp >= {ensure_date(since)}"

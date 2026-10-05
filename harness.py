@@ -6,7 +6,8 @@ from common.es_proxy import get_es_connection, get_last_indexed
 from common.log import setup_logging
 from common.s3_utils import create_zipped_archive, update_zipped_archive
 from complaints.ccdb.index_ccdb import reindex_json_data, update_index_with_data
-from salesforce.connection import session_id
+from salesforce.connection import instance_url, session_id
+from salesforce.export import export_to_csv
 from salesforce.query import eligible_query, get_all_data_since
 
 logger = setup_logging("harness")
@@ -51,38 +52,9 @@ def main():
         query = get_all_data_since(timestamp)
         logger.info(f"Getting data since: {timestamp}")
 
-    org = os.getenv("SALESFORCE_DOMAIN")
+    logger.info("Pulling Salesforce data...")
 
-    subprocess.run(
-        [
-            "sf",
-            "config",
-            "set",
-            f"org-instance-url=https://{org}.salesforce.com",
-            "--global",
-        ],
-        check=True,
-    )
-
-    print('Salesforce configured. Now pulling Salesforce data...')
-
-    subprocess.run(
-        [
-            "sf",
-            "data",
-            "export",
-            "bulk",
-            "--query",
-            query,
-            "--output-file",
-            "salesforce_data.csv",
-            "--wait",
-            "120",
-            "--target-org",
-            session_id,
-        ],
-        check=True,
-    )
+    export_to_csv(query, "salesforce_data.csv", session_id, instance_url)
 
     logger.info("Converting salesforce data to indexable ndjson")
 

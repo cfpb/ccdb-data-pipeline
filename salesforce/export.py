@@ -9,7 +9,7 @@ def export_to_csv(query, output_file, session_id, instance):
     sf = Salesforce(session_id=session_id, instance=instance)
 
     with tempfile.TemporaryDirectory() as tmpdir:
-        results = sf.bulk2.Case.download(query, path=tmpdir)
+        results = sf.bulk2.Case.download(query, path=tmpdir, max_records=250000)
 
         with open(output_file, "wb") as out:
             for i, result in enumerate(results):

@@ -24,6 +24,14 @@ RUN apk update --no-cache && \
         jq \
         coreutils
 
+# Temporary fixes only available on edge.
+# certifi 2026.10.23-r0: GHSA-6q48-6c7w-9gw2
+# cryptography 50.0.0-r0: CVE-2026-69249, CVE-2026-69247, GHSA-537c-gmf6-5ccf
+# urllib3 2.8.0-r0: CVE-2026-97687, CVE-2026-97689
+RUN echo "@edge https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
+    apk update && \
+    apk add --no-cache py3-certifi@edge py3-cryptography@edge py3-urllib3@edge
+
 RUN pip install --upgrade pip setuptools && \
     pip install -r ./requirements.txt
 
